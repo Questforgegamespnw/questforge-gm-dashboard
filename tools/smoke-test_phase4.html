@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Questforge Smoke Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #101217;
+            color: #f2f4f7;
+            padding: 24px;
+            line-height: 1.5;
+        }
+
+        h1,
+        h2 {
+            color: #d6b15f;
+        }
+
+        pre {
+            background: #191d25;
+            border: 1px solid #343b49;
+            border-radius: 8px;
+            padding: 12px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .pass {
+            color: #86a873;
+        }
+
+        .warn {
+            color: #d6b15f;
+        }
+
+        .fail {
+            color: #c66b6b;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Questforge GM Dashboard Smoke Test</h1>
+    <p>Open DevTools console for full objects if needed.</p>
+    <div id="output"></div>
+
+    <script type="module">
+        import { campaignData } from "../data/campaigns/valhalla/index.js";
+
+        const contentTypes = [
+            "actors",
+            "locations",
+            "factions",
+            "threads",
+            "trackers",
+            "scenes",
+            "tables",
+            "references"
+        ];
+
+        const loadoutKeys = {
+            actors: "activeActors",
+            locations: "activeLocations",
+            factions: "activeFactions",
+            threads: "activeThreads",
+            trackers: "activeTrackers",
+            scenes: "activeScenes",
+            tables: "activeTables",
+            references: "activeReferences"
+        };
+
+        const requiredFields = {
+            actors: ["id", "name", "role", "modeId", "campaignId", "status", "tags"],
+            locations: ["id", "name", "type", "modeId", "campaignId", "status", "tags"],
+            factions: ["id", "name", "type", "modeId", "campaignId", "status", "tags"],
+            threads: ["id", "title", "type", "modeId", "campaignId", "status", "tags"],
+            trackers: ["id", "name", "type", "modeId", "campaignId", "status", "value", "min", "max", "tags"],
+            scenes: ["id", "title", "type", "modeId", "campaignId", "status", "priority", "tags"],
+            tables: ["id", "name", "modeId", "campaignId", "status", "die", "category", "entries", "tags"],
+            references: ["id", "label", "modeId", "campaignId", "status", "category", "summary", "tags"]
+        };
+
+        const output = document.querySelector("#output");
+        const results = [];
+
+        function addResult(level, label, detail = "") {
+            results.push({ level, label, detail });
+        }
+
+        function hasValue(value) {
+            if (Array.isArray(value)) return true;
+            return value !== undefined && value !== null && value !== "";
+        }
+
+        function findDuplicateIds(items) {
+            const seen = new Set();
+            const duplicates = new Set();
+
+            for (const item of items) {
+                if (!item?.id) continue;
+                if (seen.has(item.id)) duplicates.add(item.id);
+                seen.add(item.id);
+            }
+
+            return [...duplicates];
+        }
+
+        function getAllItems() {
+            return contentTypes.flatMap((type) =>
+                (campaignData[type] ?? []).map((item) => ({ ...item, __type: type }))
+            );
+        }
+
+        function checkCampaignShape() {
+            if (!campaignData?.config) {
+                addResult("fail", "Missing campaignData.config");
+            } else {
+                addResult("pass", "campaignData.config loaded", campaignData.config.campaignName ?? "");
+            }
+
+            if (!campaignData?.currentLoadout) {
+                addResult("fail", "Missing campaignData.currentLoadout");
+            } else {
+                addResult("pass", "currentLoadout loaded");
+            }
+
+            for (const type of contentTypes) {
+                if (!Array.isArray(campaignData[type])) {
+                    addResult("fail", `campaignData.${type} is not an array`);
+                } else {
+                    addResult("pass", `${type} array loaded`, `${campaignData[type].length} items`);
+                }
+            }
+        }
+
+        function checkDuplicateIds() {
+            for (const type of contentTypes) {
+                const duplicates = findDuplicateIds(campaignData[type] ?? []);
+                if (duplicates.length) {
+                    addResult("fail", `Duplicate IDs in ${type}`, duplicates.join(", "));
+                } else {
+                    addResult("pass", `No duplicate IDs in ${type}`);
+                }
+            }
+
+            const all = getAllItems();
+            const crossTypeDuplicates = findDuplicateIds(all);
+            if (crossTypeDuplicates.length) {
+                addResult(
+                    "warn",
+                    "Duplicate IDs across different content types",
+                    crossTypeDuplicates.join(", ")
+                );
+            } else {
+                addResult("pass", "No duplicate IDs across all content types");
+            }
+        }
+
+        function checkRequiredFields() {
+            for (const type of contentTypes) {
+                const items = campaignData[type] ?? [];
+                const fields = requiredFields[type] ?? [];
+
+                for (const item of items) {
+                    const missing = fields.filter((field) => !hasValue(item[field]));
+
+                    if (missing.length) {
+                        addResult(
+                            "fail",
+                            `${type}: ${item.id ?? "NO_ID"} missing required field(s)`,
+                            missing.join(", ")
+                        );
+                    }
+                }
+            }
+
+            addResult("pass", "Required field scan completed");
+        }
+
+        function checkLoadoutIds() {
+            const loadout = campaignData.currentLoadout ?? {};
+
+            for (const type of contentTypes) {
+                const loadoutKey = loadoutKeys[type];
+                const activeIds = loadout[loadoutKey] ?? [];
+                const availableIds = new Set((campaignData[type] ?? []).map((item) => item.id));
+
+                if (!Array.isArray(activeIds)) {
+                    addResult("fail", `${loadoutKey} is not an array`);
+                    continue;
+                }
+
+                const missing = activeIds.filter((id) => !availableIds.has(id));
+
+                if (missing.length) {
+                    addResult("fail", `${loadoutKey} contains unresolved ID(s)`, missing.join(", "));
+                } else {
+                    addResult("pass", `${loadoutKey} resolved`, `${activeIds.length} active`);
+                }
+            }
+        }
+
+        async function checkMarkdownReferences() {
+            const itemsWithReferences = getAllItems().filter((item) => item.reference);
+
+            if (!itemsWithReferences.length) {
+                addResult("warn", "No markdown reference paths found");
+                return;
+            }
+
+            for (const item of itemsWithReferences) {
+                const ref = item.reference;
+
+                if (!String(ref).endsWith(".md")) {
+                    addResult("warn", `${item.id} reference does not end in .md`, ref);
+                    continue;
+                }
+
+                const path = `../data/campaigns/valhalla/${ref}`;
+
+                try {
+                    const response = await fetch(path, { method: "HEAD" });
+
+                    if (response.ok) {
+                        addResult("pass", `${item.id} markdown reference found`, ref);
+                    } else {
+                        addResult("fail", `${item.id} markdown reference missing`, ref);
+                    }
+                } catch (error) {
+                    addResult("warn", `${item.id} markdown reference could not be checked`, ref);
+                }
+            }
+        }
+
+        function checkTagFormat() {
+            const badTags = [];
+
+            for (const item of getAllItems()) {
+                for (const tag of item.tags ?? []) {
+                    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(tag)) {
+                        badTags.push(`${item.id}: ${tag}`);
+                    }
+                }
+            }
+
+            if (badTags.length) {
+                addResult("warn", "Non-kebab-case tags found", badTags.join("\n"));
+            } else {
+                addResult("pass", "All tags look kebab-case");
+            }
+        }
+
+
+
+        function getIds(type) {
+            return new Set((campaignData[type] ?? []).map((item) => item.id));
+        }
+
+        function checkIdRefs(ownerId, field, ids, validIds, options = {}) {
+            const { allowEmpty = true, levelForEmpty = "warn" } = options;
+
+            if (ids === undefined || ids === null) {
+                if (!allowEmpty) addResult(levelForEmpty, `${ownerId} missing ${field}`);
+                return;
+            }
+
+            if (!Array.isArray(ids)) {
+                addResult("fail", `${ownerId}.${field} is not an array`);
+                return;
+            }
+
+            if (!ids.length) {
+                if (!allowEmpty) addResult(levelForEmpty, `${ownerId}.${field} is empty`);
+                return;
+            }
+
+            const missing = ids.filter((id) => !validIds.has(id));
+
+            if (missing.length) {
+                addResult("fail", `${ownerId}.${field} contains unresolved ID(s)`, missing.join(", "));
+            } else {
+                addResult("pass", `${ownerId}.${field} resolved`, `${ids.length} linked`);
+            }
+        }
+
+        function checkPhase4Relationships() {
+            const actorIds = getIds("actors");
+            const locationIds = getIds("locations");
+            const threadIds = getIds("threads");
+            const sceneIds = getIds("scenes");
+
+            const parentLocations = (campaignData.locations ?? []).filter(
+                (location) => location.locationRole === "parent"
+            );
+
+            const childLocations = (campaignData.locations ?? []).filter(
+                (location) => location.locationRole === "child"
+            );
+
+            if (parentLocations.length) {
+                addResult("pass", "Parent locations found", `${parentLocations.length} parent location(s)`);
+            } else {
+                addResult("warn", "No parent locations found");
+            }
+
+            if (childLocations.length) {
+                addResult("pass", "Child locations found", `${childLocations.length} child location(s)`);
+            } else {
+                addResult("warn", "No child locations found");
+            }
+
+            for (const location of campaignData.locations ?? []) {
+                if (location.locationRole && !["parent", "child"].includes(location.locationRole)) {
+                    addResult("fail", `${location.id}.locationRole has unsupported value`, location.locationRole);
+                }
+
+                if (location.locationRole === "parent") {
+                    if (location.actorsPresent) {
+                        addResult("warn", `${location.id} is a parent location but still uses actorsPresent`);
+                    }
+
+                    checkIdRefs(location.id, "keyActors", location.keyActors, actorIds, { allowEmpty: true });
+                    checkIdRefs(location.id, "connectedLocations", location.connectedLocations, locationIds, { allowEmpty: false });
+                }
+
+                if (location.locationRole === "child") {
+                    if (!location.parentLocation) {
+                        addResult("fail", `${location.id} is a child location but has no parentLocation`);
+                    } else if (locationIds.has(location.parentLocation)) {
+                        addResult("pass", `${location.id}.parentLocation resolved`, location.parentLocation);
+                    } else {
+                        addResult("fail", `${location.id}.parentLocation unresolved`, location.parentLocation);
+                    }
+                }
+
+                checkIdRefs(location.id, "actorsPresent", location.actorsPresent, actorIds, { allowEmpty: true });
+                checkIdRefs(location.id, "relatedThreads", location.relatedThreads, threadIds, { allowEmpty: true });
+                checkIdRefs(location.id, "availableScenes", location.availableScenes, sceneIds, { allowEmpty: true });
+
+                if (location.fireableMoments !== undefined) {
+                    if (!Array.isArray(location.fireableMoments)) {
+                        addResult("fail", `${location.id}.fireableMoments is not an array`);
+                    } else {
+                        const momentIds = new Set();
+
+                        for (const moment of location.fireableMoments) {
+                            if (!moment.id) {
+                                addResult("fail", `${location.id} has fireableMoment missing id`);
+                                continue;
+                            }
+
+                            if (momentIds.has(moment.id)) {
+                                addResult("fail", `${location.id} has duplicate fireableMoment id`, moment.id);
+                            } else {
+                                momentIds.add(moment.id);
+                                addResult("pass", `${location.id} fireableMoment has id`, moment.id);
+                            }
+
+                            if (!moment.title) {
+                                addResult("fail", `${moment.id} fireableMoment missing title`);
+                            } else {
+                                addResult("pass", `${moment.id} fireableMoment has title`);
+                            }
+
+                            if (!moment.type) {
+                                addResult("warn", `${moment.id} fireableMoment missing type`);
+                            } else {
+                                addResult("pass", `${moment.id} fireableMoment has type`, moment.type);
+                            }
+
+                            if (!moment.trigger) {
+                                addResult("warn", `${moment.id} fireableMoment missing trigger`);
+                            } else {
+                                addResult("pass", `${moment.id} fireableMoment has trigger`);
+                            }
+
+                            if (!moment.compact) {
+                                addResult("warn", `${moment.id} fireableMoment missing compact text`);
+                            } else {
+                                addResult("pass", `${moment.id} fireableMoment has compact text`);
+                            }
+
+                            if (moment.speaker) {
+                                if (actorIds.has(moment.speaker)) {
+                                    addResult("pass", `${moment.id}.speaker resolved`, moment.speaker);
+                                } else {
+                                    addResult("fail", `${moment.id}.speaker unresolved`, moment.speaker);
+                                }
+                            }
+
+                            if (!moment.spotlight) {
+                                addResult("warn", `${moment.id} fireableMoment missing spotlight`);
+                            } else {
+                                addResult("pass", `${moment.id} fireableMoment has spotlight`);
+
+                                if (!moment.spotlight.title) {
+                                    addResult("warn", `${moment.id}.spotlight missing title`);
+                                } else {
+                                    addResult("pass", `${moment.id}.spotlight title ready`);
+                                }
+
+                                if (
+                                    !Array.isArray(moment.spotlight.readAloud) ||
+                                    moment.spotlight.readAloud.length === 0
+                                ) {
+                                    addResult("warn", `${moment.id}.spotlight missing readAloud lines`);
+                                } else {
+                                    addResult("pass", `${moment.id}.spotlight readAloud ready`, `${moment.spotlight.readAloud.length} line(s)`);
+                                }
+
+                                if (!moment.spotlight.gmPurpose) {
+                                    addResult("warn", `${moment.id}.spotlight missing gmPurpose`);
+                                } else {
+                                    addResult("pass", `${moment.id}.spotlight gmPurpose ready`);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (const actor of campaignData.actors ?? []) {
+                if (!actor.currentLocation) continue;
+
+                if (locationIds.has(actor.currentLocation)) {
+                    addResult("pass", `${actor.id}.currentLocation resolved`, actor.currentLocation);
+                } else {
+                    addResult("fail", `${actor.id}.currentLocation unresolved`, actor.currentLocation);
+                }
+            }
+
+            for (const thread of campaignData.threads ?? []) {
+                checkIdRefs(thread.id, "relatedLocations", thread.relatedLocations, locationIds, { allowEmpty: true });
+            }
+
+            for (const scene of campaignData.scenes ?? []) {
+                checkIdRefs(scene.id, "involvedLocations", scene.involvedLocations, locationIds, { allowEmpty: true });
+            }
+        }
+
+        function renderResults() {
+            const grouped = {
+                fail: results.filter((r) => r.level === "fail"),
+                warn: results.filter((r) => r.level === "warn"),
+                pass: results.filter((r) => r.level === "pass")
+            };
+
+            const summary = `
+FAIL: ${grouped.fail.length}
+WARN: ${grouped.warn.length}
+PASS: ${grouped.pass.length}
+      `.trim();
+
+            output.innerHTML = `
+        <h2>Summary</h2>
+        <pre>${summary}</pre>
+
+        <h2 class="fail">Failures</h2>
+        <pre>${grouped.fail.map(formatResult).join("\n") || "None"}</pre>
+
+        <h2 class="warn">Warnings</h2>
+        <pre>${grouped.warn.map(formatResult).join("\n") || "None"}</pre>
+
+        <h2 class="pass">Passes</h2>
+        <pre>${grouped.pass.map(formatResult).join("\n") || "None"}</pre>
+      `;
+
+            console.log("Questforge smoke test results:", results);
+            console.log("Loaded campaignData:", campaignData);
+        }
+
+        function formatResult(result) {
+            return `${result.label}${result.detail ? "\n  " + result.detail : ""}`;
+        }
+
+        checkCampaignShape();
+        checkDuplicateIds();
+        checkRequiredFields();
+        checkLoadoutIds();
+        checkTagFormat();
+        checkPhase4Relationships();
+        await checkMarkdownReferences();
+        renderResults();
+    </script>
+</body>
+
+</html>

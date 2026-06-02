@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Questforge GM Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="top-bar">
+    <div>
+      <h1 id="campaign-title">Questforge GM Dashboard</h1>
+      <p id="campaign-subtitle">People first. Place second. Arc third. Mechanics in reference.</p>
+    </div>
+
+    <div class="top-controls">
+      <label>
+        <span class="sr-only">Search</span>
+        <input id="search-input" type="search" placeholder="Search dashboard...">
+      </label>
+
+      <select id="view-filter" aria-label="View filter">
+        <option value="cockpit">Cockpit</option>
+        <option value="actors">Actors</option>
+        <option value="locations">Locations</option>
+        <option value="threads">Threads</option>
+        <option value="session">Session</option>
+        <option value="references">Reference</option>
+      </select>
+
+      <button id="reset-filters">Reset</button>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Dashboard tabs">
+    <button class="tab-button active" data-tab="cockpit">Cockpit</button>
+    <button class="tab-button" data-tab="actors">Actors</button>
+    <button class="tab-button" data-tab="locations">Locations</button>
+    <button class="tab-button" data-tab="threads">Threads</button>
+    <button class="tab-button" data-tab="session">Session</button>
+    <button class="tab-button" data-tab="references">Reference</button>
+  </nav>
+
+  <main class="dashboard-shell">
+    <aside class="left-rail">
+      <section>
+        <h2 id="actors-label">Actors</h2>
+        <div id="active-actors" class="rail-list"></div>
+      </section>
+
+      <section>
+        <h2 id="locations-label">Locations</h2>
+        <div id="active-locations" class="rail-list"></div>
+      </section>
+    </aside>
+
+    <section class="main-panel">
+      <section class="panel-header">
+        <h2 id="main-panel-title">Cockpit</h2>
+        <p id="main-panel-subtitle">Active session material.</p>
+      </section>
+    
+      <section id="center-detail-panel" class="center-detail-panel">
+        <p>Select an actor, location, scene, thread, or reference to view details.</p>
+      </section>
+    
+      <section id="card-grid" class="card-grid"></section>
+    </section>
+
+    <aside class="right-panel">
+      <section>
+        <h2>Can Fire Here</h2>
+        <div id="fireables-panel" class="story-pressure">
+          <p>Select a location to see available scenes and moments.</p>
+        </div>
+      </section>
+
+       <section>
+        <h2 id="pressure-label">Threads / Trackers</h2>
+        <div id="pressure-panel" class="story-pressure">
+          <p>Active pressure appears here.</p>
+        </div>
+      </section>   
+    </aside>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
