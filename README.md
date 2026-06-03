@@ -1,6 +1,6 @@
 # QuestForge GM Dashboard
 
-A lightweight, browser-based GM cockpit for running tabletop sessions with faster access to the people, places, scenes, pressure, and references that matter at the table.
+A lightweight, browser-based GM cockpit for running tabletop sessions with faster access to the people, places, scenes, pressure, tables, and references that matter at the table.
 
 QuestForge GM Dashboard is **not** a VTT, dice roller, rules resolver, database-first campaign manager, or full lore archive. It is a narration and session-flow tool designed around a simple operating priority:
 
@@ -8,7 +8,7 @@ QuestForge GM Dashboard is **not** a VTT, dice roller, rules resolver, database-
 
 ## Project Status
 
-**Status:** Pre-alpha  
+**Status:** Pre-alpha / V1 feature-complete candidate  
 **Current working campaign:** Valhalla  
 **Primary goal:** Run a Valhalla hub / intermission session faster than OneNote while preserving an architecture that can later support Mothership, Erasure Protocol, corporate horror, ship ops, fantasy crawls, and other QuestForge modes.
 
@@ -24,17 +24,25 @@ The current build is local/static and intended for personal table use while the 
   - `threads`
   - `trackers`
   - `scenes`
+  - `fireableMoments`
   - `tables`
   - `references`
   - `assets`
 - Mode label support for multiple game styles.
 - Current Valhalla mode labels.
 - Current loadout filtering for active session material.
+- Campaign-wide search across loaded dashboard material.
 - Left rail for local actors and locations.
 - Center panel for selected card details.
-- Right rail for active story pressure and location-specific “Can Fire Here” moments.
-- Search across active/card fields.
+- Right rail for active story pressure.
+- Right rail “Can Fire Here” panel for location-specific scenes, moments, and tables.
 - Parent/child location support for hub navigation.
+- Tracker-based availability gates for surfacing content at the right escalation level.
+- Moment spotlight rendering with read-aloud text prioritized first.
+- Structured read-aloud lines that can separate GM narration from character speech.
+- Scene “At Table” rendering that brings `playerFacing` and `scriptedMoments` above deeper prep metadata.
+- Actor quick-line highlighting near voice/presentation data.
+- Location establishing shot, approach beat, and sensory detail emphasis.
 - Markdown library references for deeper lore.
 - Smoke test page for data integrity checks.
 
@@ -48,6 +56,7 @@ The current Valhalla data layer includes:
 - 9 threads
 - 1 tracker
 - 18 scenes
+- 28 fireable moments
 - 4 tables
 - 13 references
 
@@ -57,6 +66,42 @@ Recent smoke test status:
 FAIL: 0
 WARN: 0
 PASS: 385
+```
+
+## Live Table Flow
+
+The current live-flow model is location-driven.
+
+```text
+Select Location
+  → local actors appear in the left rail
+  → local pressure appears in the right rail
+  → Can Fire Here shows scenes, moments, and tables
+  → selected detail panel prioritizes table-facing delivery text
+```
+
+Delivery text is intentionally surfaced before deeper metadata:
+
+```text
+Moments
+  → Read Aloud first
+  → narration/speech visually split
+  → GM purpose underneath
+
+Scenes
+  → At Table block first
+  → scripted lines as readable beat cards
+  → clues/outcomes/branches underneath
+
+Actors
+  → vibe / physicality / voice
+  → quick lines immediately after voice
+  → motivation/knowledge lower
+
+Locations
+  → establishing shot and approach beat
+  → sensory details visually grouped
+  → function/pressure/opportunities/dangers lower
 ```
 
 ## Architecture
@@ -69,7 +114,7 @@ App Core
     → Campaign Data
       → Global Campaign Layer
         → Arc Layer
-          → Session Layer
+          → Optional Session Layer
             → Current Loadout
 ```
 
@@ -80,7 +125,7 @@ The app stays generic.
 The mode changes the words.
 The campaign holds the world.
 The arc holds the current adventure.
-The session holds tonight.
+The session layer is optional.
 The current loadout says what is live.
 ```
 
@@ -126,12 +171,16 @@ questforge-gm-dashboard/
 ├── docs/
 └── archive/
 ```
----
 
-## File Shape
+## Data Shape Notes
 
 ### Scenes
 
+Scenes are structured beats, briefings, choices, consequences, and table events.
+
+Recommended fields:
+
+```text
 id
 title
 session
@@ -146,7 +195,92 @@ trigger
 summary
 playerFacing
 gmTruth
+involvedActors
+involvedLocations
+involvedFactions
+clues
+outcomes
+forwardPath
+pressure
+runNote
+tags
+gmNotes
+```
 
+Important table-facing scene text:
+
+```js
+forwardPath: {
+  scriptedMoments: [
+    {
+      timing: "When this should fire.",
+      speaker: "actor_or_name",
+      line: "Spoken or paraphraseable line.",
+      purpose: "Why this matters."
+    }
+  ]
+}
+```
+
+### Fireable Moments
+
+Fireable moments are small location-linked beats meant to be clicked and run immediately.
+
+Recommended fields:
+
+```text
+id
+title
+type
+trigger
+compact
+spotlight
+modeId
+campaignId
+arcId
+status
+availability
+locationIds
+tags
+```
+
+Structured read-aloud example:
+
+```js
+spotlight: {
+  title: "Sven: Sit. Drink.",
+  readAloud: [
+    {
+      type: "narration",
+      text: "Sven is already clearing space before you reach the table."
+    },
+    {
+      type: "speech",
+      speaker: "Sven",
+      text: "Sit. Drink. You’re still here—that matters."
+    }
+  ],
+  gmPurpose: "Give the party permission to decompress.",
+  followUp: "Ask who accepts the drink and who does not."
+}
+```
+
+### Locations
+
+Locations should prioritize at-table description while keeping deeper information below.
+
+Recommended presentation shape:
+
+```js
+presentation: {
+  establishingShot: "The first clear image of the location.",
+  approachBeat: "A second softer beat as players enter, approach, or notice who is present.",
+  vibe: "Immediate emotional tone.",
+  sensory: [
+    "Sound, smell, texture, temperature, light, motion, etc."
+  ]
+}
+```
 
 ## Running Locally
 
@@ -166,13 +300,15 @@ From the project root:
 
 ```bash
 python -m http.server 8000
+```
 
 Then open:
 
 ```text
 http://localhost:8000
 ```
-Do not open index.html directly with file://, because ES module imports may be blocked by the browser.
+
+Do not open `index.html` directly with `file://`, because ES module imports may be blocked by the browser.
 
 To run the smoke test, open the smoke test HTML file in the browser through the same local server.
 
@@ -182,7 +318,7 @@ Example:
 http://localhost:8000/smoke-test_phase4.html
 ```
 
-## Data Model Notes
+## Data Model Principles
 
 Dashboard arrays should stay short and table-facing. Long lore, full NPC writeups, full location dossiers, and deep answer banks belong in markdown files under the campaign `library/` folder.
 
@@ -205,11 +341,55 @@ Use markdown for:
 ## Current Development Priorities
 
 1. Keep the core app generic.
-2. Finish Valhalla hub session readiness.
-3. Expand actor-linked answer moments from markdown dialogue banks.
-4. Improve renderer support for `answerMoments` on actor detail cards.
-5. Polish session usability through fake table drills.
-6. Avoid backend/database/cloud features until the static MVP proves useful at the table.
+2. Keep Valhalla hub session readiness stable.
+3. Use fake table drills to identify real friction.
+4. Implement runtime pinning / “promote search result to active loadout.”
+5. Update shared templates and smoke tests to match the current data shape.
+6. Expand actor-linked answer moments from markdown dialogue banks.
+7. Consider splitting `renderers.js` only after behavior stabilizes.
+8. Avoid backend/database/cloud features until the static MVP proves useful at the table.
+
+## Planned Ticket: Promote Search Result to Active Loadout
+
+Goal: allow the GM to find any item through campaign-wide search and promote it into the active table-running context.
+
+Current search can find broad campaign material, including items outside the current loadout or gated context. The planned next step is a UI action such as:
+
+```text
+Add to Active
+Pin to Cockpit
+Add to Current Loadout
+```
+
+Likely promotable targets:
+
+- actors
+- locations
+- scenes
+- fireable moments
+- threads
+- references
+- tables
+
+Likely first implementation:
+
+```js
+state.pinnedItemIds = [
+  "scene_valhalla_briefing_ember_root",
+  "reference_yggdrasilmaed_system"
+];
+```
+
+Possible persisted shape later:
+
+```js
+currentLoadout.pinned = [
+  "scene_valhalla_briefing_ember_root",
+  "reference_yggdrasilmaed_system"
+];
+```
+
+This should supplement location-aware filtering, not replace it. The cockpit should still prioritize current location, availability gates, active tracker state, and then explicit pinned items.
 
 ## Design Rules
 
@@ -219,6 +399,7 @@ Use markdown for:
 - Keep longform lore in markdown.
 - Keep dashboard fields short and immediately usable.
 - Treat mechanics as reference, not the center of the interface.
+- Prefer small, whole-function edits when changing core renderers.
 
 ## Smoke Testing
 
@@ -238,6 +419,7 @@ Run the smoke test after significant data changes, especially after editing:
 
 - `actors.js`
 - `locations.js`
+- `fireable_moments.js`
 - `scenes.js`
 - `threads.js`
 - `trackers.js`

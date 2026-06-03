@@ -4,6 +4,81 @@ All notable project changes will be documented in this file.
 
 This project is currently in **pre-alpha**. Version numbers are provisional until the first stable table-ready release.
 
+## [0.2.0-prealpha] - 2026-06-02
+
+### Added
+
+- Added standalone `fireableMoments` as a campaign data collection instead of keeping all moments embedded directly on locations.
+- Added location-aware right-rail support for **Scenes**, **Moments**, and **Tables** under the “Can Fire Here” panel.
+- Added location-linked table surfacing so relevant event tables appear when a location is selected.
+- Added tracker-based availability gates for scenes, threads, tables, and fireable moments.
+- Added campaign-wide search behavior so search can find loaded campaign material beyond the current active loadout.
+- Added structured `spotlight.readAloud` support for fireable moments using narration and speech line objects.
+- Added table-facing moment spotlight rendering with read-aloud text prioritized at the top of the detail panel.
+- Added scene “At Table” rendering so `playerFacing` text and `forwardPath.scriptedMoments` appear above deeper metadata.
+- Added actor quick-line highlighting near presentation/voice data for faster NPC delivery.
+- Added location description emphasis for establishing shots and sensory details.
+- Added `presentation.approachBeat` support for locations as a second descriptive beat after the establishing shot.
+- Added visual distinction for narration, spoken dialogue, scripted moment cue text, and scripted moment purpose text.
+- Added planned feature ticket for promoting search results into active runtime context / current loadout.
+
+### Changed
+
+- Reframed top navigation as a campaign bookbag/library instead of the primary session-running surface.
+- Shifted live session action toward the location-selected cockpit and right rail.
+- Renamed the reference-facing concept toward **Lore / Rules** rather than a narrow rules-only reference shelf.
+- Made the Session layer optional for the current live-flow model; current loadout plus location-linked fireables now handles most table-running needs.
+- Improved detail-panel hierarchy so table-facing delivery text appears before reference/build metadata.
+- Updated moment read-aloud data so NPC speech can be visually separated from GM narration.
+- Updated scene display so scripted lines are easier to read as performance beats rather than dense list items.
+- Updated location display so establishing descriptions read as table-facing prose instead of ordinary metadata.
+- Updated actor display so quick lines sit directly after voice/presentation information.
+- Updated the project roadmap to reflect the current V1 feature-complete candidate state.
+
+### Fixed
+
+- Fixed moment click behavior after `renderReadAloud()` was accidentally scoped inside `renderDetail()`.
+- Fixed `renderEstablishingShot()` after the helper call was updated to pass both `establishingShot` and `approachBeat`.
+- Fixed table visibility by wiring `getTablesForLocation()` into the fireables panel.
+- Fixed detail-panel UX issues that made scripted scene lines hard to scan during play.
+
+### Verified
+
+Latest smoke test result:
+
+```text
+FAIL: 0
+WARN: 0
+PASS: 385
+```
+
+Validated systems include:
+
+- Campaign data loads successfully.
+- Required fields resolve.
+- Current loadout IDs resolve.
+- Parent/child locations resolve.
+- Location-linked scenes resolve.
+- Location-linked tables resolve.
+- Fireable moments render through the right rail.
+- Moment spotlight read-aloud lines render in the center panel.
+- Tags follow kebab-case format.
+- Markdown references resolve.
+
+### Known Gaps
+
+- Runtime “promote search result to active loadout” is planned but not implemented.
+- Runtime pins will likely begin as client-side state before any persisted `currentLoadout.pinned` shape is added.
+- Actor-linked `answerMoments` are planned but not yet fully wired into `actors.js` and the renderer.
+- Expanded markdown answer banks should be merged into canonical actor markdown files rather than kept as permanent staging files.
+- `renderers.js` is becoming large and may need a later maintainability split once behavior stabilizes.
+- Current campaign switching is still static/manual.
+- Dynamic arc/session switching is not implemented.
+- No backend, database, login, or cloud sync.
+- No live markdown parser in the dashboard UI.
+- No Foundry/VTT integration.
+- No dice roller or rules automation.
+
 ## [0.1.0-prealpha] - 2026-06-02
 
 ### Added
