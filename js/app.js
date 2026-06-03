@@ -1,3 +1,7 @@
+// -----------------------------------------------------------------------------
+// Imports and campaign bootstrap
+// -----------------------------------------------------------------------------
+
 import { campaignData } from "../data/campaigns/valhalla/index.js";
 import { getModeById } from "./modes/mode-registry.js";
 import { getActiveData, searchData } from "./core/data-loader.js";
@@ -17,15 +21,42 @@ import {
   setSelectedItem,
   setSelectedLocation,
   clearSelectedItem,
-  clearSelection
+  clearSelection,
+  isPinned,
+  togglePinnedItem
 } from "./core/state.js";
+
+// -----------------------------------------------------------------------------
+// Static campaign context
+// -----------------------------------------------------------------------------
 
 const mode = getModeById(campaignData.config.modeId);
 const activeData = getActiveData(campaignData);
 
+// -----------------------------------------------------------------------------
+// Generic lookup helpers
+// -----------------------------------------------------------------------------
+
 function getItemById(collection, id) {
   return collection.find((item) => item.id === id) ?? null;
 }
+
+function uniqueById(items = []) {
+  const seen = new Set();
+  const output = [];
+
+  for (const item of items) {
+    if (!item?.id || seen.has(item.id)) continue;
+    seen.add(item.id);
+    output.push(item);
+  }
+
+  return output;
+}
+
+// -----------------------------------------------------------------------------
+// Selected location and availability helpers
+// -----------------------------------------------------------------------------
 
 function getSelectedLocation() {
   if (!state.selectedLocationId) return null;
@@ -53,14 +84,35 @@ function passesAvailabilityGate(item) {
   return trackerValue >= minValue && trackerValue <= maxValue;
 }
 
+// -----------------------------------------------------------------------------
+// Location-aware content helpers
+// -----------------------------------------------------------------------------
+
 function getActorsForLocation(location) {
-  if (!location) return activeData.actors;
+  if (!location) return uniqueById([...activeData.actors, ...getPinnedActors()]);
 
   const actorIds = new Set(location.actorsPresent ?? []);
-
-  return campaignData.actors.filter((actor) => {
+  const locationActors = campaignData.actors.filter((actor) => {
     return actor.currentLocation === location.id || actorIds.has(actor.id);
   });
+
+  return uniqueById([...locationActors, ...getPinnedActors()]);
+}
+
+function getAmbientCastForLocation(location) {
+  const pinnedAmbientCast = getPinnedAmbientCast();
+
+  if (!location) return pinnedAmbientCast;
+
+  const locationAmbientCast = (campaignData.ambientCast ?? []).filter((cast) => {
+    return (
+      cast.locationIds?.includes(location.id) &&
+      isVisibleStatus(cast) &&
+      passesAvailabilityGate(cast)
+    );
+  });
+
+  return uniqueById([...locationAmbientCast, ...pinnedAmbientCast]);
 }
 
 function getThreadsForLocation(location) {
@@ -68,13 +120,15 @@ function getThreadsForLocation(location) {
     return isVisibleStatus(thread) && passesAvailabilityGate(thread);
   });
 
-  if (!location) return threads;
+  if (!location) return uniqueById([...threads, ...getPinnedThreads()]);
 
   const threadIds = new Set(location.relatedThreads ?? []);
 
-  return threads.filter((thread) => {
+  const locationThreads = threads.filter((thread) => {
     return threadIds.has(thread.id) || thread.relatedLocations?.includes(location.id);
   });
+
+  return uniqueById([...locationThreads, ...getPinnedThreads()]);
 }
 
 function getScenesForLocation(location) {
@@ -82,19 +136,21 @@ function getScenesForLocation(location) {
     return isVisibleStatus(scene) && passesAvailabilityGate(scene);
   });
 
-  if (!location) return scenes;
+  if (!location) return uniqueById([...scenes, ...getPinnedScenes()]);
 
   const sceneIds = new Set(location.availableScenes ?? []);
 
-  return scenes.filter((scene) => {
+  const locationScenes = scenes.filter((scene) => {
     return sceneIds.has(scene.id);
   });
+
+  return uniqueById([...locationScenes, ...getPinnedScenes()]);
 }
 
 function getTablesForLocation(location) {
-  if (!location) return [];
+  if (!location) return getPinnedTables();
 
-  return campaignData.tables.filter((table) => {
+  const locationTables = campaignData.tables.filter((table) => {
     const locationMatch =
       table.relatedLocation === location.id ||
       table.relatedLocations?.includes(location.id);
@@ -105,12 +161,14 @@ function getTablesForLocation(location) {
       passesAvailabilityGate(table)
     );
   });
+
+  return uniqueById([...locationTables, ...getPinnedTables()]);
 }
 
 function getMomentsForLocation(location) {
-  if (!location) return [];
+  if (!location) return getPinnedMoments();
 
-  return (campaignData.fireableMoments ?? []).filter((moment) => {
+  const locationMoments = (campaignData.fireableMoments ?? []).filter((moment) => {
     const locationMatch = moment.locationIds?.includes(location.id);
 
     return (
@@ -119,6 +177,8 @@ function getMomentsForLocation(location) {
       passesAvailabilityGate(moment)
     );
   });
+
+  return uniqueById([...locationMoments, ...getPinnedMoments()]);
 }
 
 function getChildLocations(parentLocation) {
@@ -129,12 +189,17 @@ function getChildLocations(parentLocation) {
   });
 }
 
+// -----------------------------------------------------------------------------
+// DOM references and static labels
+// -----------------------------------------------------------------------------
+
 const elements = {
   title: document.querySelector("#campaign-title"),
   subtitle: document.querySelector("#campaign-subtitle"),
   actorsLabel: document.querySelector("#actors-label"),
   locationsLabel: document.querySelector("#locations-label"),
   pressureLabel: document.querySelector("#pressure-label"),
+  pinnedPanel: document.querySelector("#pinned-panel"),
   fireablesPanel: document.querySelector("#fireables-panel"),
   cardGrid: document.querySelector("#card-grid"),
   centerDetailPanel: document.querySelector("#center-detail-panel"),
@@ -152,10 +217,15 @@ elements.actorsLabel.textContent = mode.navLabels.actors;
 elements.locationsLabel.textContent = mode.navLabels.locations;
 elements.pressureLabel.textContent = `${mode.navLabels.threads} / ${mode.navLabels.trackers}`;
 
+// -----------------------------------------------------------------------------
+// Search and runtime pin helpers
+// -----------------------------------------------------------------------------
+
 function getSearchableCampaignItems() {
   return [
     ...campaignData.actors,
     ...campaignData.locations,
+    ...(campaignData.ambientCast ?? []),
     ...campaignData.scenes,
     ...(campaignData.fireableMoments ?? []),
     ...campaignData.threads,
@@ -163,6 +233,73 @@ function getSearchableCampaignItems() {
     ...campaignData.tables,
     ...campaignData.references
   ];
+}
+
+function getPinnedItems() {
+  const itemById = new Map(
+    getSearchableCampaignItems().map((item) => [item.id, item])
+  );
+
+  return state.sessionPins.pinnedItemIds
+    .map((id) => itemById.get(id))
+    .filter(Boolean);
+}
+
+function isItemFromCollection(item, collection = []) {
+  return collection.some((candidate) => candidate.id === item?.id);
+}
+
+function getPinnedItemsFrom(collection = []) {
+  const collectionIds = new Set(collection.map((item) => item.id));
+  return getPinnedItems().filter((item) => collectionIds.has(item.id));
+}
+
+function getPinnedActors() {
+  return getPinnedItemsFrom(campaignData.actors);
+}
+
+function getPinnedLocations() {
+  return getPinnedItemsFrom(campaignData.locations);
+}
+
+function getPinnedAmbientCast() {
+  return getPinnedItemsFrom(campaignData.ambientCast ?? []);
+}
+
+function getPinnedThreads() {
+  return getPinnedItemsFrom(campaignData.threads);
+}
+
+function getPinnedTrackers() {
+  return getPinnedItemsFrom(campaignData.trackers);
+}
+
+function getPinnedScenes() {
+  return getPinnedItemsFrom(campaignData.scenes);
+}
+
+function getPinnedTables() {
+  return getPinnedItemsFrom(campaignData.tables);
+}
+
+function getPinnedMoments() {
+  return getPinnedItemsFrom(campaignData.fireableMoments ?? []);
+}
+
+// -----------------------------------------------------------------------------
+// Tab content helpers
+// -----------------------------------------------------------------------------
+
+function getCockpitItems() {
+  return uniqueById([
+    ...activeData.actors,
+    ...activeData.locations,
+    ...(activeData.ambientCast ?? []),
+    ...activeData.scenes,
+    ...activeData.threads,
+    ...activeData.trackers,
+    ...getPinnedItems()
+  ]);
 }
 
 function getTabItems(tab) {
@@ -173,13 +310,7 @@ function getTabItems(tab) {
   }
 
   if (tab === "cockpit") {
-    return [
-      ...activeData.actors,
-      ...activeData.locations,
-      ...activeData.scenes,
-      ...activeData.threads,
-      ...activeData.trackers
-    ];
+    return getCockpitItems();
   }
 
   if (tab === "actors") {
@@ -188,6 +319,10 @@ function getTabItems(tab) {
 
   if (tab === "locations") {
     return campaignData.locations;
+  }
+
+  if (tab === "ambientCast") {
+    return campaignData.ambientCast ?? [];
   }
 
   if (tab === "threads") {
@@ -207,6 +342,10 @@ function getTabItems(tab) {
   return campaignData[tab] ?? activeData[tab] ?? [];
 }
 
+// -----------------------------------------------------------------------------
+// Selection and action handlers
+// -----------------------------------------------------------------------------
+
 function collapseSelectedDetail() {
   clearSelectedItem();
   renderDetail(elements.centerDetailPanel, null);
@@ -215,8 +354,16 @@ function collapseSelectedDetail() {
 
 function renderSelectedDetail(item) {
   renderSelectableDetail(elements.centerDetailPanel, item, {
-    onCollapse: collapseSelectedDetail
+    onCollapse: collapseSelectedDetail,
+    onTogglePin: handleTogglePin,
+    isPinned
   });
+}
+
+function handleTogglePin(item) {
+  togglePinnedItem(item);
+  render();
+  renderSelectedDetail(item);
 }
 
 function handleSelect(item) {
@@ -248,6 +395,10 @@ function handleMomentSelect(moment) {
 }
 
 
+// -----------------------------------------------------------------------------
+// Main render cycle
+// -----------------------------------------------------------------------------
+
 function render() {
   const tab = state.currentTab;
   const tabItems = getTabItems(tab);
@@ -258,23 +409,39 @@ function render() {
 
   renderCards(elements.cardGrid, visibleItems, {
     mode,
-    onSelect: handleSelect
+    onSelect: handleSelect,
+    isPinned
   });
 
   const selectedLocation = getSelectedLocation();
   const locationActors = getActorsForLocation(selectedLocation);
+  const locationAmbientCast = getAmbientCastForLocation(selectedLocation);
 
-  const displayedLocations =
-    selectedLocation?.locationRole === "parent"
+  const displayedLocations = uniqueById([
+    ...(selectedLocation?.locationRole === "parent"
       ? getChildLocations(selectedLocation)
-      : activeData.locations;
+      : activeData.locations),
+    ...getPinnedLocations()
+  ]);
 
   renderRailList("#active-actors", locationActors, {
-    onSelect: handleSelect
+    onSelect: handleSelect,
+    isPinned
+  });
+
+  renderRailList("#ambient-cast-list", locationAmbientCast, {
+    onSelect: handleSelect,
+    isPinned
   });
 
   renderRailList("#active-locations", displayedLocations, {
-    onSelect: handleSelect
+    onSelect: handleSelect,
+    isPinned
+  });
+
+  renderRailList("#pinned-items", getPinnedItems(), {
+    onSelect: handleSelect,
+    isPinned
   });
 
   const locationThreads = getThreadsForLocation(selectedLocation);
@@ -288,9 +455,17 @@ function render() {
     onTableSelect: handleSelect
   });
 
-  renderPressurePanel(elements.pressurePanel, locationThreads, activeData.trackers);
+  renderPressurePanel(
+    elements.pressurePanel,
+    locationThreads,
+    uniqueById([...activeData.trackers, ...getPinnedTrackers()])
+  );
   
 }
+
+// -----------------------------------------------------------------------------
+// Event bindings
+// -----------------------------------------------------------------------------
 
 document.querySelectorAll(".tab-button").forEach((button) => {
   button.addEventListener("click", () => {
@@ -304,7 +479,11 @@ document.querySelectorAll(".tab-button").forEach((button) => {
 
 elements.viewFilter.addEventListener("change", (event) => {
   setTab(event.target.value);
-  document.querySelectorAll(".tab-button").forEach((button) => {
+  // -----------------------------------------------------------------------------
+// Event bindings
+// -----------------------------------------------------------------------------
+
+document.querySelectorAll(".tab-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.tab === event.target.value);
   });
   render();
@@ -324,7 +503,11 @@ elements.resetButton.addEventListener("click", () => {
   elements.searchInput.value = "";
   elements.viewFilter.value = "cockpit";
 
-  document.querySelectorAll(".tab-button").forEach((button) => {
+  // -----------------------------------------------------------------------------
+// Event bindings
+// -----------------------------------------------------------------------------
+
+document.querySelectorAll(".tab-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.tab === "cockpit");
   });
 
@@ -335,5 +518,9 @@ elements.centerDetailPanel.addEventListener("click", () => {
   if (!state.selectedItem) return;
   collapseSelectedDetail();
 });
+
+// -----------------------------------------------------------------------------
+// Initial render
+// -----------------------------------------------------------------------------
 
 render();

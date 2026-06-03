@@ -6,6 +6,7 @@ export function getActiveData(campaignData) {
   return {
     actors: filterByIds(campaignData.actors, loadout.activeActors),
     locations: filterByIds(campaignData.locations, loadout.activeLocations),
+    ambientCast: filterByIds(campaignData.ambientCast ?? [], loadout.activeAmbientCast ?? []),
     factions: filterByIds(campaignData.factions, loadout.activeFactions),
     scenes: filterByIds(campaignData.scenes, loadout.activeScenes),
     threads: filterByIds(campaignData.threads, loadout.activeThreads),
@@ -46,6 +47,10 @@ function searchableText(item) {
     item.currentState,
     item.summary,
     item.pressure,
+    item.names?.join(" "),
+    item.voices?.join(" "),
+    item.hookLines?.join(" "),
+    item.interactionSeeds?.join(" "),
     item.gmNotes,
     item.presentation?.vibe,
     item.presentation?.physicality,

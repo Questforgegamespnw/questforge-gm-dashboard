@@ -23,6 +23,7 @@
         <option value="cockpit">Cockpit</option>
         <option value="actors">Actors</option>
         <option value="locations">Locations</option>
+        <option value="ambientCast">Ambient Cast</option>
         <option value="threads">Threads</option>
         <option value="references">Lore / Rules</option>
       </select>
@@ -35,6 +36,7 @@
     <button class="tab-button active" data-tab="cockpit">Cockpit</button>
     <button class="tab-button" data-tab="actors">Actors</button>
     <button class="tab-button" data-tab="locations">Locations</button>
+    <button class="tab-button" data-tab="ambientCast">Ambient Cast</button>
     <button class="tab-button" data-tab="threads">Threads</button>
         <button class="tab-button" data-tab="references">Lore / Rules</button>
   </nav>
@@ -44,6 +46,13 @@
       <section>
         <h2 id="actors-label">Actors</h2>
         <div id="active-actors" class="rail-list"></div>
+      </section>
+
+      <section>
+        <h2>Nearby</h2>
+        <div id="ambient-cast-list" class="rail-list">
+          <p class="empty-state">Select a location to see who is nearby.</p>
+        </div>
       </section>
 
       <section>
@@ -66,6 +75,13 @@
     </section>
 
     <aside class="right-panel">
+      <section>
+        <h2>★ Pinned Content</h2>
+        <div id="pinned-items" class="rail-list pinned-list">
+          <p class="empty-state">No runtime pins.</p>
+        </div>
+      </section>
+
       <section>
         <h2>Can Fire Here</h2>
         <div id="fireables-panel" class="story-pressure">

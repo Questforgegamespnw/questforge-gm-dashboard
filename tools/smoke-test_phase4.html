@@ -2,488 +2,978 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Questforge Smoke Test</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #101217;
-            color: #f2f4f7;
-            padding: 24px;
-            line-height: 1.5;
-        }
+  <meta charset="utf-8">
+  <title>Questforge Smoke Test</title>
+  <style>
+    /* ============================================================
+       Smoke test page styling
+       ============================================================ */
+    body {
+      font-family: Arial, sans-serif;
+      background: #101217;
+      color: #f2f4f7;
+      padding: 24px;
+      line-height: 1.5;
+    }
 
-        h1,
-        h2 {
-            color: #d6b15f;
-        }
+    h1,
+    h2 {
+      color: #d6b15f;
+    }
 
-        pre {
-            background: #191d25;
-            border: 1px solid #343b49;
-            border-radius: 8px;
-            padding: 12px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-        }
+    pre {
+      background: #191d25;
+      border: 1px solid #343b49;
+      border-radius: 8px;
+      padding: 12px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
 
-        .pass {
-            color: #86a873;
-        }
+    .pass {
+      color: #86a873;
+    }
 
-        .warn {
-            color: #d6b15f;
-        }
+    .warn {
+      color: #d6b15f;
+    }
 
-        .fail {
-            color: #c66b6b;
-        }
-    </style>
+    .fail {
+      color: #c66b6b;
+    }
+  </style>
 </head>
 
 <body>
-    <h1>Questforge GM Dashboard Smoke Test</h1>
-    <p>Open DevTools console for full objects if needed.</p>
-    <div id="output"></div>
+  <h1>Questforge GM Dashboard Smoke Test</h1>
+  <p>Open DevTools console for full objects if needed.</p>
+  <div id="output"></div>
 
-    <script type="module">
-        import { campaignData } from "../data/campaigns/valhalla/index.js";
+  <script type="module">
+    // ============================================================
+    // Smoke Test Bootstrap
+    // - Loads campaign data and core modules
+    // - Supports running from project root or docs/test folders
+    // ============================================================
+    const output = document.querySelector("#output");
+    const results = [];
 
-        const contentTypes = [
-            "actors",
-            "locations",
-            "factions",
-            "threads",
-            "trackers",
-            "scenes",
-            "tables",
-            "references"
-        ];
+    const importBases = [".", ".."]; 
 
-        const loadoutKeys = {
-            actors: "activeActors",
-            locations: "activeLocations",
-            factions: "activeFactions",
-            threads: "activeThreads",
-            trackers: "activeTrackers",
-            scenes: "activeScenes",
-            tables: "activeTables",
-            references: "activeReferences"
-        };
+    async function importFirst(paths) {
+      const errors = [];
 
-        const requiredFields = {
-            actors: ["id", "name", "role", "modeId", "campaignId", "status", "tags"],
-            locations: ["id", "name", "type", "modeId", "campaignId", "status", "tags"],
-            factions: ["id", "name", "type", "modeId", "campaignId", "status", "tags"],
-            threads: ["id", "title", "type", "modeId", "campaignId", "status", "tags"],
-            trackers: ["id", "name", "type", "modeId", "campaignId", "status", "value", "min", "max", "tags"],
-            scenes: ["id", "title", "type", "modeId", "campaignId", "status", "priority", "tags"],
-            tables: ["id", "name", "modeId", "campaignId", "status", "die", "category", "entries", "tags"],
-            references: ["id", "label", "modeId", "campaignId", "status", "category", "summary", "tags"]
-        };
+      for (const path of paths) {
+        try {
+          return await import(path);
+        } catch (error) {
+          errors.push(`${path}: ${error.message}`);
+        }
+      }
 
-        const output = document.querySelector("#output");
-        const results = [];
+      throw new Error(errors.join("\n"));
+    }
 
-        function addResult(level, label, detail = "") {
-            results.push({ level, label, detail });
+    async function fetchFirst(paths, options = {}) {
+      const errors = [];
+
+      for (const path of paths) {
+        try {
+          const response = await fetch(path, options);
+          if (response.ok) return { response, path };
+          errors.push(`${path}: HTTP ${response.status}`);
+        } catch (error) {
+          errors.push(`${path}: ${error.message}`);
+        }
+      }
+
+      return { response: null, path: null, errors };
+    }
+
+    const [{ campaignData }, stateModule, rendererModule] = await Promise.all([
+      importFirst(importBases.map((base) => `${base}/data/campaigns/valhalla/index.js`)),
+      importFirst(importBases.map((base) => `${base}/js/core/state.js`)).catch((error) => ({ __importError: error })),
+      importFirst(importBases.map((base) => `${base}/js/core/renderers.js`)).catch((error) => ({ __importError: error }))
+    ]);
+
+
+    // ============================================================
+    // Canonical collections and required data fields
+    // ============================================================
+
+    const contentTypes = [
+      "actors",
+      "locations",
+      "factions",
+      "threads",
+      "trackers",
+      "scenes",
+      "fireableMoments",
+      "tables",
+      "references"
+    ];
+
+    const loadoutKeys = {
+      actors: "activeActors",
+      locations: "activeLocations",
+      factions: "activeFactions",
+      threads: "activeThreads",
+      trackers: "activeTrackers",
+      scenes: "activeScenes",
+      tables: "activeTables",
+      references: "activeReferences"
+    };
+
+    const requiredFields = {
+      actors: ["id", "name", "role", "modeId", "campaignId", "status", "tags"],
+      locations: ["id", "name", "type", "modeId", "campaignId", "status", "tags"],
+      factions: ["id", "name", "type", "modeId", "campaignId", "status", "tags"],
+      threads: ["id", "title", "type", "modeId", "campaignId", "status", "tags"],
+      trackers: ["id", "name", "type", "modeId", "campaignId", "status", "value", "min", "max", "tags"],
+      scenes: ["id", "title", "type", "modeId", "campaignId", "status", "priority", "tags"],
+      fireableMoments: ["id", "title", "type", "modeId", "campaignId", "status", "locationIds", "trigger", "compact", "spotlight", "tags"],
+      tables: ["id", "name", "modeId", "campaignId", "status", "die", "category", "entries", "tags"],
+      references: ["id", "label", "modeId", "campaignId", "status", "category", "summary", "tags"]
+    };
+
+    const validStatuses = new Set(["active", "available", "inactive", "draft", "archived", "hidden"]);
+    const readAloudTypes = new Set(["narration", "speech", "gm", "aside"]);
+
+
+    // ============================================================
+    // Result collection and generic utility helpers
+    // ============================================================
+
+    function addResult(level, label, detail = "") {
+      results.push({ level, label, detail });
+    }
+
+    function hasValue(value) {
+      if (Array.isArray(value)) return true;
+      return value !== undefined && value !== null && value !== "";
+    }
+
+    function findDuplicateIds(items) {
+      const seen = new Set();
+      const duplicates = new Set();
+
+      for (const item of items) {
+        if (!item?.id) continue;
+        if (seen.has(item.id)) duplicates.add(item.id);
+        seen.add(item.id);
+      }
+
+      return [...duplicates];
+    }
+
+    function getAllItems() {
+      return contentTypes.flatMap((type) =>
+        (campaignData[type] ?? []).map((item) => ({ ...item, __type: type }))
+      );
+    }
+
+    function getIds(type) {
+      return new Set((campaignData[type] ?? []).map((item) => item.id));
+    }
+
+    function checkIdRefs(ownerId, field, ids, validIds, options = {}) {
+      const { allowEmpty = true, levelForEmpty = "warn" } = options;
+
+      if (ids === undefined || ids === null) {
+        if (!allowEmpty) addResult(levelForEmpty, `${ownerId} missing ${field}`);
+        return;
+      }
+
+      if (!Array.isArray(ids)) {
+        addResult("fail", `${ownerId}.${field} is not an array`);
+        return;
+      }
+
+      if (!ids.length) {
+        if (!allowEmpty) addResult(levelForEmpty, `${ownerId}.${field} is empty`);
+        return;
+      }
+
+      const missing = ids.filter((id) => !validIds.has(id));
+
+      if (missing.length) {
+        addResult("fail", `${ownerId}.${field} contains unresolved ID(s)`, missing.join(", "));
+      } else {
+        addResult("pass", `${ownerId}.${field} resolved`, `${ids.length} linked`);
+      }
+    }
+
+
+    // ============================================================
+    // Campaign shape and collection integrity checks
+    // ============================================================
+
+    function checkCampaignShape() {
+      if (!campaignData?.config) {
+        addResult("fail", "Missing campaignData.config");
+      } else {
+        addResult("pass", "campaignData.config loaded", campaignData.config.campaignName ?? "");
+      }
+
+      if (!campaignData?.currentLoadout) {
+        addResult("fail", "Missing campaignData.currentLoadout");
+      } else {
+        addResult("pass", "currentLoadout loaded");
+      }
+
+      for (const type of contentTypes) {
+        if (!Array.isArray(campaignData[type])) {
+          addResult("fail", `campaignData.${type} is not an array`);
+        } else {
+          addResult("pass", `${type} array loaded`, `${campaignData[type].length} items`);
+        }
+      }
+    }
+
+    function checkDuplicateIds() {
+      for (const type of contentTypes) {
+        const duplicates = findDuplicateIds(campaignData[type] ?? []);
+        if (duplicates.length) {
+          addResult("fail", `Duplicate IDs in ${type}`, duplicates.join(", "));
+        } else {
+          addResult("pass", `No duplicate IDs in ${type}`);
+        }
+      }
+
+      const crossTypeDuplicates = findDuplicateIds(getAllItems());
+      if (crossTypeDuplicates.length) {
+        addResult("warn", "Duplicate IDs across different content types", crossTypeDuplicates.join(", "));
+      } else {
+        addResult("pass", "No duplicate IDs across all content types");
+      }
+    }
+
+    function checkRequiredFields() {
+      for (const type of contentTypes) {
+        const items = campaignData[type] ?? [];
+        const fields = requiredFields[type] ?? [];
+
+        for (const item of items) {
+          const missing = fields.filter((field) => !hasValue(item[field]));
+
+          if (missing.length) {
+            addResult("fail", `${type}: ${item.id ?? "NO_ID"} missing required field(s)`, missing.join(", "));
+          }
+        }
+      }
+
+      addResult("pass", "Required field scan completed");
+    }
+
+    function checkStatusValues() {
+      for (const item of getAllItems()) {
+        if (item.status && !validStatuses.has(item.status)) {
+          addResult("warn", `${item.id}.status is outside known status set`, item.status);
+        }
+      }
+
+      addResult("pass", "Status value scan completed");
+    }
+
+
+    // ============================================================
+    // Current loadout checks
+    // - Confirms active IDs resolve
+    // - Confirms runtime pins are not persisted in loadout
+    // ============================================================
+
+    function checkLoadoutIds() {
+      const loadout = campaignData.currentLoadout ?? {};
+
+      for (const [type, loadoutKey] of Object.entries(loadoutKeys)) {
+        const activeIds = loadout[loadoutKey] ?? [];
+        const availableIds = getIds(type);
+
+        if (!Array.isArray(activeIds)) {
+          addResult("fail", `${loadoutKey} is not an array`);
+          continue;
         }
 
-        function hasValue(value) {
-            if (Array.isArray(value)) return true;
-            return value !== undefined && value !== null && value !== "";
+        const missing = activeIds.filter((id) => !availableIds.has(id));
+
+        if (missing.length) {
+          addResult("fail", `${loadoutKey} contains unresolved ID(s)`, missing.join(", "));
+        } else {
+          addResult("pass", `${loadoutKey} resolved`, `${activeIds.length} active`);
+        }
+      }
+
+      if ("activeFireableMoments" in loadout) {
+        checkIdRefs("currentLoadout", "activeFireableMoments", loadout.activeFireableMoments, getIds("fireableMoments"), { allowEmpty: true });
+      } else {
+        addResult("pass", "currentLoadout has no activeFireableMoments override", "Runtime/location flow can still surface moments.");
+      }
+
+      if ("pinned" in loadout || "pinnedItemIds" in loadout) {
+        addResult("warn", "Persistent pins found in currentLoadout", "Runtime pinning should not persist in the first pass.");
+      } else {
+        addResult("pass", "No persistent pins in currentLoadout");
+      }
+    }
+
+
+    // ============================================================
+    // Shared field validation
+    // ============================================================
+
+    function checkTagFormat() {
+      const badTags = [];
+
+      for (const item of getAllItems()) {
+        if (!Array.isArray(item.tags)) {
+          badTags.push(`${item.id}: tags is not an array`);
+          continue;
         }
 
-        function findDuplicateIds(items) {
-            const seen = new Set();
-            const duplicates = new Set();
+        for (const tag of item.tags) {
+          if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(tag)) {
+            badTags.push(`${item.id}: ${tag}`);
+          }
+        }
+      }
 
-            for (const item of items) {
-                if (!item?.id) continue;
-                if (seen.has(item.id)) duplicates.add(item.id);
-                seen.add(item.id);
-            }
+      if (badTags.length) {
+        addResult("warn", "Tag format issues found", badTags.join("\n"));
+      } else {
+        addResult("pass", "All tags look kebab-case");
+      }
+    }
 
-            return [...duplicates];
+    function checkAvailabilityGates() {
+      const trackerIds = getIds("trackers");
+      const gatedTypes = ["scenes", "threads", "tables", "fireableMoments"];
+      let gateCount = 0;
+
+      for (const type of gatedTypes) {
+        for (const item of campaignData[type] ?? []) {
+          if (!item.availability) continue;
+          gateCount += 1;
+
+          if (typeof item.availability !== "object" || Array.isArray(item.availability)) {
+            addResult("fail", `${item.id}.availability must be an object`);
+            continue;
+          }
+
+          const { trackerId, minValue, maxValue } = item.availability;
+
+          if (!trackerId) {
+            addResult("fail", `${item.id}.availability missing trackerId`);
+          } else if (!trackerIds.has(trackerId)) {
+            addResult("fail", `${item.id}.availability.trackerId unresolved`, trackerId);
+          } else {
+            addResult("pass", `${item.id}.availability.trackerId resolved`, trackerId);
+          }
+
+          if (minValue !== undefined && typeof minValue !== "number") {
+            addResult("fail", `${item.id}.availability.minValue must be a number`, String(minValue));
+          }
+
+          if (maxValue !== undefined && typeof maxValue !== "number") {
+            addResult("fail", `${item.id}.availability.maxValue must be a number`, String(maxValue));
+          }
+
+          if (typeof minValue === "number" && typeof maxValue === "number" && minValue > maxValue) {
+            addResult("fail", `${item.id}.availability minValue exceeds maxValue`, `${minValue} > ${maxValue}`);
+          }
+        }
+      }
+
+      if (gateCount) {
+        addResult("pass", "Availability gates scanned", `${gateCount} gated item(s)`);
+      } else {
+        addResult("warn", "No availability gates found", "Expected after Phase 4 if gated content exists.");
+      }
+    }
+
+
+    // ============================================================
+    // Relationship and linked-content checks
+    // - Parent/child locations
+    // - Actor/location/thread/scene links
+    // - Standalone fireable moments
+    // - Location-linked tables
+    // ============================================================
+
+    function checkPhase4Relationships() {
+      const actorIds = getIds("actors");
+      const locationIds = getIds("locations");
+      const factionIds = getIds("factions");
+      const threadIds = getIds("threads");
+      const sceneIds = getIds("scenes");
+      const tableIds = getIds("tables");
+      const momentIds = getIds("fireableMoments");
+
+      const parentLocations = (campaignData.locations ?? []).filter((location) => location.locationRole === "parent");
+      const childLocations = (campaignData.locations ?? []).filter((location) => location.locationRole === "child");
+
+      if (parentLocations.length) {
+        addResult("pass", "Parent locations found", `${parentLocations.length} parent location(s)`);
+      } else {
+        addResult("warn", "No parent locations found");
+      }
+
+      if (childLocations.length) {
+        addResult("pass", "Child locations found", `${childLocations.length} child location(s)`);
+      } else {
+        addResult("warn", "No child locations found");
+      }
+
+      for (const location of campaignData.locations ?? []) {
+        if (location.locationRole && !["parent", "child"].includes(location.locationRole)) {
+          addResult("fail", `${location.id}.locationRole has unsupported value`, location.locationRole);
         }
 
-        function getAllItems() {
-            return contentTypes.flatMap((type) =>
-                (campaignData[type] ?? []).map((item) => ({ ...item, __type: type }))
-            );
+        if (location.locationRole === "parent") {
+          if (location.actorsPresent?.length) {
+            addResult("warn", `${location.id} is a parent location but still uses actorsPresent`);
+          }
+
+          checkIdRefs(location.id, "keyActors", location.keyActors, actorIds, { allowEmpty: true });
+          checkIdRefs(location.id, "connectedLocations", location.connectedLocations, locationIds, { allowEmpty: false });
         }
 
-        function checkCampaignShape() {
-            if (!campaignData?.config) {
-                addResult("fail", "Missing campaignData.config");
-            } else {
-                addResult("pass", "campaignData.config loaded", campaignData.config.campaignName ?? "");
-            }
-
-            if (!campaignData?.currentLoadout) {
-                addResult("fail", "Missing campaignData.currentLoadout");
-            } else {
-                addResult("pass", "currentLoadout loaded");
-            }
-
-            for (const type of contentTypes) {
-                if (!Array.isArray(campaignData[type])) {
-                    addResult("fail", `campaignData.${type} is not an array`);
-                } else {
-                    addResult("pass", `${type} array loaded`, `${campaignData[type].length} items`);
-                }
-            }
+        if (location.locationRole === "child") {
+          if (!location.parentLocation) {
+            addResult("fail", `${location.id} is a child location but has no parentLocation`);
+          } else if (locationIds.has(location.parentLocation)) {
+            addResult("pass", `${location.id}.parentLocation resolved`, location.parentLocation);
+          } else {
+            addResult("fail", `${location.id}.parentLocation unresolved`, location.parentLocation);
+          }
         }
 
-        function checkDuplicateIds() {
-            for (const type of contentTypes) {
-                const duplicates = findDuplicateIds(campaignData[type] ?? []);
-                if (duplicates.length) {
-                    addResult("fail", `Duplicate IDs in ${type}`, duplicates.join(", "));
-                } else {
-                    addResult("pass", `No duplicate IDs in ${type}`);
-                }
-            }
+        checkIdRefs(location.id, "actorsPresent", location.actorsPresent, actorIds, { allowEmpty: true });
+        checkIdRefs(location.id, "factionsPresent", location.factionsPresent, factionIds, { allowEmpty: true });
+        checkIdRefs(location.id, "relatedThreads", location.relatedThreads, threadIds, { allowEmpty: true });
+        checkIdRefs(location.id, "availableScenes", location.availableScenes, sceneIds, { allowEmpty: true });
+        checkLocationPresentation(location);
 
-            const all = getAllItems();
-            const crossTypeDuplicates = findDuplicateIds(all);
-            if (crossTypeDuplicates.length) {
-                addResult(
-                    "warn",
-                    "Duplicate IDs across different content types",
-                    crossTypeDuplicates.join(", ")
-                );
-            } else {
-                addResult("pass", "No duplicate IDs across all content types");
-            }
+        if (location.eventTable) {
+          if (tableIds.has(location.eventTable)) {
+            addResult("pass", `${location.id}.eventTable resolved`, location.eventTable);
+          } else {
+            addResult("fail", `${location.id}.eventTable unresolved`, location.eventTable);
+          }
         }
 
-        function checkRequiredFields() {
-            for (const type of contentTypes) {
-                const items = campaignData[type] ?? [];
-                const fields = requiredFields[type] ?? [];
+        if (location.fireableMoments !== undefined) {
+          addResult("warn", `${location.id}.fireableMoments is legacy embedded data`, "Prefer standalone campaignData.fireableMoments with locationIds.");
+          checkIdRefs(location.id, "fireableMoments", location.fireableMoments, momentIds, { allowEmpty: true });
+        }
+      }
 
-                for (const item of items) {
-                    const missing = fields.filter((field) => !hasValue(item[field]));
-
-                    if (missing.length) {
-                        addResult(
-                            "fail",
-                            `${type}: ${item.id ?? "NO_ID"} missing required field(s)`,
-                            missing.join(", ")
-                        );
-                    }
-                }
-            }
-
-            addResult("pass", "Required field scan completed");
+      for (const actor of campaignData.actors ?? []) {
+        if (actor.currentLocation) {
+          if (locationIds.has(actor.currentLocation)) {
+            addResult("pass", `${actor.id}.currentLocation resolved`, actor.currentLocation);
+          } else {
+            addResult("fail", `${actor.id}.currentLocation unresolved`, actor.currentLocation);
+          }
         }
 
-        function checkLoadoutIds() {
-            const loadout = campaignData.currentLoadout ?? {};
+        checkIdRefs(actor.id, "relatedThreads", actor.relatedThreads, threadIds, { allowEmpty: true });
+      }
 
-            for (const type of contentTypes) {
-                const loadoutKey = loadoutKeys[type];
-                const activeIds = loadout[loadoutKey] ?? [];
-                const availableIds = new Set((campaignData[type] ?? []).map((item) => item.id));
+      for (const thread of campaignData.threads ?? []) {
+        checkIdRefs(thread.id, "relatedActors", thread.relatedActors, actorIds, { allowEmpty: true });
+        checkIdRefs(thread.id, "relatedLocations", thread.relatedLocations, locationIds, { allowEmpty: true });
+        checkIdRefs(thread.id, "relatedFactions", thread.relatedFactions, factionIds, { allowEmpty: true });
+        checkIdRefs(thread.id, "relatedScenes", thread.relatedScenes, sceneIds, { allowEmpty: true });
+      }
 
-                if (!Array.isArray(activeIds)) {
-                    addResult("fail", `${loadoutKey} is not an array`);
-                    continue;
-                }
+      for (const scene of campaignData.scenes ?? []) {
+        checkIdRefs(scene.id, "involvedActors", scene.involvedActors, actorIds, { allowEmpty: true });
+        checkIdRefs(scene.id, "involvedLocations", scene.involvedLocations, locationIds, { allowEmpty: true });
+        checkIdRefs(scene.id, "involvedFactions", scene.involvedFactions, factionIds, { allowEmpty: true });
+        checkSceneForwardPath(scene, sceneIds, actorIds);
+      }
 
-                const missing = activeIds.filter((id) => !availableIds.has(id));
+      for (const table of campaignData.tables ?? []) {
+        checkTableShape(table, locationIds);
+      }
 
-                if (missing.length) {
-                    addResult("fail", `${loadoutKey} contains unresolved ID(s)`, missing.join(", "));
-                } else {
-                    addResult("pass", `${loadoutKey} resolved`, `${activeIds.length} active`);
-                }
-            }
+      for (const moment of campaignData.fireableMoments ?? []) {
+        checkFireableMomentShape(moment, locationIds, actorIds, threadIds);
+      }
+    }
+
+
+    // ============================================================
+    // Location, scene, table, and fireable moment shape helpers
+    // ============================================================
+
+    function checkLocationPresentation(location) {
+      const presentation = location.presentation;
+      if (!presentation) return;
+
+      if (presentation.establishingShot || presentation.approachBeat) {
+        addResult("pass", `${location.id} has location description beat(s)`);
+      }
+
+      if (presentation.approachBeat && !presentation.establishingShot) {
+        addResult("warn", `${location.id} has approachBeat without establishingShot`);
+      }
+
+      if (presentation.sensory !== undefined && !Array.isArray(presentation.sensory)) {
+        addResult("fail", `${location.id}.presentation.sensory is not an array`);
+      }
+    }
+
+    function checkSceneForwardPath(scene, sceneIds, actorIds) {
+      const forwardPath = scene.forwardPath;
+      if (!forwardPath) return;
+
+      if (forwardPath.upNext !== undefined && !Array.isArray(forwardPath.upNext)) {
+        addResult("fail", `${scene.id}.forwardPath.upNext is not an array`);
+      }
+
+      if (Array.isArray(forwardPath.upNext)) {
+        const hardIds = forwardPath.upNext.filter((id) => typeof id === "string" && id.startsWith("scene_"));
+        checkIdRefs(scene.id, "forwardPath.upNext", hardIds, sceneIds, { allowEmpty: true });
+      }
+
+      if (forwardPath.branches !== undefined && !Array.isArray(forwardPath.branches)) {
+        addResult("fail", `${scene.id}.forwardPath.branches is not an array`);
+      }
+
+      if (forwardPath.scriptedMoments !== undefined && !Array.isArray(forwardPath.scriptedMoments)) {
+        addResult("fail", `${scene.id}.forwardPath.scriptedMoments is not an array`);
+      }
+
+      for (const [index, moment] of (forwardPath.scriptedMoments ?? []).entries()) {
+        if (!moment.line) addResult("warn", `${scene.id}.forwardPath.scriptedMoments[${index}] missing line`);
+        if (!moment.timing) addResult("warn", `${scene.id}.forwardPath.scriptedMoments[${index}] missing timing`);
+
+        if (moment.speaker && String(moment.speaker).startsWith("actor_")) {
+          if (actorIds.has(moment.speaker)) {
+            addResult("pass", `${scene.id}.scriptedMoment speaker resolved`, moment.speaker);
+          } else {
+            addResult("fail", `${scene.id}.scriptedMoment speaker unresolved`, moment.speaker);
+          }
+        }
+      }
+    }
+
+    function checkTableShape(table, locationIds) {
+      if (!Array.isArray(table.entries)) {
+        addResult("fail", `${table.id}.entries is not an array`);
+      } else if (!table.entries.length) {
+        addResult("warn", `${table.id}.entries is empty`);
+      } else {
+        addResult("pass", `${table.id}.entries ready`, `${table.entries.length} entr${table.entries.length === 1 ? "y" : "ies"}`);
+      }
+
+      if (table.relatedLocation) {
+        if (locationIds.has(table.relatedLocation)) {
+          addResult("pass", `${table.id}.relatedLocation resolved`, table.relatedLocation);
+        } else {
+          addResult("fail", `${table.id}.relatedLocation unresolved`, table.relatedLocation);
+        }
+      }
+
+      checkIdRefs(table.id, "relatedLocations", table.relatedLocations, locationIds, { allowEmpty: true });
+    }
+
+    function checkFireableMomentShape(moment, locationIds, actorIds, threadIds) {
+      checkIdRefs(moment.id, "locationIds", moment.locationIds, locationIds, { allowEmpty: false, levelForEmpty: "fail" });
+      checkIdRefs(moment.id, "relatedActors", moment.relatedActors, actorIds, { allowEmpty: true });
+      checkIdRefs(moment.id, "relatedThreads", moment.relatedThreads, threadIds, { allowEmpty: true });
+
+      if (!moment.spotlight) {
+        addResult("fail", `${moment.id} missing spotlight`);
+        return;
+      }
+
+      if (!moment.spotlight.title) {
+        addResult("warn", `${moment.id}.spotlight missing title`);
+      } else {
+        addResult("pass", `${moment.id}.spotlight title ready`);
+      }
+
+      const readAloud = moment.spotlight.readAloud;
+      if (!Array.isArray(readAloud) || readAloud.length === 0) {
+        addResult("fail", `${moment.id}.spotlight.readAloud missing or empty`);
+      } else {
+        addResult("pass", `${moment.id}.spotlight.readAloud ready`, `${readAloud.length} line(s)`);
+      }
+
+      for (const [index, line] of (readAloud ?? []).entries()) {
+        if (typeof line === "string") {
+          if (!line.trim()) addResult("fail", `${moment.id}.readAloud[${index}] is empty string`);
+          continue;
         }
 
-        async function checkMarkdownReferences() {
-            const itemsWithReferences = getAllItems().filter((item) => item.reference);
-
-            if (!itemsWithReferences.length) {
-                addResult("warn", "No markdown reference paths found");
-                return;
-            }
-
-            for (const item of itemsWithReferences) {
-                const ref = item.reference;
-
-                if (!String(ref).endsWith(".md")) {
-                    addResult("warn", `${item.id} reference does not end in .md`, ref);
-                    continue;
-                }
-
-                const path = `../data/campaigns/valhalla/${ref}`;
-
-                try {
-                    const response = await fetch(path, { method: "HEAD" });
-
-                    if (response.ok) {
-                        addResult("pass", `${item.id} markdown reference found`, ref);
-                    } else {
-                        addResult("fail", `${item.id} markdown reference missing`, ref);
-                    }
-                } catch (error) {
-                    addResult("warn", `${item.id} markdown reference could not be checked`, ref);
-                }
-            }
+        if (typeof line !== "object" || Array.isArray(line) || line === null) {
+          addResult("fail", `${moment.id}.readAloud[${index}] must be string or object`);
+          continue;
         }
 
-        function checkTagFormat() {
-            const badTags = [];
-
-            for (const item of getAllItems()) {
-                for (const tag of item.tags ?? []) {
-                    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(tag)) {
-                        badTags.push(`${item.id}: ${tag}`);
-                    }
-                }
-            }
-
-            if (badTags.length) {
-                addResult("warn", "Non-kebab-case tags found", badTags.join("\n"));
-            } else {
-                addResult("pass", "All tags look kebab-case");
-            }
+        if (!line.text) {
+          addResult("fail", `${moment.id}.readAloud[${index}] missing text`);
         }
 
-
-
-        function getIds(type) {
-            return new Set((campaignData[type] ?? []).map((item) => item.id));
+        if (!line.type) {
+          addResult("warn", `${moment.id}.readAloud[${index}] missing type`, "Renderer defaults to narration.");
+        } else if (!readAloudTypes.has(line.type)) {
+          addResult("warn", `${moment.id}.readAloud[${index}] has uncommon type`, line.type);
+        } else {
+          addResult("pass", `${moment.id}.readAloud[${index}] type ready`, line.type);
         }
 
-        function checkIdRefs(ownerId, field, ids, validIds, options = {}) {
-            const { allowEmpty = true, levelForEmpty = "warn" } = options;
+        if (line.type === "speech" && !line.speaker) {
+          addResult("warn", `${moment.id}.readAloud[${index}] speech line missing speaker`);
+        }
+      }
 
-            if (ids === undefined || ids === null) {
-                if (!allowEmpty) addResult(levelForEmpty, `${ownerId} missing ${field}`);
-                return;
-            }
+      if (!moment.spotlight.gmPurpose) {
+        addResult("warn", `${moment.id}.spotlight missing gmPurpose`);
+      } else {
+        addResult("pass", `${moment.id}.spotlight gmPurpose ready`);
+      }
+    }
 
-            if (!Array.isArray(ids)) {
-                addResult("fail", `${ownerId}.${field} is not an array`);
-                return;
-            }
 
-            if (!ids.length) {
-                if (!allowEmpty) addResult(levelForEmpty, `${ownerId}.${field} is empty`);
-                return;
-            }
+    // ============================================================
+    // Markdown reference checks
+    // ============================================================
 
-            const missing = ids.filter((id) => !validIds.has(id));
+    async function checkMarkdownReferences() {
+      const itemsWithReferences = getAllItems().filter((item) => item.reference);
 
-            if (missing.length) {
-                addResult("fail", `${ownerId}.${field} contains unresolved ID(s)`, missing.join(", "));
-            } else {
-                addResult("pass", `${ownerId}.${field} resolved`, `${ids.length} linked`);
-            }
+      if (!itemsWithReferences.length) {
+        addResult("warn", "No markdown reference paths found");
+        return;
+      }
+
+      for (const item of itemsWithReferences) {
+        const ref = item.reference;
+
+        if (!String(ref).endsWith(".md")) {
+          addResult("warn", `${item.id} reference does not end in .md`, ref);
+          continue;
         }
 
-        function checkPhase4Relationships() {
-            const actorIds = getIds("actors");
-            const locationIds = getIds("locations");
-            const threadIds = getIds("threads");
-            const sceneIds = getIds("scenes");
+        const paths = importBases.map((base) => `${base}/data/campaigns/valhalla/${ref}`);
+        const { response, path } = await fetchFirst(paths, { method: "HEAD" });
 
-            const parentLocations = (campaignData.locations ?? []).filter(
-                (location) => location.locationRole === "parent"
-            );
+        if (response?.ok) {
+          addResult("pass", `${item.id} markdown reference found`, path);
+        } else {
+          addResult("fail", `${item.id} markdown reference missing`, ref);
+        }
+      }
+    }
 
-            const childLocations = (campaignData.locations ?? []).filter(
-                (location) => location.locationRole === "child"
-            );
 
-            if (parentLocations.length) {
-                addResult("pass", "Parent locations found", `${parentLocations.length} parent location(s)`);
-            } else {
-                addResult("warn", "No parent locations found");
-            }
+    // ============================================================
+    // Runtime pin checks
+    // - Confirms state exports exist
+    // - Exercises pin/unpin/toggle behavior in memory only
+    // ============================================================
 
-            if (childLocations.length) {
-                addResult("pass", "Child locations found", `${childLocations.length} child location(s)`);
-            } else {
-                addResult("warn", "No child locations found");
-            }
+    async function checkRuntimePinSurface() {
+      if (stateModule.__importError) {
+        addResult("fail", "Could not import js/core/state.js", stateModule.__importError.message);
+        return;
+      }
 
-            for (const location of campaignData.locations ?? []) {
-                if (location.locationRole && !["parent", "child"].includes(location.locationRole)) {
-                    addResult("fail", `${location.id}.locationRole has unsupported value`, location.locationRole);
-                }
+      const requiredStateExports = [
+        "state",
+        "isPinned",
+        "pinItem",
+        "unpinItem",
+        "togglePinnedItem",
+        "clearPins"
+      ];
 
-                if (location.locationRole === "parent") {
-                    if (location.actorsPresent) {
-                        addResult("warn", `${location.id} is a parent location but still uses actorsPresent`);
-                    }
+      for (const exportName of requiredStateExports) {
+        if (typeof stateModule[exportName] === "undefined") {
+          addResult("fail", `state.js missing export ${exportName}`);
+        } else {
+          addResult("pass", `state.js exports ${exportName}`);
+        }
+      }
 
-                    checkIdRefs(location.id, "keyActors", location.keyActors, actorIds, { allowEmpty: true });
-                    checkIdRefs(location.id, "connectedLocations", location.connectedLocations, locationIds, { allowEmpty: false });
-                }
+      if (!Array.isArray(stateModule.state?.sessionPins?.pinnedItemIds)) {
+        addResult("fail", "state.sessionPins.pinnedItemIds missing or not an array");
+        return;
+      }
 
-                if (location.locationRole === "child") {
-                    if (!location.parentLocation) {
-                        addResult("fail", `${location.id} is a child location but has no parentLocation`);
-                    } else if (locationIds.has(location.parentLocation)) {
-                        addResult("pass", `${location.id}.parentLocation resolved`, location.parentLocation);
-                    } else {
-                        addResult("fail", `${location.id}.parentLocation unresolved`, location.parentLocation);
-                    }
-                }
+      const originalPins = [...stateModule.state.sessionPins.pinnedItemIds];
+      const sampleItem = getAllItems()[0];
 
-                checkIdRefs(location.id, "actorsPresent", location.actorsPresent, actorIds, { allowEmpty: true });
-                checkIdRefs(location.id, "relatedThreads", location.relatedThreads, threadIds, { allowEmpty: true });
-                checkIdRefs(location.id, "availableScenes", location.availableScenes, sceneIds, { allowEmpty: true });
+      stateModule.clearPins?.();
 
-                if (location.fireableMoments !== undefined) {
-                    if (!Array.isArray(location.fireableMoments)) {
-                        addResult("fail", `${location.id}.fireableMoments is not an array`);
-                    } else {
-                        const momentIds = new Set();
+      if (stateModule.state.sessionPins.pinnedItemIds.length === 0) {
+        addResult("pass", "clearPins() clears runtime pin list");
+      } else {
+        addResult("fail", "clearPins() did not clear runtime pin list");
+      }
 
-                        for (const moment of location.fireableMoments) {
-                            if (!moment.id) {
-                                addResult("fail", `${location.id} has fireableMoment missing id`);
-                                continue;
-                            }
+      stateModule.pinItem?.(sampleItem);
+      if (stateModule.isPinned?.(sampleItem)) {
+        addResult("pass", "pinItem() and isPinned() work with item objects", sampleItem.id);
+      } else {
+        addResult("fail", "pinItem() or isPinned() failed with item object", sampleItem?.id ?? "NO_SAMPLE");
+      }
 
-                            if (momentIds.has(moment.id)) {
-                                addResult("fail", `${location.id} has duplicate fireableMoment id`, moment.id);
-                            } else {
-                                momentIds.add(moment.id);
-                                addResult("pass", `${location.id} fireableMoment has id`, moment.id);
-                            }
+      stateModule.togglePinnedItem?.(sampleItem);
+      if (!stateModule.isPinned?.(sampleItem)) {
+        addResult("pass", "togglePinnedItem() unpins pinned item", sampleItem.id);
+      } else {
+        addResult("fail", "togglePinnedItem() did not unpin pinned item", sampleItem.id);
+      }
 
-                            if (!moment.title) {
-                                addResult("fail", `${moment.id} fireableMoment missing title`);
-                            } else {
-                                addResult("pass", `${moment.id} fireableMoment has title`);
-                            }
+      stateModule.togglePinnedItem?.(sampleItem.id);
+      if (stateModule.isPinned?.(sampleItem.id)) {
+        addResult("pass", "togglePinnedItem() pins by id string", sampleItem.id);
+      } else {
+        addResult("fail", "togglePinnedItem() did not pin by id string", sampleItem.id);
+      }
 
-                            if (!moment.type) {
-                                addResult("warn", `${moment.id} fireableMoment missing type`);
-                            } else {
-                                addResult("pass", `${moment.id} fireableMoment has type`, moment.type);
-                            }
+      stateModule.unpinItem?.(sampleItem.id);
+      if (!stateModule.isPinned?.(sampleItem.id)) {
+        addResult("pass", "unpinItem() removes by id string", sampleItem.id);
+      } else {
+        addResult("fail", "unpinItem() did not remove by id string", sampleItem.id);
+      }
 
-                            if (!moment.trigger) {
-                                addResult("warn", `${moment.id} fireableMoment missing trigger`);
-                            } else {
-                                addResult("pass", `${moment.id} fireableMoment has trigger`);
-                            }
+      stateModule.state.sessionPins.pinnedItemIds = originalPins;
 
-                            if (!moment.compact) {
-                                addResult("warn", `${moment.id} fireableMoment missing compact text`);
-                            } else {
-                                addResult("pass", `${moment.id} fireableMoment has compact text`);
-                            }
+      await checkSourceForRuntimeOnlyPins();
+    }
 
-                            if (moment.speaker) {
-                                if (actorIds.has(moment.speaker)) {
-                                    addResult("pass", `${moment.id}.speaker resolved`, moment.speaker);
-                                } else {
-                                    addResult("fail", `${moment.id}.speaker unresolved`, moment.speaker);
-                                }
-                            }
 
-                            if (!moment.spotlight) {
-                                addResult("warn", `${moment.id} fireableMoment missing spotlight`);
-                            } else {
-                                addResult("pass", `${moment.id} fireableMoment has spotlight`);
+    // ============================================================
+    // Renderer surface checks
+    // - Confirms pinned cards, rails, and detail action exist
+    // ============================================================
 
-                                if (!moment.spotlight.title) {
-                                    addResult("warn", `${moment.id}.spotlight missing title`);
-                                } else {
-                                    addResult("pass", `${moment.id}.spotlight title ready`);
-                                }
+    async function checkRendererPinSurface() {
+      if (rendererModule.__importError) {
+        addResult("fail", "Could not import js/core/renderers.js", rendererModule.__importError.message);
+        return;
+      }
 
-                                if (
-                                    !Array.isArray(moment.spotlight.readAloud) ||
-                                    moment.spotlight.readAloud.length === 0
-                                ) {
-                                    addResult("warn", `${moment.id}.spotlight missing readAloud lines`);
-                                } else {
-                                    addResult("pass", `${moment.id}.spotlight readAloud ready`, `${moment.spotlight.readAloud.length} line(s)`);
-                                }
+      const sampleItem = getAllItems()[0];
+      const testWrap = document.createElement("div");
+      const detailWrap = document.createElement("div");
+      const railWrap = document.createElement("div");
+      railWrap.id = "smoke-rail-test";
+      document.body.append(testWrap, detailWrap, railWrap);
 
-                                if (!moment.spotlight.gmPurpose) {
-                                    addResult("warn", `${moment.id}.spotlight missing gmPurpose`);
-                                } else {
-                                    addResult("pass", `${moment.id}.spotlight gmPurpose ready`);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+      try {
+        rendererModule.renderCards?.(testWrap, [sampleItem], {
+          onSelect: () => {},
+          isPinned: () => true
+        });
 
-            for (const actor of campaignData.actors ?? []) {
-                if (!actor.currentLocation) continue;
-
-                if (locationIds.has(actor.currentLocation)) {
-                    addResult("pass", `${actor.id}.currentLocation resolved`, actor.currentLocation);
-                } else {
-                    addResult("fail", `${actor.id}.currentLocation unresolved`, actor.currentLocation);
-                }
-            }
-
-            for (const thread of campaignData.threads ?? []) {
-                checkIdRefs(thread.id, "relatedLocations", thread.relatedLocations, locationIds, { allowEmpty: true });
-            }
-
-            for (const scene of campaignData.scenes ?? []) {
-                checkIdRefs(scene.id, "involvedLocations", scene.involvedLocations, locationIds, { allowEmpty: true });
-            }
+        if (testWrap.querySelector(".card.is-pinned .pin-badge")) {
+          addResult("pass", "renderCards marks pinned cards");
+        } else {
+          addResult("fail", "renderCards did not mark pinned card");
         }
 
-        function renderResults() {
-            const grouped = {
-                fail: results.filter((r) => r.level === "fail"),
-                warn: results.filter((r) => r.level === "warn"),
-                pass: results.filter((r) => r.level === "pass")
-            };
+        rendererModule.renderRailList?.("#smoke-rail-test", [sampleItem], {
+          onSelect: () => {},
+          isPinned: () => true
+        });
 
-            const summary = `
+        if (railWrap.querySelector(".rail-item.is-pinned")) {
+          addResult("pass", "renderRailList marks pinned rail items");
+        } else {
+          addResult("fail", "renderRailList did not mark pinned rail item");
+        }
+
+        let toggled = false;
+        rendererModule.renderSelectableDetail?.(detailWrap, sampleItem, {
+          onCollapse: () => {},
+          onTogglePin: () => { toggled = true; },
+          isPinned: () => false
+        });
+
+        const pinButton = detailWrap.querySelector(".pin-toggle-button");
+        if (!pinButton) {
+          addResult("fail", "renderSelectableDetail did not render pin toggle button");
+        } else if (pinButton.textContent.trim() === "Pin to Cockpit") {
+          addResult("pass", "renderSelectableDetail shows Pin to Cockpit action");
+        } else {
+          addResult("fail", "renderSelectableDetail pin button has unexpected label", pinButton.textContent.trim());
+        }
+
+        pinButton?.click();
+        if (toggled) {
+          addResult("pass", "renderSelectableDetail pin button calls onTogglePin");
+        } else {
+          addResult("fail", "renderSelectableDetail pin button did not call onTogglePin");
+        }
+      } finally {
+        testWrap.remove();
+        detailWrap.remove();
+        railWrap.remove();
+      }
+    }
+
+
+    // ============================================================
+    // Dashboard shell checks
+    // - Confirms index.html contains the UI mounts app.js expects
+    // ============================================================
+
+    async function checkDashboardShell() {
+      const { response, path } = await fetchFirst(importBases.map((base) => `${base}/index.html`));
+      if (!response) {
+        addResult("warn", "Could not fetch index.html to check dashboard shell");
+        return;
+      }
+
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      const requiredIds = [
+        "campaign-title",
+        "campaign-subtitle",
+        "search-input",
+        "view-filter",
+        "reset-filters",
+        "active-actors",
+        "active-locations",
+        "center-detail-panel",
+        "card-grid",
+        "pinned-items",
+        "fireables-panel",
+        "pressure-panel"
+      ];
+
+      for (const id of requiredIds) {
+        if (doc.querySelector(`#${id}`)) {
+          addResult("pass", `index.html contains #${id}`);
+        } else {
+          addResult("fail", `index.html missing #${id}`);
+        }
+      }
+
+      if (doc.querySelector("[data-tab='references']")) {
+        addResult("pass", "index.html includes Lore / Rules references tab");
+      } else {
+        addResult("fail", "index.html missing references tab");
+      }
+
+      addResult("pass", "index.html shell checked", path);
+    }
+
+
+    // ============================================================
+    // Runtime-only source scan
+    // - Looks for obvious persistence or loadout mutation patterns
+    // - Strip comments first so safety comments do not create warnings
+    // ============================================================
+
+
+    function stripJavaScriptComments(source = "") {
+      return String(source)
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/(^|[^:])\/\/.*$/gm, "$1");
+    }
+
+    async function checkSourceForRuntimeOnlyPins() {
+      const stateSource = await fetchFirst(importBases.map((base) => `${base}/js/core/state.js`));
+      const appSource = await fetchFirst(importBases.map((base) => `${base}/js/app.js`));
+
+      const sources = [];
+      if (stateSource.response) sources.push(["state.js", await stateSource.response.text()]);
+      if (appSource.response) sources.push(["app.js", await appSource.response.text()]);
+
+      if (!sources.length) {
+        addResult("warn", "Could not fetch source files for runtime-only pin scan");
+        return;
+      }
+
+      for (const [name, source] of sources) {
+        const executableSource = stripJavaScriptComments(source);
+
+        if (/localStorage|sessionStorage|indexedDB|fetch\s*\([^)]*current_loadout|currentLoadout\s*\./.test(executableSource)) {
+          addResult("warn", `${name} may contain persistence or currentLoadout mutation`, "Review manually to confirm runtime-only scope.");
+        } else {
+          addResult("pass", `${name} has no obvious persistence/currentLoadout mutation`);
+        }
+      }
+    }
+
+
+    // ============================================================
+    // Result rendering
+    // ============================================================
+
+    function renderResults() {
+      const grouped = {
+        fail: results.filter((r) => r.level === "fail"),
+        warn: results.filter((r) => r.level === "warn"),
+        pass: results.filter((r) => r.level === "pass")
+      };
+
+      const summary = `
 FAIL: ${grouped.fail.length}
 WARN: ${grouped.warn.length}
 PASS: ${grouped.pass.length}
       `.trim();
 
-            output.innerHTML = `
+      output.innerHTML = `
         <h2>Summary</h2>
-        <pre>${summary}</pre>
+        <pre>${escapeHtml(summary)}</pre>
 
         <h2 class="fail">Failures</h2>
-        <pre>${grouped.fail.map(formatResult).join("\n") || "None"}</pre>
+        <pre>${escapeHtml(grouped.fail.map(formatResult).join("\n") || "None")}</pre>
 
         <h2 class="warn">Warnings</h2>
-        <pre>${grouped.warn.map(formatResult).join("\n") || "None"}</pre>
+        <pre>${escapeHtml(grouped.warn.map(formatResult).join("\n") || "None")}</pre>
 
         <h2 class="pass">Passes</h2>
-        <pre>${grouped.pass.map(formatResult).join("\n") || "None"}</pre>
+        <pre>${escapeHtml(grouped.pass.map(formatResult).join("\n") || "None")}</pre>
       `;
 
-            console.log("Questforge smoke test results:", results);
-            console.log("Loaded campaignData:", campaignData);
-        }
+      console.log("Questforge smoke test results:", results);
+      console.log("Loaded campaignData:", campaignData);
+    }
 
-        function formatResult(result) {
-            return `${result.label}${result.detail ? "\n  " + result.detail : ""}`;
-        }
+    function formatResult(result) {
+      return `${result.label}${result.detail ? "\n  " + result.detail : ""}`;
+    }
 
-        checkCampaignShape();
-        checkDuplicateIds();
-        checkRequiredFields();
-        checkLoadoutIds();
-        checkTagFormat();
-        checkPhase4Relationships();
-        await checkMarkdownReferences();
-        renderResults();
-    </script>
+    function escapeHtml(value = "") {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+
+    // ============================================================
+    // Test runner
+    // ============================================================
+
+    checkCampaignShape();
+    checkDuplicateIds();
+    checkRequiredFields();
+    checkStatusValues();
+    checkLoadoutIds();
+    checkTagFormat();
+    checkAvailabilityGates();
+    checkPhase4Relationships();
+    await checkMarkdownReferences();
+    await checkRuntimePinSurface();
+    await checkRendererPinSurface();
+    await checkDashboardShell();
+    renderResults();
+  </script>
 </body>
 
 </html>

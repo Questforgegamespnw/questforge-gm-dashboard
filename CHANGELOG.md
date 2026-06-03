@@ -4,6 +4,137 @@ All notable project changes will be documented in this file.
 
 This project is currently in **pre-alpha**. Version numbers are provisional until the first stable table-ready release.
 
+## Current Stage Snapshot
+
+**Current stage:** Sprint 2 bridge complete / V1 stabilization candidate / content architecture cleanup complete  
+**Current working campaign:** Valhalla  
+**Current app model:** Local static GM cockpit / narration engine  
+**Persistence model:** Runtime-only UI state; no backend, no database, no browser storage, no `current_loadout.js` writes.
+
+The app now supports the Valhalla hub/intermission flow with location-aware live content, standalone fireable moments, runtime pinning, broad campaign search, tracker-gated surfacing, Ambient Cast room-life support, grouped actor files, arc-local Valhalla Intermission content, split references, and the first renderer maintainability split.
+
+---
+
+## [0.4.0-prealpha] - 2026-06-03
+
+### Stage
+
+- Marks a major **content architecture cleanup and Ambient Cast implementation pass** after Sprint 2 runtime pinning.
+- Valhalla Intermission content has been relocated out of the broad global layer and into the arc layer.
+- The global layer has been narrowed toward always-on campaign systems, rules, placeholders, trackers, and reusable references.
+- Ambient Cast is now a working generic data concept for location-linked room life.
+
+### Added
+
+- Added `ambientCast` as a generic dashboard data type.
+- Added location-based Ambient Cast files under the Valhalla Intermission arc.
+- Added initial Valhalla ambient cast groups:
+  - Mead-Hall Einherjar
+  - Golden Fields Fieldhands
+  - Forge-Lanes Smiths
+  - Threshold Waiters
+  - Quiet Rows Keepers and Absent Names
+  - Valkyrie Aerie Wings
+- Added Ambient Cast support to campaign assembly through `campaignData.ambientCast`.
+- Added Ambient Cast search/cockpit visibility.
+- Added location-aware Ambient Cast surfacing so selected locations can answer:
+  - who is nearby?
+  - what do they say?
+  - how do I make this room feel alive?
+- Added Ambient Cast detail rendering fields:
+  - names
+  - voices
+  - hook lines
+  - interaction seeds
+  - related actors
+  - related threads
+  - related locations
+- Added visually distinct Ambient Cast hook-line delivery near the top of the detail panel.
+- Added `renderSpokenLinesBlock()` in `renderers.helpers.js`.
+- Reused the spoken-line helper for actor quick lines and Ambient Cast hook lines.
+- Added grouped actor files for the Valhalla Intermission arc:
+  - `aesir.js`
+  - `einherjar.js`
+  - `stewards.js`
+  - `valkyries.js`
+- Added a reusable arc template scaffold zip under `dev/`.
+- Added an arc template structure that includes data files, actor folders, ambient cast folders, and a more complete arc-local library folder.
+- Added `reference_yggdrasilmaed_counter` as a global reference.
+- Added explicit documentation for the Yggdrasilmaed Counter as mission-use system exposure, distinct from ordinary Mead-Hall drinking.
+- Added global-vs-arc placement doctrine to project docs.
+
+### Changed
+
+- Changed Valhalla Intermission actors from a flat/global actor collection into arc-local grouped files.
+- Changed Valhalla Intermission ambient cast from global placeholders into arc-local location-based files.
+- Changed most Valhalla hub/intermission content out of `global/` and into `arcs/valhalla-intermission/`.
+- Changed `global/` expectations so empty files/folders can remain as placeholders for future truly global content.
+- Changed the campaign assembly layer to import actor and ambient cast folders through their `index.js` files.
+- Changed `data/campaigns/valhalla/index.js` to include arc fireable moments after the relocation.
+- Changed references into a split model:
+  - `global/references.js` for campaign-wide systems/rules/procedures.
+  - `arcs/valhalla-intermission/references.js` for hub/intermission references.
+- Changed global reference records so campaign-wide references no longer carry the intermission `arcId`.
+- Changed Valhalla Intermission references so hub-specific references retain `arcId: "arc_valhalla_intermission"`.
+- Changed README/project documentation to include Ambient Cast, new folder structure, global-vs-arc rules, and the `dev/` folder role.
+- Changed the smoke-test/run path documentation to reflect `tools/smoke-test_phase4.html` when using the current project layout.
+- Changed the design doctrine from only a hierarchy into a live table question set:
+  - Where are we?
+  - Who is nearby?
+  - What do they say?
+  - How do I make this room feel alive?
+
+### Fixed
+
+- Fixed broken campaign import bindings after moving actor and ambient cast files into folders.
+- Fixed missing arc fireable moments in `campaignData.fireableMoments` after the Valhalla Intermission relocation.
+- Fixed old arc actor import path:
+  - from `./arcs/valhalla-intermission/actors.js`
+  - to `./arcs/valhalla-intermission/actors/index.js`
+- Fixed old arc ambient cast import path:
+  - from `./arcs/valhalla-intermission/ambient_cast.js`
+  - to `./arcs/valhalla-intermission/ambient_cast/index.js`
+- Fixed Ambient Cast visibility so room-life data is no longer just inert campaign data.
+- Fixed detail-panel usability for Ambient Cast by moving spoken deliverables higher and rendering them like table-facing lines.
+- Fixed documentation drift around `docs/` by recognizing `dev/` as the builder-facing documentation/scaffold area.
+
+### Verified
+
+Verified during this pass:
+
+```text
+Website: opens and behaves as intended after campaign index repair.
+Actor group split: data imports restored through arc actor index.
+Ambient Cast: displays cleanly and is selectable.
+Ambient Cast detail fields: render with useful table-facing hierarchy.
+Spoken delivery helper: supports actor quick lines and ambient hook lines.
+Reference split: global and intermission reference files generated separately.
+```
+
+Syntax checks were run during generated patch creation for touched JavaScript files where applicable.
+
+### Known Gaps
+
+- Smoke test should be updated or re-run after the latest `ambientCast` wiring and folder relocation if not already done locally.
+- `ambientCast` should be added to smoke-test content type coverage if the working smoke test still only validates the older canonical list.
+- Actor-linked `answerMoments` remain planned but not yet fully wired into actor data and UI.
+- Ambient Cast is currently location-linked only; richer randomization or generated name-picking is deferred.
+- Runtime pins are still intentionally not persistent.
+- Persistent session state, exported sessions, and browser/app storage remain deferred to the standalone app/session-state epic.
+- Dynamic arc/session switching is not implemented.
+- No backend, database, login, or cloud sync.
+- No live markdown parser in the dashboard UI.
+- No Foundry/VTT integration.
+- No dice roller or rules automation.
+
+---
+
+# Changelog
+
+All notable project changes will be documented in this file.
+
+This project is currently in **pre-alpha**. Version numbers are provisional until the first stable table-ready release.
+
 ## [0.2.0-prealpha] - 2026-06-02
 
 ### Added

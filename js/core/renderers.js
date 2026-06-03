@@ -1,3 +1,25 @@
+import {
+  escapeHtml,
+  getMeta,
+  getTitle,
+  renderDetailField,
+  renderEscalation,
+  renderListField,
+  renderSpokenLinesBlock,
+  renderTableEntries,
+  renderTags,
+  renderTrackerEffects
+} from "./renderers.helpers.js";
+
+export {
+  renderCards,
+  renderRailList
+} from "./renderers.cards.js";
+
+// -----------------------------------------------------------------------------
+// Table-facing delivery block helpers
+// -----------------------------------------------------------------------------
+
 function renderEstablishingShot(establishingShot, approachBeat) {
   if (!establishingShot && !approachBeat) return "";
 
@@ -23,66 +45,9 @@ function renderSensoryBlock(values) {
   `;
 }
 
-function renderQuickLinesBlock(lines) {
-  if (!lines?.length) return "";
-
-  return `
-    <div class="detail-field actor-lines-block">
-      <strong>Quick Lines:</strong>
-      ${lines.map((line) => `
-        <p class="read-aloud-line read-aloud-speech actor-quick-line">
-          ${escapeHtml(String(line))}
-        </p>
-      `).join("")}
-    </div>
-  `;
-}
-
-export function renderCards(container, items, { mode, onSelect }) {
-  container.innerHTML = "";
-
-  if (!items?.length) {
-    container.innerHTML = `<p class="empty-state">No matching items.</p>`;
-    return;
-  }
-
-  items.forEach((item) => {
-    const card = document.createElement("article");
-    card.className = "card";
-
-    const title = getTitle(item);
-    const meta = getMeta(item);
-    const summary = getSummary(item);
-
-    card.innerHTML = `
-      <h3>${escapeHtml(title)}</h3>
-      <div class="meta">${escapeHtml(meta)}</div>
-      <p>${escapeHtml(summary)}</p>
-      ${renderTags(item.tags)}
-    `;
-
-    card.addEventListener("click", () => onSelect(item));
-    container.appendChild(card);
-  });
-}
-
-export function renderRailList(selector, items, { onSelect }) {
-  const container = document.querySelector(selector);
-  container.innerHTML = "";
-
-  if (!items?.length) {
-    container.innerHTML = `<p class="empty-state">None active.</p>`;
-    return;
-  }
-
-  items.forEach((item) => {
-    const railItem = document.createElement("div");
-    railItem.className = "rail-item";
-    railItem.textContent = getTitle(item);
-    railItem.addEventListener("click", () => onSelect(item));
-    container.appendChild(railItem);
-  });
-}
+// -----------------------------------------------------------------------------
+// Main detail panel renderer
+// -----------------------------------------------------------------------------
 
 export function renderDetail(container, item) {
   if (!item) {
@@ -95,12 +60,18 @@ export function renderDetail(container, item) {
     <div class="meta">${escapeHtml(getMeta(item))}</div>
 
     ${renderSceneRunBlock(item)}
+    ${renderSpokenLinesBlock("Hook Lines", item.hookLines, {
+      blockClass: "ambient-cast-delivery-block",
+      lineClass: "ambient-cast-hook-line"
+    })}
+    ${item.hookLines?.length ? renderListField("Voices", item.voices) : ""}
+    ${item.hookLines?.length ? renderListField("Interaction Seeds", item.interactionSeeds) : ""}
 
     ${renderDetailField("Current State", item.currentState)}
     ${renderDetailField("Vibe", item.presentation?.vibe)}
     ${renderDetailField("Physicality", item.presentation?.physicality)}
     ${renderDetailField("Voice", item.presentation?.voice)}
-    ${renderQuickLinesBlock(item.quickLines)}
+    ${renderSpokenLinesBlock("Quick Lines", item.quickLines, { lineClass: "actor-quick-line" })}
     ${renderDetailField("Scene Impact", item.presentation?.sceneImpact)}
     ${renderDetailField("Visual Anchor", item.presentation?.visualAnchor)}
     ${renderEstablishingShot(item.presentation?.establishingShot, item.presentation?.approachBeat)}
@@ -120,6 +91,10 @@ export function renderDetail(container, item) {
 
     ${renderDetailField("Trigger", item.trigger)}
     ${renderDetailField("Summary", item.summary)}
+    ${renderListField("Names", item.names)}
+    ${renderListField("Related Actors", item.relatedActors)}
+    ${renderListField("Related Threads", item.relatedThreads)}
+    ${renderListField("Related Locations", item.relatedLocations)}
     ${renderDetailField("Player Facing", item.playerFacing)}
     ${renderDetailField("GM Truth", item.gmTruth)}
     ${renderListField("Clues", item.clues)}
@@ -137,6 +112,10 @@ export function renderDetail(container, item) {
     ${renderTags(item.tags)}
   `;
 }
+
+// -----------------------------------------------------------------------------
+// Scene delivery helpers
+// -----------------------------------------------------------------------------
 
 function renderSceneRunBlock(item) {
   const scriptedMoments = item.forwardPath?.scriptedMoments ?? [];
@@ -190,10 +169,35 @@ function formatSpeakerLabel(speaker = "") {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
-export function renderSelectableDetail(container, item, { onCollapse } = {}) {
+// -----------------------------------------------------------------------------
+// Detail panel action wrapper
+// -----------------------------------------------------------------------------
+
+export function renderSelectableDetail(
+  container,
+  item,
+  { onCollapse, onTogglePin, isPinned } = {}
+) {
   renderDetail(container, item);
 
   if (!item) return;
+
+  const controlWrap = document.createElement("div");
+  controlWrap.className = "detail-action-row";
+
+  if (onTogglePin) {
+    const pinButton = document.createElement("button");
+    pinButton.className = "pin-toggle-button";
+    pinButton.type = "button";
+    pinButton.textContent = isPinned?.(item) ? "Unpin from Cockpit" : "Pin to Cockpit";
+
+    pinButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      onTogglePin(item);
+    });
+
+    controlWrap.appendChild(pinButton);
+  }
 
   const collapseButton = document.createElement("button");
   collapseButton.className = "detail-collapse-button";
@@ -205,8 +209,13 @@ export function renderSelectableDetail(container, item, { onCollapse } = {}) {
     if (onCollapse) onCollapse();
   });
 
-  container.prepend(collapseButton);
+  controlWrap.appendChild(collapseButton);
+  container.prepend(controlWrap);
 }
+
+// -----------------------------------------------------------------------------
+// Right-rail panel renderers
+// -----------------------------------------------------------------------------
 
 export function renderPressurePanel(container, threads = [], trackers = []) {
   const threadHtml = threads.map((thread) => `
@@ -315,6 +324,10 @@ export function renderFireablesPanel(
   });
 }
 
+// -----------------------------------------------------------------------------
+// Moment spotlight renderer
+// -----------------------------------------------------------------------------
+
 export function renderMomentSpotlight(container, moment, { onCollapse } = {}) {
   if (!container || !moment) return;
 
@@ -346,6 +359,10 @@ export function renderMomentSpotlight(container, moment, { onCollapse } = {}) {
 }
 
 
+// -----------------------------------------------------------------------------
+// Read-aloud helpers
+// -----------------------------------------------------------------------------
+
 function renderReadAloud(readAloud = []) {
   if (!readAloud.length) return "";
 
@@ -369,118 +386,4 @@ function renderReadAloud(readAloud = []) {
       }).join("")}
     </div>
   `;
-}
-
-function getTitle(item) {
-  return item.name || item.title || item.label || item.id || "Untitled";
-}
-
-function getMeta(item) {
-  return [
-    item.role,
-    item.type,
-    item.category,
-    item.status,
-    item.priority
-  ].filter(Boolean).join(" / ");
-}
-
-function getSummary(item) {
-  return item.presentation?.vibe
-    || item.summary
-    || item.currentState
-    || item.pressure
-    || item.label
-    || item.gmNotes
-    || "";
-}
-
-function renderDetailField(label, value) {
-  if (!value) return "";
-  return `<div class="detail-field"><strong>${escapeHtml(label)}:</strong><br>${escapeHtml(value)}</div>`;
-}
-
-function renderListField(label, values) {
-  if (!values?.length) return "";
-  return `
-    <div class="detail-field">
-      <strong>${escapeHtml(label)}:</strong>
-      <ul>
-        ${values.map((value) => `<li>${escapeHtml(String(value))}</li>`).join("")}
-      </ul>
-    </div>
-  `;
-}
-
-function renderScriptedMoments(moments) {
-  if (!moments?.length) return "";
-  return `
-    <div class="detail-field">
-      <strong>Scripted Moments:</strong>
-      <ul>
-        ${moments.map((moment) => `
-          <li>
-            ${escapeHtml(moment.timing || "When appropriate")} —
-            ${escapeHtml(moment.speaker || "Unknown")}: 
-            ${escapeHtml(moment.line || "")}
-            ${moment.purpose ? `<br><em>${escapeHtml(moment.purpose)}</em>` : ""}
-          </li>
-        `).join("")}
-      </ul>
-    </div>
-  `;
-}
-
-function renderTrackerEffects(effects) {
-  if (!effects?.length) return "";
-  return `
-    <div class="detail-field">
-      <strong>Effects:</strong>
-      <ul>
-        ${effects.map((effect) => `<li>${escapeHtml(effect.range)} — ${escapeHtml(effect.label)}: ${escapeHtml(effect.note)}</li>`).join("")}
-      </ul>
-    </div>
-  `;
-}
-
-function renderTableEntries(entries) {
-  if (!entries?.length) return "";
-  return `
-    <div class="detail-field">
-      <strong>Entries:</strong>
-      <ol>
-        ${entries.map((entry) => `<li>${escapeHtml(entry)}</li>`).join("")}
-      </ol>
-    </div>
-  `;
-}
-
-function renderEscalation(escalation) {
-  if (!escalation) return "";
-  return `
-    <div class="detail-field">
-      <strong>Escalation:</strong>
-      <ul>
-        ${Object.entries(escalation).map(([key, value]) => `<li>${escapeHtml(key)}: ${escapeHtml(value)}</li>`).join("")}
-      </ul>
-    </div>
-  `;
-}
-
-function renderTags(tags = []) {
-  if (!tags?.length) return "";
-  return `
-    <div class="tag-row">
-      ${tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}
-    </div>
-  `;
-}
-
-function escapeHtml(value = "") {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
 }

@@ -1,3 +1,16 @@
+## Core Doctrine
+
+People first. Places second. Arc pressure third. Mechanics in reference.
+
+The cockpit should help the GM answer four live room questions quickly:
+
+- Where are we?
+- Who is nearby?
+- What do they say?
+- How do I make this room feel alive?
+
+---
+
 # Questforge GM Dashboard — Coding Guardrails
 
 ## Purpose
@@ -10,7 +23,7 @@ The dashboard is a **GM cockpit / narration engine**, not a VTT or rules automat
 
 Core doctrine:
 
-> People first. Place second. Arc third. Mechanics in reference.
+> People first. Place second. Arc pressure third. Mechanics in reference.
 
 ---
 
@@ -31,6 +44,7 @@ factions
 threads
 trackers
 scenes
+fireableMoments
 tables
 references
 assets
@@ -55,11 +69,11 @@ certainty
 
 Those terms are allowed only in:
 
-- Mode labels
-- Campaign data
-- Tags
-- Markdown lore
-- Display text
+- mode labels
+- campaign data
+- tags
+- markdown lore
+- display text
 
 Example:
 
@@ -68,7 +82,7 @@ Example:
 actors
 
 // Good Valhalla UI label
-"Npcs / Legends"
+"NPCs / Legends"
 
 // Avoid as app-wide internal key
 npcs
@@ -86,8 +100,9 @@ App Core
     → Campaign Data
       → Global Campaign Layer
         → Arc Layer
-          → Session Layer
+          → Optional Session Layer
             → Current Loadout
+            → Runtime Pins / UI State
 ```
 
 Plain-language version:
@@ -98,8 +113,9 @@ The mode changes the words.
 The campaign holds the world.
 The global layer holds reusable campaign material.
 The arc layer holds the current adventure package.
-The session layer holds tonight.
-The current loadout says what is live.
+The session layer can hold one-off prep.
+The current loadout says what starts live.
+Runtime pins temporarily promote found content during play.
 ```
 
 ## Layer Responsibilities
@@ -111,7 +127,7 @@ The current loadout says what is live.
 | `data/shared/` | Shared templates, schemas, tags, reference categories |
 | `data/campaigns/<campaign>/global/` | Recurring campaign-wide dashboard data |
 | `data/campaigns/<campaign>/arcs/<arc>/` | Arc-specific dashboard data |
-| `data/campaigns/<campaign>/sessions/<session>/` | Tonight-specific prep |
+| `data/campaigns/<campaign>/sessions/<session>/` | One-off session prep when useful |
 | `data/campaigns/<campaign>/library/` | Longform markdown lore and reference |
 | `data/campaigns/<campaign>/assets/` | Campaign-specific images/icons/maps/mood assets |
 
@@ -147,7 +163,7 @@ Good:
 
 ```js
 // js/core/renderers.js
-export function renderActors(actors) {
+export function renderCards(items) {
   // generic rendering logic
 }
 ```
@@ -187,8 +203,6 @@ export const valhallaMode = {
 ---
 
 # 4. File Placement Rules
-
-Use these placement rules when adding content.
 
 ## Campaign-Wide Recurring Material
 
@@ -246,6 +260,8 @@ Tonight’s likely NPCs
 One-off notes
 ```
 
+The session layer is optional. Do not force content into session files if current loadout plus location-linked content already handles the live flow.
+
 ## Longform Lore
 
 Put in:
@@ -262,6 +278,7 @@ NPC backstory
 Worldbuilding notes
 Full rule explanations
 Full event table writeup
+Deep answer banks
 ```
 
 ## Short Dashboard Data
@@ -279,9 +296,11 @@ Examples:
 ```text
 actors.js
 locations.js
-scenes.js
+factions.js
 threads.js
 trackers.js
+scenes.js
+fireable_moments.js
 tables.js
 references.js
 ```
@@ -298,7 +317,7 @@ Use:
 data/campaigns/<campaign>/current_loadout.js
 ```
 
-The current loadout controls what the dashboard spotlights as live.
+The current loadout controls what the dashboard spotlights as live when the page opens.
 
 Example:
 
@@ -307,7 +326,6 @@ export const currentLoadout = {
   modeId: "valhalla",
   campaignId: "valhalla",
   arcId: "valhalla-intermission",
-  sessionId: "next-session",
 
   activeActors: [
     "actor_heimdall",
@@ -335,12 +353,38 @@ export const currentLoadout = {
 
 ## Current Loadout Principle
 
-Inactive content can remain in the campaign files.  
-The dashboard should use `current_loadout.js` to decide what is active tonight.
+Inactive content can remain in the campaign files. The dashboard should use `current_loadout.js` to decide what starts live.
 
 ---
 
-# 6. Required Base Fields
+# 6. Runtime Pin Rule
+
+Runtime pins temporarily promote content during play.
+
+They are for cases where the GM finds something through search and wants to keep it in reach without editing campaign files.
+
+Rules:
+
+- Runtime only.
+- No persistence in the current bridge implementation.
+- No `current_loadout.js` writes.
+- No browser storage.
+- Pins supplement current loadout and location-aware filtering.
+- Pins should remain generic and work across content types.
+
+Current state shape:
+
+```js
+state.sessionPins = {
+  pinnedItemIds: []
+};
+```
+
+Possible future persisted shape belongs to the standalone app/session-state epic, not the static bridge.
+
+---
+
+# 7. Required Base Fields
 
 Every dashboard item should have stable identity fields.
 
@@ -369,7 +413,10 @@ presentation
 motivation
 knowledge
 quickLines
+answerMoments
 relationships
+relatedThreads
+reference
 gmNotes
 ```
 
@@ -392,6 +439,8 @@ Recommended:
 ```js
 arcId
 region
+locationRole
+parentLocation
 currentState
 presentation
 function
@@ -399,25 +448,27 @@ pressure
 opportunities
 dangers
 connectedLocations
-actorsPresent
+relatedThreads
 factionsPresent
+actorsPresent
+keyActors
+availableScenes
 eventTable
 reference
 gmNotes
 ```
 
-## Scenes
+## Factions
 
 Required:
 
 ```js
 id
-title
+name
 type
 modeId
 campaignId
 status
-priority
 tags
 ```
 
@@ -425,19 +476,17 @@ Recommended:
 
 ```js
 arcId
-session
-trigger
 summary
-playerFacing
-gmTruth
-involvedActors
-involvedLocations
-involvedFactions
-clues
-outcomes
-forwardPath
+currentState
 pressure
-runNote
+publicFace
+privateTruth
+goals
+resources
+tensions
+relatedActors
+relatedLocations
+relatedThreads
 gmNotes
 ```
 
@@ -461,11 +510,14 @@ Recommended:
 arcId
 summary
 currentState
-nextPressure
+pressure
 relatedActors
 relatedLocations
 relatedFactions
 relatedScenes
+signals
+consequences
+availability
 gmNotes
 ```
 
@@ -493,21 +545,144 @@ arcId
 label
 summary
 effects
+tiers
+gmNotes
+```
+
+## Scenes
+
+Required:
+
+```js
+id
+title
+type
+modeId
+campaignId
+status
+priority
+tags
+```
+
+Recommended:
+
+```js
+arcId
+session
+availability
+trigger
+summary
+playerFacing
+gmTruth
+involvedActors
+involvedLocations
+involvedFactions
+clues
+outcomes
+forwardPath
+pressure
+runNote
+gmNotes
+```
+
+## Fireable Moments
+
+Required:
+
+```js
+id
+title
+type
+modeId
+campaignId
+status
+locationIds
+trigger
+compact
+spotlight
+tags
+```
+
+Recommended:
+
+```js
+arcId
+availability
+relatedActors
+relatedThreads
+reference
+gmNotes
+```
+
+## Tables
+
+Required:
+
+```js
+id
+name
+die
+category
+modeId
+campaignId
+status
+entries
+tags
+```
+
+Recommended:
+
+```js
+arcId
+summary
+relatedLocation
+relatedLocations
+availability
+reference
+gmNotes
+```
+
+## References
+
+Required:
+
+```js
+id
+label
+modeId
+campaignId
+status
+category
+summary
+tags
+```
+
+Recommended:
+
+```js
+arcId
+details
+reference
+relatedActors
+relatedLocations
+relatedThreads
 gmNotes
 ```
 
 ---
 
-# 7. Optional Field Rule
+# 8. Optional Field Rule
 
 Renderers must tolerate missing optional fields.
 
 Optional fields include:
 
 ```text
+availability
 escalation
 eventTable
 quickLines
+answerMoments
 scriptedMoments
 forwardPath
 notice
@@ -537,31 +712,33 @@ const sensory = location.presentation.sensory.map(...);
 
 ---
 
-# 8. Lore vs Dashboard Rule
+# 9. Lore vs Dashboard Rule
 
-Markdown is for depth.  
-JS arrays are for speed.
+Markdown is for depth. JavaScript arrays are for speed.
 
 ## Markdown Library Can Be Long
 
 Use markdown for:
 
-- Full lore
-- Full NPC backstory
-- Full location dossier
-- Full event tables
-- Worldbuilding notes
-- Design notes
-- Rules explanations
+- full lore
+- full NPC backstory
+- full location dossier
+- full event tables
+- worldbuilding notes
+- design notes
+- rules explanations
+- dialogue banks
 
 ## Dashboard Arrays Must Stay Short
 
 Use arrays for:
 
-- Fast cards
-- Search/filter
-- Active session display
-- At-table delivery cues
+- fast cards
+- search/filter
+- active session display
+- at-table delivery cues
+- short prompts
+- compact pressure summaries
 
 ## Field Length Rule
 
@@ -575,7 +752,7 @@ reference: "library/hub/03_mead_hall.md"
 
 ---
 
-# 9. Mode Boundary Rule
+# 10. Mode Boundary Rule
 
 Mode-specific language belongs in mode files or campaign data, not app core.
 
@@ -598,20 +775,20 @@ Core renderers, filters, and state files should not contain hardcoded Valhalla t
 Good:
 
 ```js
-renderTrackers(trackers, mode.navLabels.trackers)
+renderTrackers(trackers, mode.navLabels.trackers);
 ```
 
 Bad:
 
 ```js
-renderRagnarokMeter(ragnarokMeter)
+renderRagnarokMeter(ragnarokMeter);
 ```
 
-Unless `renderRagnarokMeter` lives in a Valhalla-only mode extension, which is not needed for Sprint 1.
+Unless a renderer is explicitly a Valhalla-only mode extension, which is not part of the current core app.
 
 ---
 
-# 10. ID Rules
+# 11. ID Rules
 
 Use stable lowercase snake-case IDs with type prefixes.
 
@@ -624,6 +801,7 @@ faction_
 thread_
 tracker_
 scene_
+moment_
 table_
 reference_
 arc_
@@ -638,6 +816,7 @@ actor_heimdall
 location_valhalla_mead_hall
 location_valhalla_bifrost_platform
 scene_valhalla_bifrost_return
+moment_sven_sit_drink
 thread_returned_incomplete
 tracker_ragnarok_meter
 table_mead_hall_events
@@ -650,11 +829,11 @@ session_next
 
 Do not rename IDs casually once they are referenced.
 
-If display names change, update `name`, not `id`.
+If display names change, update `name`, `title`, or `label`, not `id`.
 
 ---
 
-# 11. Tag Rules
+# 12. Tag Rules
 
 Use lowercase kebab-case tags.
 
@@ -684,68 +863,114 @@ Tags should be useful for filtering, not prose.
 
 ---
 
-# 12. Renderer Rules
+# 13. Renderer Rules
 
 Renderers should:
 
-- Accept generic arrays.
-- Use mode labels where appropriate.
-- Check optional fields safely.
-- Avoid Valhalla-specific assumptions.
-- Display short fields first.
-- Put deeper/larger fields lower in the card.
-- Never require every campaign to use every field.
+- accept generic arrays
+- use mode labels where appropriate
+- check optional fields safely
+- avoid Valhalla-specific assumptions
+- display table-facing fields first
+- put deeper/larger fields lower in the detail stack
+- never require every campaign to use every optional field
+
+## Public Renderer Surface
+
+`app.js` should import from:
+
+```js
+./core/renderers.js
+```
+
+Even if renderer internals are split, keep `renderers.js` as the public export surface.
+
+Current renderer split:
+
+```text
+renderers.js              // public exports and remaining detail/panel renderers
+renderers.helpers.js      // shared renderer helpers
+renderers.cards.js        // cards and rail lists
+```
+
+Future splits may include:
+
+```text
+renderers.detail.js
+renderers.delivery.js
+renderers.panels.js
+```
+
+Do not split further unless a real maintainability need appears.
 
 ## Display Priority
 
-### Actor Cards
+### Actor Cards / Detail
 
 1. Name
 2. Role / group
-3. Vibe
-4. Current state
-5. Want
-6. Quick lines
-7. Knows / secrets
-8. GM notes
+3. Current state
+4. Vibe
+5. Physicality
+6. Voice
+7. Quick lines
+8. Wants / fears
+9. Knows / secrets
+10. GM notes
 
-### Location Cards
+### Location Cards / Detail
 
 1. Name
 2. Type / region
-3. Establishing shot
+3. Current state
 4. Vibe
-5. Sensory details
-6. Pressure
-7. Opportunities
-8. Dangers
-9. Actors/factions present
-10. Escalation, if present
-11. GM notes
+5. Establishing shot
+6. Approach beat
+7. Sensory details
+8. Function
+9. Pressure
+10. Opportunities
+11. Dangers
+12. Actors/factions present
+13. Escalation, if present
+14. GM notes
 
-### Scene Cards
+### Scene Cards / Detail
 
 1. Title
 2. Type / priority
-3. Trigger
-4. Summary
-5. Player-facing
-6. GM truth
-7. Forward path
-8. Scripted moments
-9. Outcomes
-10. Run note
+3. At Table block
+4. Trigger
+5. Summary
+6. Player-facing text
+7. GM truth
+8. Forward path
+9. Scripted moments
+10. Outcomes
+11. Run note
+
+### Fireable Moments
+
+1. Title
+2. Type
+3. Read aloud text
+4. Compact reminder
+5. Trigger
+6. GM purpose
+7. Follow-up
+8. Tags
 
 ---
 
-# 13. Search Rules
+# 14. Search Rules
 
-Search should eventually include:
+Search should include:
 
 ```text
 id
-name/title
-role/type
+name/title/label
+role/type/category
+status
 tags
 vibe
 summary
@@ -755,37 +980,36 @@ gmNotes
 quickLines
 clues
 outcomes
+reference
 ```
 
 Search should not care whether the active mode calls actors “NPCs,” “Contacts,” or “Survivors.”
 
 ---
 
-# 14. Sprint 1 Restrictions
+# 15. Current Restrictions
 
-Do not add these during Sprint 1:
+Do not add these without an explicit scoped ticket:
 
-- Database
-- Backend
-- Login
-- Cloud sync
+- database
+- backend
+- login
+- cloud sync
 - Foundry integration
-- Dice roller
-- Rules automation
-- Drag-and-drop editor
-- Full markdown parser
-- Dynamic campaign switching
-- Dynamic arc switching
-- Complex state management framework
-- Character sheet system
+- dice roller
+- rules automation
+- drag-and-drop editor
+- full markdown parser
+- dynamic campaign switching
+- dynamic arc switching
+- complex state management framework
+- character sheet system
 
-Sprint 1 goal:
-
-> Load Valhalla data, show active actors/locations/scenes/threads/trackers, and run a hub session faster than OneNote.
+The current bridge is static and local-first.
 
 ---
 
-# 15. Valhalla Integration Rules
+# 16. Valhalla Integration Rules
 
 Valhalla is the first campaign, but the app should not become Valhalla-only.
 
@@ -814,6 +1038,7 @@ factions.js
 threads.js
 trackers.js
 scenes.js
+fireable_moments.js
 tables.js
 references.js
 ```
@@ -836,7 +1061,7 @@ js/modes/valhalla.mode.js
 
 ---
 
-# 16. Content Placement Examples
+# 17. Content Placement Examples
 
 ## Example 1: Mead-Hall
 
@@ -864,6 +1089,12 @@ Active tonight:
 data/campaigns/valhalla/current_loadout.js
 ```
 
+Temporary during play:
+
+```text
+runtime Pin to Cockpit
+```
+
 ## Example 2: Ashen Root Villager
 
 If only used in Ashen Root:
@@ -878,27 +1109,29 @@ If becoming recurring campaign NPC:
 data/campaigns/valhalla/global/actors.js
 ```
 
-## Example 3: Tonight’s Opening Scene
+## Example 3: Location Moment
+
+Use:
 
 ```text
-data/campaigns/valhalla/sessions/next-session/scenes.js
-```
-
-If it becomes reusable later, promote it to:
-
-```text
-data/campaigns/valhalla/arcs/<arc-name>/scenes.js
+data/campaigns/valhalla/global/fireable_moments.js
 ```
 
 or:
 
 ```text
-data/campaigns/valhalla/global/scenes.js
+data/campaigns/valhalla/arcs/<arc-name>/fireable_moments.js
+```
+
+Link to locations with:
+
+```js
+locationIds: ["location_valhalla_mead_hall"]
 ```
 
 ---
 
-# 17. Refactor Rule
+# 18. Refactor Rule
 
 Prefer small, controlled refactors.
 
@@ -906,9 +1139,29 @@ Do not rename architecture during feature work unless explicitly planned.
 
 If a file or data type feels wrong, update this guardrail file or the MASTER Roadmap first, then refactor.
 
+Good refactor pattern:
+
+```text
+one responsibility
+one small module split
+same public import surface
+syntax check
+smoke test
+```
+
+Bad refactor pattern:
+
+```text
+rename many concepts
+change data shapes
+change app imports
+add new behavior
+skip smoke test
+```
+
 ---
 
-# 18. Coding Support Checklist
+# 19. Coding Support Checklist
 
 Before adding or editing code, check:
 
@@ -918,14 +1171,17 @@ Before adding or editing code, check:
 - [ ] Is this arc-specific data? Put it in `arcs/<arc>/`.
 - [ ] Is this tonight-only prep? Put it in `sessions/<session>/`.
 - [ ] Is this long lore? Put it in `library/`.
-- [ ] Is this active tonight? Add the ID to `current_loadout.js`.
+- [ ] Is this active tonight at start? Add the ID to `current_loadout.js`.
+- [ ] Is this temporarily useful during play? Use runtime pinning.
 - [ ] Does this use generic internal names?
 - [ ] Does this renderer tolerate missing optional fields?
 - [ ] Did we avoid hardcoding Valhalla into core app logic?
+- [ ] Did we avoid persistence unless explicitly scoped?
+- [ ] Did we run syntax checks and smoke test when needed?
 
 ---
 
-# 19. Final Rule
+# 20. Final Rule
 
 When in doubt, preserve this separation:
 
@@ -935,5 +1191,7 @@ Mode files change labels.
 Campaign files hold content.
 Markdown holds lore.
 Arrays hold at-table data.
-Current loadout controls what is live.
+Current loadout controls what starts live.
+Runtime pins temporarily promote found content during play.
+Persistence waits for the standalone app/session-state epic.
 ```

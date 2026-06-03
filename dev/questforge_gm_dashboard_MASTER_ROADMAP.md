@@ -2,23 +2,26 @@
 
 ## Current Status
 
-**Status:** V1 feature-complete candidate  
-**Current focus:** Stabilization, documentation, and small usability features.
+**Status:** V1 stabilization candidate / Sprint 2 bridge complete  
+**Current focus:** table-drill validation, documentation alignment, and selective maintainability cleanup.
 
-The dashboard now successfully functions as a local, static **GM cockpit / narration engine** for running the Valhalla hub/intermission loop. The original Sprint 1 MVP is effectively complete and has moved into polish/stabilization.
+The dashboard now functions as a local, static **GM cockpit / narration engine** for running the Valhalla hub/intermission loop. Sprint 1 and Sprint 1.5 are effectively complete. The first Sprint 2 bridge feature, runtime pinning, is implemented and green in local testing.
 
 Core completed capabilities:
 
 - Loads Valhalla campaign data through `data/campaigns/valhalla/index.js`.
-- Uses generic internal data types: `actors`, `locations`, `factions`, `threads`, `trackers`, `scenes`, `tables`, `references`, and `assets`.
+- Uses generic internal data types: `actors`, `locations`, `factions`, `threads`, `trackers`, `scenes`, `fireableMoments`, `tables`, `references`, and `assets`.
 - Uses mode labels to keep the app generic while Valhalla uses setting-specific display language.
 - Uses `current_loadout.js` to control live cockpit material.
 - Supports parent/child location navigation.
-- Uses the selected location to surface active actors, threads, scenes, fireable moments, and linked tables.
+- Uses the selected location to surface actors, threads, scenes, fireable moments, and linked tables.
 - Supports campaign-wide search across loaded content.
 - Uses tracker-based availability gates for scenes, threads, moments, and tables where applicable.
 - Keeps table-facing delivery text visually prioritized in detail panels.
-- Smoke test currently reports green.
+- Supports runtime-only **Pin to Cockpit** / **Unpin from Cockpit**.
+- Shows pinned content in a dedicated right-rail panel and supplements cockpit/location-aware context with pins.
+- Includes expanded smoke test coverage for data integrity, runtime pin surface, renderer pin support, and dashboard shell IDs.
+- Completed renderer maintainability pass 1 by splitting shared renderer helpers and card/rail rendering while preserving the public renderer import surface.
 
 ---
 
@@ -28,39 +31,76 @@ The dashboard should help run RP-heavy tabletop sessions by surfacing the most u
 
 It is not:
 
-- A VTT
-- A dice roller
-- A rules resolver
-- A character sheet replacement
-- A database-first campaign manager
-- A full lore archive
+- a VTT
+- a dice roller
+- a rules resolver
+- a character sheet replacement
+- a database-first campaign manager
+- a full lore archive
 
 It is:
 
-- A local-first GM cockpit
-- A narration engine
-- A campaign data viewer
-- A session-running support tool
-- A fast reference surface for people, places, pressure, and table-facing beats
+- a local-first GM cockpit
+- a narration engine
+- a campaign data viewer
+- a session-running support tool
+- a fast reference surface for people, places, pressure, and table-facing beats
 
 ## Core Doctrine
 
-> People first. Place second. Arc / story pressure third. Mechanics in reference.
+> People first. Places second. Arc pressure third. Mechanics in reference.
+
+
+## Live Room Questions
+
+At the table, the cockpit should help the GM answer four room-running questions quickly:
+
+- Where are we?
+- Who is nearby?
+- What do they say?
+- How do I make this room feel alive?
+
+This is a core design promise, not a cosmetic layer. The dashboard is not primarily a lore archive; it is a live GM cockpit for making people, places, and pressure immediately usable at the table.
+
+Design mapping:
+
+```text
+People first
+  → actors
+  → ambientCast
+  → actor-linked answerMoments
+
+Places second
+  → locations
+  → location vibes
+  → location-linked tables
+  → fireableMoments
+
+Arc pressure third
+  → threads
+  → trackers
+  → scenes
+  → escalation cues
+```
 
 This must remain true across:
 
 - Valhalla
 - Mothership
 - Erasure Protocol
-- Corporate horror
-- Ship ops
-- Fantasy crawl
-- Other Questforge campaign modes
+- corporate horror
+- ship ops
+- fantasy crawl
+- other Questforge campaign modes
 
 ## Practical Table Test
 
 The dashboard succeeds if the GM can answer these in under 5 seconds:
 
+- Where are we?
+- Who is nearby?
+- What do they say?
+- How do I make this room feel alive?
 - Who is this NPC?
 - What is their vibe?
 - What do they sound like?
@@ -72,6 +112,7 @@ The dashboard succeeds if the GM can answer these in under 5 seconds:
 - What pressure or thread is active?
 - What tracker changed?
 - Where is the deeper markdown if needed?
+- What did I just search up that I need to keep in reach?
 
 ---
 
@@ -113,11 +154,11 @@ certainty
 
 Those terms are allowed in:
 
-- Mode labels
-- Campaign data
-- Tags
-- Markdown lore
-- Display text
+- mode labels
+- campaign data
+- tags
+- markdown lore
+- display text
 
 They should not become app-wide core names.
 
@@ -148,12 +189,12 @@ The global layer holds reusable campaign material.
 The arc layer holds the current adventure package.
 The session layer is optional prep for a specific night.
 The current loadout says what starts live.
-Runtime pins can temporarily promote found content during play.
+Runtime pins temporarily promote found content during play.
 ```
 
 ## Important Update: Session Layer Is Optional
 
-Earlier roadmap drafts treated `sessions/next-session/` as a major live layer. In practice, the active table flow is better handled by:
+Earlier drafts treated `sessions/next-session/` as a major live layer. In practice, the active table flow is better handled by:
 
 - `current_loadout.js`
 - selected location context
@@ -161,7 +202,7 @@ Earlier roadmap drafts treated `sessions/next-session/` as a major live layer. I
 - location-linked fireable moments
 - location-linked tables
 - tracker availability gates
-- future runtime pins
+- runtime pins
 
 The session layer may still be useful for one-off prep, but it is no longer required for the primary live flow.
 
@@ -175,12 +216,17 @@ questforge-gm-dashboard/
 ├── README.md
 ├── CHANGELOG.md
 │
+├── css/
+│   └── styles.css
+│
 ├── js/
 │   ├── app.js
 │   ├── core/
 │   │   ├── data-loader.js
 │   │   ├── filters.js
 │   │   ├── renderers.js
+│   │   ├── renderers.helpers.js
+│   │   ├── renderers.cards.js
 │   │   ├── state.js
 │   │   └── utils.js
 │   └── modes/
@@ -214,12 +260,12 @@ questforge-gm-dashboard/
 │           ├── arcs/
 │           │   └── valhalla-intermission/
 │           ├── sessions/
-│           │   └── archive/
 │           ├── library/
 │           └── assets/
 │
-├── smoke-test.html
-└── docs/
+├── docs/
+├── smoke-test_phase4.html
+└── archive/
 ```
 
 The exact folders may evolve, but this separation should remain stable.
@@ -243,6 +289,7 @@ Center Panel:
   Selected detail panel
 
 Right Rail:
+  Pinned to Cockpit
   Can Fire Here
     - Scenes
     - Moments
@@ -258,11 +305,11 @@ Right Rail:
 Cockpit | Actors | Locations | Threads | Lore / Rules
 ```
 
-The top tabs act more like a campaign bookbag/library. The right rail handles the immediate live table context.
+The top tabs act more like a campaign bookbag/library. The right rail handles immediate live table context.
 
 ### Cockpit
 
-Primary live-running view. Shows active loadout material and supports selected-location context.
+Primary live-running view. Shows active loadout material and runtime-pinned material.
 
 ### Actors
 
@@ -361,21 +408,7 @@ Display priority:
 7. Follow-up
 8. Tags
 
-`spotlight.readAloud` supports both legacy strings and structured line objects:
-
-```js
-readAloud: [
-  {
-    type: "narration",
-    text: "Sven clears space before you reach the table."
-  },
-  {
-    type: "speech",
-    speaker: "Sven",
-    text: "Sit. Drink. You’re still here—that matters."
-  }
-]
-```
+`spotlight.readAloud` supports both legacy strings and structured line objects.
 
 ---
 
@@ -383,7 +416,7 @@ readAloud: [
 
 ## Location Presentation
 
-Locations may now include an `approachBeat` in addition to the establishing shot:
+Locations may include an `approachBeat` in addition to the establishing shot:
 
 ```js
 presentation: {
@@ -482,42 +515,36 @@ export const currentLoadout = {
 
 Do not move files around to mark them active. Use the current loadout.
 
-## Planned Runtime Pinning Feature
+## Runtime Pinning — Implemented Bridge Feature
 
-### Feature: Promote Search Result to Active Loadout
+Runtime pinning allows the GM to find any item through campaign-wide search and promote it into the active table-running context.
 
-**Goal:** Allow the GM to find any item through campaign-wide search and promote it into the active table-running context.
+Implemented behavior:
 
-**Problem:** Search can now find broad campaign material, including items outside the current loadout or gated context. However, there is no UI action to mark a found item as active for the current session.
+- Selected items can be pinned or unpinned from the detail panel.
+- Pinned cards receive visual pin treatment.
+- Pinned rail items receive visual pin treatment.
+- Pinned items appear in the right rail under **Pinned to Cockpit**.
+- Pinned items supplement the Cockpit tab.
+- Pinned actors, locations, scenes, moments, tables, threads, and trackers supplement relevant context surfaces.
 
-**Desired behavior:** When a GM selects an item from search results, provide an action such as:
+Runtime-only rules:
 
-- Add to Active
-- Pin to Cockpit
-- Add to Current Loadout
+- No database.
+- No file-writing persistence.
+- No editing `current_loadout.js` from the browser.
+- No localStorage/sessionStorage bridge behavior.
+- No drag-and-drop loadout editor.
 
-The selected item should then appear in the active cockpit context without requiring manual edits to `current_loadout.js`.
-
-**Likely promotable targets:**
-
-- actors
-- locations
-- scenes
-- fireable moments
-- threads
-- references
-- tables
-
-**Runtime-only first pass:**
+Current shape:
 
 ```js
-state.pinnedItemIds = [
-  "scene_valhalla_briefing_ember_root",
-  "reference_yggdrasilmaed_system"
-];
+state.sessionPins = {
+  pinnedItemIds: []
+};
 ```
 
-**Possible persisted shape later:**
+Possible persisted shape later:
 
 ```js
 currentLoadout.pinned = [
@@ -526,14 +553,16 @@ currentLoadout.pinned = [
 ];
 ```
 
-**Important rule:** This should not replace location-aware filtering. It should supplement it.
+That persisted shape belongs to the future standalone app/session-state epic.
+
+Important rule: runtime pins supplement location-aware filtering. They do not replace it.
 
 The cockpit should still prioritize:
 
-1. Current location
-2. Availability gates
-3. Active tracker state
-4. Explicit pinned items
+1. current location
+2. availability gates
+3. active tracker state
+4. explicit pinned items
 
 ---
 
@@ -557,7 +586,7 @@ Completed:
 
 ## Sprint 1.5 — Table-Use Polish
 
-**Status:** Mostly complete.
+**Status:** Complete / stabilization candidate.
 
 Completed:
 
@@ -569,63 +598,107 @@ Completed:
 - Scene At Table block appears near the top.
 - Actor quick lines appear near the top.
 - Location establishing shot / approach beat / sensory presentation is visually emphasized.
+- Shared templates and docs are being aligned to working shapes.
+- Smoke test coverage expanded.
 
-Remaining cleanup:
+Remaining best validation:
 
-- Update shared templates to match the current working data shapes.
-- Update smoke test for `fireableMoments`, structured `readAloud`, `approachBeat`, and table links if not already covered.
-- Update README and CHANGELOG.
-- Consider splitting `renderers.js` after V1 stabilizes.
+- Run one full fake table drill.
+- Capture real friction before inventing more cleanup.
 
 ## Sprint 2 — Runtime Pinning / Promote Search Result
 
-**Status:** Planned next feature.
+**Status:** Bridge implementation complete / green.
 
-Goal:
+Completed:
 
-- Add a runtime-only way to pin selected search results into the live cockpit context.
+- Runtime `sessionPins.pinnedItemIds` added to state.
+- Detail-panel button added: **Pin to Cockpit** / **Unpin from Cockpit**.
+- Pinned items merge into Cockpit results.
+- Pinned items appear in a right-rail pinned panel.
+- Pinned locations/actors/scenes/moments/tables/threads/trackers supplement relevant UI surfaces.
+- Persistence remains out of scope.
 
-Non-goals for first pass:
+Next Sprint 2 candidates:
 
-- No database.
-- No file-writing persistence.
-- No editing `current_loadout.js` from the browser.
-- No drag-and-drop loadout editor.
+- table-drill-based UX refinements
+- actor answer moment surfacing
+- optional renderer split pass 2 if behavior demands it
 
 ---
 
 # 10. Renderer Maintainability Watch
 
-`js/core/renderers.js` is now the main complexity hotspot.
+`js/core/renderers.js` was the main complexity hotspot.
 
-Current responsibilities include:
+## Completed Pass 1
 
-- Card rendering
-- Rail lists
-- Detail panel rendering
-- Actor delivery blocks
-- Location delivery blocks
-- Scene At Table blocks
-- Fireables panel
-- Moment spotlight panel
-- Table entry rendering
-- Tracker effect rendering
-
-This is acceptable for V1 if stable, but future cleanup could split it into:
+Renderer maintainability pass 1 is complete:
 
 ```text
-renderers.js              // public exports / orchestration
+renderers.js              // public exports and remaining detail/panel renderers
+renderers.helpers.js      // shared renderer helpers
 renderers.cards.js        // cards and rail lists
-renderers.detail.js       // generic detail fields
-renderers.delivery.js     // read-aloud, scene run block, quick lines, location description
-renderers.panels.js       // pressure panel, fireables panel
 ```
 
-Do not split until the current UX stabilizes and the smoke test remains green.
+`app.js` still imports from:
+
+```js
+./core/renderers.js
+```
+
+This preserved compatibility while reducing file size and improving readability.
+
+## Future Possible Splits
+
+Only split further if real maintenance friction appears.
+
+Possible future modules:
+
+```text
+renderers.detail.js       // generic detail fields and selected detail
+renderers.delivery.js     // read-aloud, scene run block, quick lines, location description
+renderers.panels.js       // pressure panel, fireables panel, moment spotlight
+```
+
+Do not split for aesthetics alone. Split when a ticket needs a cleaner seam.
 
 ---
 
-# 11. V1 Definition of Done
+# 11. Smoke Testing
+
+Current smoke test coverage includes:
+
+- campaign data shape
+- required fields
+- duplicate IDs
+- current loadout references
+- status values
+- tag format
+- parent/child location relationships
+- actor/location/thread/scene references
+- standalone `fireableMoments`
+- structured `spotlight.readAloud`
+- location presentation shape
+- location-linked tables
+- availability gates
+- markdown reference availability
+- runtime pin state exports
+- runtime pin state behavior
+- renderer support for pinned cards and rails
+- detail-panel pin action
+- dashboard shell IDs including `#pinned-items`
+- runtime-only source scan for obvious persistence/currentLoadout mutation
+
+Run the smoke test through a local server:
+
+```text
+http://localhost:8000/smoke-test_phase4.html
+```
+
+---
+
+# 12. V1 Definition of Done
 
 V1 can be considered done when:
 
@@ -636,37 +709,87 @@ V1 can be considered done when:
 - Current loadout controls starting cockpit material.
 - Selected location drives active actors, scenes, moments, tables, and pressure.
 - Search finds broad campaign material.
+- Runtime pins can temporarily promote found material during play.
 - Table-facing delivery text is prioritized in detail panels.
 - References and tables are available but not dominant.
 - The Valhalla hub/intermission loop can be run without OneNote.
-- README and CHANGELOG describe the current architecture accurately.
+- README, CHANGELOG, roadmap, guardrails, and support docs describe the current architecture accurately.
 - The architecture still obviously supports Mothership and Erasure Protocol later.
 
 ---
 
-# 12. Near-Term Checklist
+# 13. Near-Term Checklist
 
 ## Stabilization
 
-- [ ] Update MASTER Roadmap to current architecture.
-- [ ] Update README.
-- [ ] Update CHANGELOG.
-- [ ] Update shared templates.
-- [ ] Update smoke test coverage if needed.
+- [x] Update MASTER Roadmap to current architecture.
+- [x] Update README.
+- [x] Update CHANGELOG.
+- [x] Update smoke test coverage.
+- [x] Implement runtime pin bridge.
+- [x] Complete renderer maintainability pass 1.
+- [ ] Update shared templates if any drift remains.
 - [ ] Run one full fake table drill.
+- [ ] Capture table-drill friction as tickets.
 
-## Next Feature
+## Likely Next Feature Candidates
 
-- [ ] Add runtime `pinnedItemIds` to state.
-- [ ] Add a detail-panel button for search-selected items: **Pin to Cockpit**.
-- [ ] Merge pinned items into Cockpit tab results.
-- [ ] Surface pinned locations/actors/scenes/tables/references without breaking location-aware filtering.
-- [ ] Add an unpin action.
-- [ ] Keep persistence out of scope for first pass.
+- [ ] Actor-linked answer moments.
+- [ ] Improved reference/markdown access if table drill shows need.
+- [ ] Renderer maintainability pass 2 only if necessary.
+- [ ] Arc switching design ticket, not implementation, if Ashen Root transition pressure increases.
 
 ---
 
-# 13. Final Architectural Decision
+# 14. Future Product Direction
+
+The long-term product direction is a standalone app and persistent campaign builder.
+
+Potential future capabilities:
+
+- persistent campaign content
+- persistent GM session state
+- persistent loadout
+- persistent pins
+- arc switching
+- campaign switching
+- tracker value editing
+- custom user story data
+- export/import campaign packs
+
+Key future architecture distinction:
+
+```text
+Campaign content ≠ Session state
+```
+
+Campaign content:
+
+- actors
+- locations
+- factions
+- threads
+- scenes
+- tables
+- references
+- lore markdown
+
+Session state:
+
+- selected campaign
+- selected arc
+- selected session
+- current loadout
+- pinned items
+- tracker values
+- temporary notes
+- revealed/hidden state
+
+Do not backfill this into the static MVP unless explicitly scoped.
+
+---
+
+# 15. Final Architectural Decision
 
 The final architecture remains:
 
@@ -677,7 +800,8 @@ Campaign files hold content.
 Markdown holds lore.
 Arrays hold at-table data.
 Current loadout controls what starts live.
-Runtime pins can temporarily promote found content during play.
+Runtime pins temporarily promote found content during play.
+Persistence waits for the standalone app/session-state epic.
 ```
 
 That is the structure to build from.
