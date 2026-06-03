@@ -1,49 +1,69 @@
-# Session 2 Branching Investigations
+# Session 2 — Branching Investigations
+
+Generated lightweight placeholder from dashboard scene/session data.
+
+## Session 2 — The Breaking Point
+
+Transition from reaction to investigation and reveal that the problem is systemic, not external.
+
+**Trigger:** After Session 1 partial stabilization.
+
+**Run note:** Let confusion exist. Do not fully confirm the truth.
+
+### Clues
+- Systems fail independently.
+- Giants exploit rather than cause.
+- Root resonance amplifies energy.
+
+### Outcomes
+- Investigation path sets Insight and Clock effects.
+- Players are pointed toward the Core Furnace.
 
 ## Thread A — System Failure
-Systems fail independently. This points toward cascading overload, not a single corrupted thing.
+
+Shows that systems are failing independently.
+
+**Trigger:** Players investigate Midworks, constructs, runes, or forge outputs.
+
+**Run note:** Use Overload Zone or Construct Malfunction.
+
+### Clues
+- No single failure point.
+- Systems are overloaded, not corrupted.
+
+### Outcomes
+- A-only path makes players think the system is failing.
+- A+C path begins real understanding.
 
 ## Thread B — Fire Giant Interference
-Purpose: external faction pressure, optional boss encounter, temptation to solve the wrong problem.
 
-### Fire Giant Strike Force
-- Fire Giant Commander / mini-boss.
-- 2–4 giant elites.
-- Environmental hazards.
+Tempting wrong-problem path: giants are exploiting the failure, not causing it.
 
-Player trap: this feels like the main threat. Truth: they are opportunists, not the cause.
+**Trigger:** Players investigate external attacks, scouting parties, or enemy movements.
 
-### Skarth’s Champion
-Enhanced, rune-empowered, drawn to instability. If defeated, players gain intel on the Core and a tactical advantage later, but it costs +2 Clock.
+**Run note:** Do not let this become the assumed main plot.
+
+### Clues
+- Giants benefit from instability.
+- They move with intent, not chaos.
+
+### Outcomes
+- Can gain intel/tactical advantage.
+- Costs +2 Clock if pursued as fight.
 
 ## Thread C — Root Resonance
-Purpose: point players toward the actual source.
 
-### Resonance Chamber
-Environmental pulses and Insight / Arcana checks. Discovery: the Root amplifies energy; it does not corrupt. Cost: +1 Clock. If found early at Clock ≤2, gain advantage on Forge Below navigation and early Core mechanics warning.
+Points toward the actual source: the Root amplifies energy and does not corrupt.
 
-## Outcome Matrix
-| Threads Completed | Result |
-|---|---|
-| A only | Think system is failing |
-| B only | Think giants are cause |
-| C only | Think Root is cause |
-| A + B | Blame giants + system |
-| A + C | Begin understanding truth |
-| B + C | Misattribute cause |
-| A + B + C | Near full realization, but too late |
-| C + B + A | Optimal route |
+**Trigger:** Players follow heat fluctuations, resonance tunnels, or deep energy pulses.
 
-## Global Escalation
-- Clock 2: bridge collapses; minor NPC casualties.
-- Clock 4: district destroyed; Valkyries visibly strained.
-- Clock 6: Core instability spike; Council urgency immediate; skip downtime.
+**Run note:** C first is optimal, not mandatory.
 
-## Optimal Route
-C → B → A means the players understand: Root = amplifier, Giants = opportunists, System = failing under load.
+### Clues
+- Deep resonance.
+- Amplification pattern.
+- Not malicious corruption.
 
-## Informed Decision Unlock
-In Council: “You know enough to understand the consequences of each path more clearly than anyone here.” Choose one benefit: reduce Ragnarok increase by -1 once; mitigate one consequence; stabilize one secondary objective during The Unsavable.
-
-## Guardrail
-Even optimal players cannot save all civilians, preserve the full city, or prevent escalation.
+### Outcomes
+- +1 Clock.
+- If early, gives Forge Below navigation advantage and Core warning.

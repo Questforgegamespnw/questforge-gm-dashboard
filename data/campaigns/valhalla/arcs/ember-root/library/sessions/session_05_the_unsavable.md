@@ -1,55 +1,21 @@
 # Session 5 — The Unsavable
 
-> “You chose what to save. Now watch what you didn’t.”
+Generated lightweight placeholder from dashboard scene/session data.
 
-## Purpose
-Deliver immediate consequences of The Choice, force simultaneous crisis prioritization, reinforce that players cannot be everywhere, and introduce Hot Exfil as a full system.
+## Session 5 — The Unsavable
 
-## Design Truth
-Players should feel “We did everything we could.” But they are now experiencing what they chose not to save.
+Players experience what they chose not to save; simultaneous crises resolve around them.
 
-## Pre-Session Variables
-- Insight: Low no mitigation; Mid minor mitigation; High one major mitigation.
-- Core State: Unstable max chaos; Mixed unpredictable; Stabilized controlled collapse.
-- Clock: 0–2 = 3 crises; 3–4 = 4 crises; 5–6 = 5+ crises/chain events.
+**Trigger:** Immediately after The Choice.
 
-## Multi-Crisis Engine
-Present simultaneous crisis points. Players can fully resolve only one crisis, or two with High Insight bonus.
+**Run note:** Show all stakes, force commitment, then resolve ignored crises without them.
 
-## Crisis Types
-Civilian Surge, Structural Collapse, Lava Breach, Enemy Push, Core Flare, and Runaway Transformation if they joined Skarth.
+### Clues
+- Too many failures at once.
+- Core State changes crisis behavior.
+- High Insight grants mitigation, not salvation.
 
-## Phase Structure
-1. Exposure: players see all crises and stakes.
-2. Commitment: players split, choose, prioritize.
-3. Consequence Cascade: ignored crises resolve without them.
-4. Partial Success: chosen objective succeeds, others are lost.
-5. Hot Exfil: collapse becomes escape procedure.
-
-## NPC Integration
-- Thora: Stabilized controlled urgency; Mixed strained; Unstable breaking.
-- Bruni: Stabilized focused; Mixed angry; Unstable furious/blaming.
-- Kaldra: Stabilized direct; Mixed frustrated; Unstable panicked clarity.
-
-## Pressure Matrix
-| Priority | Result |
-|---|---|
-| Save people | Infrastructure lost |
-| Save system | People die |
-| Stop enemies | Everything else worsens |
-
-## High Insight Bonus
-Players may fully resolve 2 crises instead of 1, or reduce severity of one failure.
-
-## Hot Exfil
-Trigger after 1–2 crises resolve and collapse escalates. Run as skill challenge or chase system.
-
-Failure results: damage, NPC loss, separation, lost equipment.
-
-State variation: Stabilized = predictable routes/fewer hazards; Mixed = shifting terrain; Unstable = constant hazards/collapsing paths.
-
-## Final Escape
-The light takes you—not cleanly, not gently—but before the ground can take you instead.
-
-## Final Emotional Button
-A survivor looks back at the collapsing city and says quietly: “It’s still burning…”
+### Outcomes
+- One or two crises resolved.
+- Other crises cascade.
+- Hot Exfil begins.

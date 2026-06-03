@@ -5,9 +5,10 @@ export const state = {
   selectedItem: null,
   selectedLocationId: null,
   spotlightMomentId: null,
+  selectedArcId: null,
 
   // Runtime-only session overlay.
-  // This intentionally does not write to current_loadout.js or localStorage.
+  // This intentionally does not write to current_loadout.js or browser storage.
   sessionPins: {
     pinnedItemIds: []
   }
@@ -17,6 +18,7 @@ export function clearSelectedItem() {
   state.selectedItem = null;
   state.spotlightMomentId = null;
 }
+
 export function setTab(tab) {
   state.currentTab = tab;
 }
@@ -35,6 +37,10 @@ export function setSelectedLocation(locationId) {
 
 export function setSpotlightMoment(momentId) {
   state.spotlightMomentId = momentId;
+}
+
+export function setSelectedArc(arcId) {
+  state.selectedArcId = arcId;
 }
 
 export function isPinned(itemOrId) {

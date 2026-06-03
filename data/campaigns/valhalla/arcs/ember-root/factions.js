@@ -45,7 +45,9 @@ export const factions = [
       "forge-lords",
       "caste",
       "control"
-    ]
+    ],
+    "summary": "The system must endure. Believes: Stability > people; Output = survival",
+    "currentState": "Controlled / Defensive / Dismissive of panic"
   },
   {
     "id": "faction_emberroot_ironhand_guilds",
@@ -94,7 +96,9 @@ export const factions = [
       "caste",
       "engineers",
       "fix"
-    ]
+    ],
+    "summary": "We built this. We understand it. Believes: Problems are solvable; System can be corrected",
+    "currentState": "Arguing constantly / Running calculations mid-crisis / Split into factions"
   },
   {
     "id": "faction_emberroot_ashbound",
@@ -143,7 +147,9 @@ export const factions = [
       "caste",
       "workers",
       "survive"
-    ]
+    ],
+    "summary": "We kept it running. They broke it. Believes: System is killing them; Leadership failed",
+    "currentState": "Panicked or defiant / Helping each other / Resisting orders"
   },
   {
     "id": "faction_emberroot_fire_giants",
@@ -181,6 +187,7 @@ export const factions = [
       "fire-giants",
       "release",
       "become-system"
-    ]
+    ],
+    "summary": "They don’t want to destroy the system. They want to free it. Believes: Containment is weakness; Pressure is purpose"
   }
 ];

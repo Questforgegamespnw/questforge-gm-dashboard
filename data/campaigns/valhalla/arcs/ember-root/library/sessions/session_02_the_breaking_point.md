@@ -1,63 +1,69 @@
 # Session 2 — The Breaking Point
 
-> “It’s not failing… it’s being pushed.”
+Generated lightweight placeholder from dashboard scene/session data.
 
-## Purpose
-- Transition from reaction to investigation.
-- Reveal the problem is systemic, not external.
-- Introduce Root amplification behavior.
-- Introduce faction conflict.
-- Establish that this was preventable.
+## Session 2 — The Breaking Point
 
-## Design Truth
-Players should leave thinking: “Something is causing this.”
+Transition from reaction to investigation and reveal that the problem is systemic, not external.
 
-But the truth is: everything is causing this.
+**Trigger:** After Session 1 partial stabilization.
 
-## Reality Layers
+**Run note:** Let confusion exist. Do not fully confirm the truth.
 
-### Player Reality
-- “We need to find what’s causing this.”
-- “Something is wrong deeper in the city.”
-- “If we stop it, things stabilize.”
+### Clues
+- Systems fail independently.
+- Giants exploit rather than cause.
+- Root resonance amplifies energy.
 
-### Observed Weirdness
-- Systems fail in different ways.
-- No single source of corruption.
-- NPCs contradict each other.
-- Damage patterns do not match a single threat.
+### Outcomes
+- Investigation path sets Insight and Clock effects.
+- Players are pointed toward the Core Furnace.
 
-### DM Truth
-The Root amplifies heat, pressure, and instability. The system was already beyond safe limits. This is not sabotage. This is cascade failure.
+## Thread A — System Failure
 
-## Structure
+Shows that systems are failing independently.
 
-### Phase 0 — Assessment
-Let players explore, ask questions, and form theories. Do not direct them yet.
+**Trigger:** Players investigate Midworks, constructs, runes, or forge outputs.
 
-### Phase 1 — Investigation Threads
-Thread A: System Failure. Systems are failing independently.
-Thread B: External Pressure. Fire giants exploit, not cause.
-Thread C: Root Signal. Something below amplifies everything.
+**Run note:** Use Overload Zone or Construct Malfunction.
 
-### NPC Integration
-- Kaldra: “It’s not breaking. It’s being pushed past what it was built to survive.”
-- Durgrim: “The system holds. It always has.”
-- Bruni: “We told them it would break.”
-- Skarth: “This is not failure. This is potential.”
+### Clues
+- No single failure point.
+- Systems are overloaded, not corrupted.
 
-### Phase 2 — Realization Shift
-Trigger when players connect at least two threads or reach a deeper zone. They move from looking for a cause to realizing there may not be one.
+### Outcomes
+- A-only path makes players think the system is failing.
+- A+C path begins real understanding.
 
-### Phase 3 — Descent Hook
-Kaldra: “If you want answers… they’re below.”
+## Thread B — Fire Giant Interference
 
-## Pressure Matrix
-| Question | Effect |
-|---|---|
-| Do we go deeper? | Risk escalation |
-| Do we help more people? | Lose time |
-| Do we stabilize systems? | Temporary relief |
+Tempting wrong-problem path: giants are exploiting the failure, not causing it.
 
-## Final Scene
-Players stand at the entrance to the Core Furnace. The heat changes. Not stronger. Closer.
+**Trigger:** Players investigate external attacks, scouting parties, or enemy movements.
+
+**Run note:** Do not let this become the assumed main plot.
+
+### Clues
+- Giants benefit from instability.
+- They move with intent, not chaos.
+
+### Outcomes
+- Can gain intel/tactical advantage.
+- Costs +2 Clock if pursued as fight.
+
+## Thread C — Root Resonance
+
+Points toward the actual source: the Root amplifies energy and does not corrupt.
+
+**Trigger:** Players follow heat fluctuations, resonance tunnels, or deep energy pulses.
+
+**Run note:** C first is optimal, not mandatory.
+
+### Clues
+- Deep resonance.
+- Amplification pattern.
+- Not malicious corruption.
+
+### Outcomes
+- +1 Clock.
+- If early, gives Forge Below navigation advantage and Core warning.

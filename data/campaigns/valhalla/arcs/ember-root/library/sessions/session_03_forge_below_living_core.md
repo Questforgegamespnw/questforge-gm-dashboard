@@ -1,50 +1,37 @@
 # Session 3 — Forge Below / Living Core
 
-> From “Boss Fight” to “System Crisis Engine”
+Generated lightweight placeholder from dashboard scene/session data.
 
-## Core Reframe
-The Core is alive, not hostile, millennia old, and a containment sanctuary / organic-mechanical pressure vessel.
+## Session 3 — Forge Below / Living Core
 
-## Core Systems
-- Regulator Pillars: primary mechanic; repair, reinforce, study, destroy, or misread.
-- Chain Containment System: chains strain, snap, redirect force, and become targets.
-- Environmental System: heat stress, lava bursts, structural instability.
-- Core Reaction Engine: replaces boss actions.
+Reframe the Core from boss fight to living containment system under crisis.
 
-## Core Reaction Engine
-Each round choose/roll: lava vent, shockwave pulse, chain snap tension, Core flare, system holds barely, pillar resonance.
+**Trigger:** Players descend to the Core Furnace.
 
-## Player Priorities
-Players must choose among stabilization, giants, and Core interaction.
+**Run note:** Run as system crisis engine, not boss arena.
 
-## Skarth’s Strike Team — Break the Chains
-Skarth is not attacking the city. He is removing constraints from something he believes should be free.
+### Clues
+- Regulator pillars matter.
+- Chains are containment.
+- Core reactions are pressure responses.
 
-Trigger during Forge Below when players begin stabilizing or hesitate/investigate too long.
+### Outcomes
+- Core State is set for Council and Unsavable.
+- Strike Team outcome alters later severity.
 
-### Composition
-- 1 Magma Reaver.
-- 1 Cinder Channeler.
-- Optional 1–2 support giants or constructs.
+## Break the Chains
 
-### Objective
-Destroy a regulator pillar, overload a rune chain, or trigger a Core surge. They do not focus players unless interfered with.
+Skarth’s strike team tries to remove constraints from the Core.
 
-### Timer
-| Round | Event |
-|---|---|
-| 1 | Strike team arrives |
-| 2 | Pillar destabilizes |
-| 3 | Partial rupture |
-| 4 | Catastrophic break |
+**Trigger:** During Forge Below when players stabilize or hesitate.
 
-### Options
-- Stop them: prevent escalation, but Clock +1.
-- Outmaneuver them: reduce damage, partial failure still occurs.
-- Ignore them: faster progress, massive instability spike.
+**Run note:** Skarth is felt, not physically present.
 
-### Outcome
-Stopped: Core more stable and Skarth loses leverage. Partial: Core enters Mixed and hazards increase. Failure: pillar destroyed, worse Unsavable, harsher Exfil.
+### Clues
+- Giants target pillars/chains, not players.
+- Their goal is release.
 
-## Final Truth
-Skarth is not creating the disaster. He is ensuring it reaches its natural conclusion.
+### Outcomes
+- Stopped = Core more stable.
+- Partial = Mixed Core.
+- Failure = instability spike and harsher later scenes.

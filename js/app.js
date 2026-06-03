@@ -2,7 +2,11 @@
 // Imports and campaign bootstrap
 // -----------------------------------------------------------------------------
 
-import { campaignData } from "../data/campaigns/valhalla/index.js";
+import {
+  campaignData as initialCampaignData,
+  availableArcs,
+  getCampaignDataForArc
+} from "../data/campaigns/valhalla/index.js";
 import { getModeById } from "./modes/mode-registry.js";
 import { getActiveData, searchData } from "./core/data-loader.js";
 import {
@@ -20,6 +24,7 @@ import {
   setSearch,
   setSelectedItem,
   setSelectedLocation,
+  setSelectedArc,
   clearSelectedItem,
   clearSelection,
   isPinned,
@@ -27,17 +32,18 @@ import {
 } from "./core/state.js";
 
 // -----------------------------------------------------------------------------
-// Static campaign context
+// Runtime campaign context
 // -----------------------------------------------------------------------------
 
-const mode = getModeById(campaignData.config.modeId);
-const activeData = getActiveData(campaignData);
+let campaignData = initialCampaignData;
+let mode = getModeById(campaignData.config.modeId);
+let activeData = getActiveData(campaignData);
 
 // -----------------------------------------------------------------------------
 // Generic lookup helpers
 // -----------------------------------------------------------------------------
 
-function getItemById(collection, id) {
+function getItemById(collection = [], id) {
   return collection.find((item) => item.id === id) ?? null;
 }
 
@@ -52,6 +58,12 @@ function uniqueById(items = []) {
   }
 
   return output;
+}
+
+function getTabLabel(tab) {
+  if (mode.tabLabels?.[tab]) return mode.tabLabels[tab];
+  if (tab === "ambientCast") return "Ambient Cast";
+  return tab;
 }
 
 // -----------------------------------------------------------------------------
@@ -102,7 +114,7 @@ function getActorsForLocation(location) {
 function getAmbientCastForLocation(location) {
   const pinnedAmbientCast = getPinnedAmbientCast();
 
-  if (!location) return pinnedAmbientCast;
+  if (!location) return uniqueById([...(activeData.ambientCast ?? []), ...pinnedAmbientCast]);
 
   const locationAmbientCast = (campaignData.ambientCast ?? []).filter((cast) => {
     return (
@@ -120,7 +132,7 @@ function getThreadsForLocation(location) {
     return isVisibleStatus(thread) && passesAvailabilityGate(thread);
   });
 
-  if (!location) return uniqueById([...threads, ...getPinnedThreads()]);
+  if (!location) return uniqueById([...activeData.threads, ...getPinnedThreads()]);
 
   const threadIds = new Set(location.relatedThreads ?? []);
 
@@ -136,19 +148,19 @@ function getScenesForLocation(location) {
     return isVisibleStatus(scene) && passesAvailabilityGate(scene);
   });
 
-  if (!location) return uniqueById([...scenes, ...getPinnedScenes()]);
+  if (!location) return uniqueById([...activeData.scenes, ...getPinnedScenes()]);
 
   const sceneIds = new Set(location.availableScenes ?? []);
 
   const locationScenes = scenes.filter((scene) => {
-    return sceneIds.has(scene.id);
+    return sceneIds.has(scene.id) || scene.involvedLocations?.includes(location.id);
   });
 
   return uniqueById([...locationScenes, ...getPinnedScenes()]);
 }
 
 function getTablesForLocation(location) {
-  if (!location) return getPinnedTables();
+  if (!location) return uniqueById([...activeData.tables, ...getPinnedTables()]);
 
   const locationTables = campaignData.tables.filter((table) => {
     const locationMatch =
@@ -166,7 +178,7 @@ function getTablesForLocation(location) {
 }
 
 function getMomentsForLocation(location) {
-  if (!location) return getPinnedMoments();
+  if (!location) return uniqueById([...activeData.fireableMoments, ...getPinnedMoments()]);
 
   const locationMoments = (campaignData.fireableMoments ?? []).filter((moment) => {
     const locationMatch = moment.locationIds?.includes(location.id);
@@ -199,23 +211,40 @@ const elements = {
   actorsLabel: document.querySelector("#actors-label"),
   locationsLabel: document.querySelector("#locations-label"),
   pressureLabel: document.querySelector("#pressure-label"),
-  pinnedPanel: document.querySelector("#pinned-panel"),
   fireablesPanel: document.querySelector("#fireables-panel"),
   cardGrid: document.querySelector("#card-grid"),
   centerDetailPanel: document.querySelector("#center-detail-panel"),
   pressurePanel: document.querySelector("#pressure-panel"),
   searchInput: document.querySelector("#search-input"),
   viewFilter: document.querySelector("#view-filter"),
+  arcSelect: document.querySelector("#arc-select"),
   resetButton: document.querySelector("#reset-filters"),
   mainPanelTitle: document.querySelector("#main-panel-title"),
   mainPanelSubtitle: document.querySelector("#main-panel-subtitle")
 };
 
-elements.title.textContent = campaignData.config.campaignName;
-elements.subtitle.textContent = campaignData.config.subtitle;
-elements.actorsLabel.textContent = mode.navLabels.actors;
-elements.locationsLabel.textContent = mode.navLabels.locations;
-elements.pressureLabel.textContent = `${mode.navLabels.threads} / ${mode.navLabels.trackers}`;
+function applyStaticLabels() {
+  elements.title.textContent = campaignData.config.campaignName;
+
+  const arcLabel = campaignData.activeArc?.label ?? campaignData.activeArc?.name ?? "";
+  elements.subtitle.textContent = arcLabel
+    ? `${campaignData.config.subtitle} · ${arcLabel}`
+    : campaignData.config.subtitle;
+
+  elements.actorsLabel.textContent = mode.navLabels.actors;
+  elements.locationsLabel.textContent = mode.navLabels.locations;
+  elements.pressureLabel.textContent = `${mode.navLabels.threads} / ${mode.navLabels.trackers}`;
+}
+
+function populateArcSelector() {
+  if (!elements.arcSelect) return;
+
+  elements.arcSelect.innerHTML = availableArcs.map((arc) => `
+    <option value="${arc.id}">${arc.label}</option>
+  `).join("");
+
+  elements.arcSelect.value = campaignData.activeArc?.id ?? availableArcs[0]?.id ?? "";
+}
 
 // -----------------------------------------------------------------------------
 // Search and runtime pin helpers
@@ -243,10 +272,6 @@ function getPinnedItems() {
   return state.sessionPins.pinnedItemIds
     .map((id) => itemById.get(id))
     .filter(Boolean);
-}
-
-function isItemFromCollection(item, collection = []) {
-  return collection.some((candidate) => candidate.id === item?.id);
 }
 
 function getPinnedItemsFrom(collection = []) {
@@ -394,6 +419,31 @@ function handleMomentSelect(moment) {
   });
 }
 
+function refreshCampaignContext(arcId) {
+  campaignData = getCampaignDataForArc(arcId);
+  mode = getModeById(campaignData.config.modeId);
+  activeData = getActiveData(campaignData);
+  applyStaticLabels();
+}
+
+function handleArcChange(arcId) {
+  setSelectedArc(arcId);
+  setSearch("");
+  setTab("cockpit");
+  clearSelection();
+  refreshCampaignContext(arcId);
+
+  elements.searchInput.value = "";
+  elements.viewFilter.value = "cockpit";
+  if (elements.arcSelect) elements.arcSelect.value = campaignData.activeArc?.id ?? arcId;
+
+  document.querySelectorAll(".tab-button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.tab === "cockpit");
+  });
+
+  renderSelectedDetail(null);
+  render();
+}
 
 // -----------------------------------------------------------------------------
 // Main render cycle
@@ -404,8 +454,8 @@ function render() {
   const tabItems = getTabItems(tab);
   const visibleItems = searchData(tabItems, state.searchTerm);
 
-  elements.mainPanelTitle.textContent = mode.tabLabels[tab] ?? tab;
-  elements.mainPanelSubtitle.textContent = mode.tabSubtitles[tab] ?? "Active dashboard material.";
+  elements.mainPanelTitle.textContent = getTabLabel(tab);
+  elements.mainPanelSubtitle.textContent = mode.tabSubtitles?.[tab] ?? "Active dashboard material.";
 
   renderCards(elements.cardGrid, visibleItems, {
     mode,
@@ -460,12 +510,17 @@ function render() {
     locationThreads,
     uniqueById([...activeData.trackers, ...getPinnedTrackers()])
   );
-  
 }
 
 // -----------------------------------------------------------------------------
 // Event bindings
 // -----------------------------------------------------------------------------
+
+if (elements.arcSelect) {
+  elements.arcSelect.addEventListener("change", (event) => {
+    handleArcChange(event.target.value);
+  });
+}
 
 document.querySelectorAll(".tab-button").forEach((button) => {
   button.addEventListener("click", () => {
@@ -479,11 +534,7 @@ document.querySelectorAll(".tab-button").forEach((button) => {
 
 elements.viewFilter.addEventListener("change", (event) => {
   setTab(event.target.value);
-  // -----------------------------------------------------------------------------
-// Event bindings
-// -----------------------------------------------------------------------------
-
-document.querySelectorAll(".tab-button").forEach((button) => {
+  document.querySelectorAll(".tab-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.tab === event.target.value);
   });
   render();
@@ -503,11 +554,7 @@ elements.resetButton.addEventListener("click", () => {
   elements.searchInput.value = "";
   elements.viewFilter.value = "cockpit";
 
-  // -----------------------------------------------------------------------------
-// Event bindings
-// -----------------------------------------------------------------------------
-
-document.querySelectorAll(".tab-button").forEach((button) => {
+  document.querySelectorAll(".tab-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.tab === "cockpit");
   });
 
@@ -523,4 +570,7 @@ elements.centerDetailPanel.addEventListener("click", () => {
 // Initial render
 // -----------------------------------------------------------------------------
 
+setSelectedArc(campaignData.activeArc?.id ?? availableArcs[0]?.id ?? null);
+populateArcSelector();
+applyStaticLabels();
 render();

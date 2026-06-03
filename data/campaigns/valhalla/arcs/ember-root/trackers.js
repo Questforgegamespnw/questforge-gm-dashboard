@@ -41,7 +41,7 @@ export const trackers = [
       "time-pressure",
       "act-2"
     ],
-    "gmNotes": "Increase by 1 when a thread is explored, players debate too long, or players rest/delay."
+    "gmNotes": "Increase by 1 when a thread is explored, players debate too long, or players rest/delay. If the Root thread is investigated first, reduce Clock by 1 once."
   },
   {
     "id": "tracker_emberroot_insight",
@@ -119,7 +119,7 @@ export const trackers = [
       "stability",
       "act-2"
     ],
-    "gmNotes": "Stabilize improves. Giant success or ignored system worsens."
+    "gmNotes": "Stabilize improves. Giant success or ignored system worsens. This is the bridge between Forge Below and consequence severity."
   },
   {
     "id": "tracker_emberroot_giant_timer",
@@ -158,7 +158,7 @@ export const trackers = [
       "forge-below",
       "timer"
     ],
-    "gmNotes": "If players hesitate, advance this timer."
+    "gmNotes": "If players hesitate, advance this timer. Giants ignore players unless stopped."
   },
   {
     "id": "tracker_emberroot_unsavable_crises",

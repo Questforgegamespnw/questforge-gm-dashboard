@@ -9,6 +9,7 @@ export function getActiveData(campaignData) {
     ambientCast: filterByIds(campaignData.ambientCast ?? [], loadout.activeAmbientCast ?? []),
     factions: filterByIds(campaignData.factions, loadout.activeFactions),
     scenes: filterByIds(campaignData.scenes, loadout.activeScenes),
+    fireableMoments: filterByIds(campaignData.fireableMoments ?? [], loadout.activeFireableMoments ?? loadout.activeMoments ?? []),
     threads: filterByIds(campaignData.threads, loadout.activeThreads),
     trackers: filterByIds(campaignData.trackers, loadout.activeTrackers),
     tables: filterByIds(campaignData.tables, loadout.activeTables),
