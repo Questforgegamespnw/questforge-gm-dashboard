@@ -54,6 +54,8 @@ export function renderDetail(container, item) {
     <h3>${escapeHtml(getTitle(item))}</h3>
     <div class="meta">${escapeHtml(getMeta(item))}</div>
 
+    ${renderSceneRunBlock(item)}
+
     ${renderDetailField("Current State", item.currentState)}
     ${renderDetailField("Vibe", item.presentation?.vibe)}
     ${renderDetailField("Physicality", item.presentation?.physicality)}
@@ -82,10 +84,10 @@ export function renderDetail(container, item) {
     ${renderListField("Clues", item.clues)}
     ${renderListField("Outcomes", item.outcomes)}
     ${renderListField("Up Next", item.forwardPath?.upNext)}
-    ${renderScriptedMoments(item.forwardPath?.scriptedMoments)}
     ${renderDetailField("Run Note", item.runNote)}
 
     ${renderTrackerEffects(item.effects)}
+    ${renderDetailField("Die", item.die)}
     ${renderTableEntries(item.entries)}
     ${renderEscalation(item.escalation)}
 
@@ -93,6 +95,58 @@ export function renderDetail(container, item) {
     ${renderDetailField("GM Notes", item.gmNotes)}
     ${renderTags(item.tags)}
   `;
+}
+
+function renderSceneRunBlock(item) {
+  const scriptedMoments = item.forwardPath?.scriptedMoments ?? [];
+
+  if (!item.playerFacing && !scriptedMoments.length) return "";
+
+  return `
+    <div class="detail-field read-aloud-block scene-run-block">
+      <strong>At Table:</strong>
+
+      ${item.playerFacing ? `
+        <p class="read-aloud-line read-aloud-narration">
+          ${escapeHtml(item.playerFacing)}
+        </p>
+      ` : ""}
+
+      ${scriptedMoments.map((moment) => {
+    const speaker = formatSpeakerLabel(moment.speaker);
+
+    return `
+          <div class="scripted-moment-card">
+            <p class="read-aloud-line read-aloud-speech">
+              ${speaker ? `<span class="read-aloud-speaker">${escapeHtml(speaker)}:</span>` : ""}
+              ${escapeHtml(moment.line ?? "")}
+            </p>
+
+            ${moment.timing ? `
+              <div class="scripted-moment-cue">
+                <strong>Cue:</strong> ${escapeHtml(moment.timing)}
+              </div>
+            ` : ""}
+
+            ${moment.purpose ? `
+              <div class="scripted-moment-purpose">
+                <strong>Purpose:</strong> ${escapeHtml(moment.purpose)}
+              </div>
+            ` : ""}
+          </div>
+        `;
+  }).join("")}
+    </div>
+  `;
+}
+
+function formatSpeakerLabel(speaker = "") {
+  if (!speaker) return "";
+
+  return String(speaker)
+    .replace(/^actor_/, "")
+    .replaceAll("_", " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 export function renderSelectableDetail(container, item, { onCollapse } = {}) {
@@ -132,11 +186,17 @@ export function renderPressurePanel(container, threads = [], trackers = []) {
   container.innerHTML = threadHtml + trackerHtml || `<p>No active pressure loaded.</p>`;
 }
 
-export function renderFireablesPanel(container, scenes = [], moments = [], { onSceneSelect, onMomentSelect } = {}) {
+export function renderFireablesPanel(
+  container,
+  scenes = [],
+  moments = [],
+  tables = [],
+  { onSceneSelect, onMomentSelect, onTableSelect } = {}
+) {
   if (!container) return;
 
-  if (!scenes.length && !moments.length) {
-    container.innerHTML = `<p class="empty-state">No location-specific scenes or moments loaded.</p>`;
+  if (!scenes.length && !moments.length && !tables.length) {
+    container.innerHTML = `<p class="empty-state">No location-specific scenes, moments, or tables loaded.</p>`;
     return;
   }
 
@@ -162,7 +222,7 @@ export function renderFireablesPanel(container, scenes = [], moments = [], { onS
         <div class="rail-list">
           ${moments.map((moment) => `
             <button class="rail-item fireable-moment" type="button" data-id="${escapeHtml(moment.id)}">
-              ${escapeHtml(moment.title)}
+              ${escapeHtml(getTitle(moment))}
               ${moment.compact ? `<br><small>${escapeHtml(moment.compact)}</small>` : ""}
             </button>
           `).join("")}
@@ -171,7 +231,23 @@ export function renderFireablesPanel(container, scenes = [], moments = [], { onS
     `
     : "";
 
-  container.innerHTML = sceneHtml + momentHtml;
+  const tableHtml = tables.length
+    ? `
+      <div class="detail-field">
+        <strong>Tables</strong>
+        <div class="rail-list">
+          ${tables.map((table) => `
+            <button class="rail-item fireable-table" type="button" data-id="${escapeHtml(table.id)}">
+              ${escapeHtml(getTitle(table))}
+              ${table.die ? `<br><small>${escapeHtml(table.die)}</small>` : ""}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+    `
+    : "";
+
+  container.innerHTML = sceneHtml + momentHtml + tableHtml;
 
   container.querySelectorAll(".fireable-scene").forEach((button) => {
     button.addEventListener("click", (event) => {
@@ -188,6 +264,14 @@ export function renderFireablesPanel(container, scenes = [], moments = [], { onS
       if (moment && onMomentSelect) onMomentSelect(moment);
     });
   });
+
+  container.querySelectorAll(".fireable-table").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const table = tables.find((item) => item.id === button.dataset.id);
+      if (table && onTableSelect) onTableSelect(table);
+    });
+  });
 }
 
 export function renderMomentSpotlight(container, moment, { onCollapse } = {}) {
@@ -201,16 +285,10 @@ export function renderMomentSpotlight(container, moment, { onCollapse } = {}) {
     <h3>${escapeHtml(moment.spotlight?.title ?? moment.title)}</h3>
     <div class="meta">${escapeHtml(moment.type ?? "moment")}</div>
 
-    ${renderDetailField("Trigger", moment.trigger)}
+    ${renderReadAloud(readAloud)}
+
     ${renderDetailField("Compact", moment.compact)}
-
-    ${readAloud.length ? `
-      <div class="detail-field">
-        <strong>Read Aloud:</strong>
-        ${readAloud.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}
-      </div>
-    ` : ""}
-
+    ${renderDetailField("Trigger", moment.trigger)}
     ${renderDetailField("GM Purpose", moment.spotlight?.gmPurpose)}
     ${renderDetailField("Follow-Up", moment.spotlight?.followUp)}
     ${renderTags(moment.tags)}
@@ -224,6 +302,32 @@ export function renderMomentSpotlight(container, moment, { onCollapse } = {}) {
       onCollapse();
     });
   }
+}
+
+
+function renderReadAloud(readAloud = []) {
+  if (!readAloud.length) return "";
+
+  return `
+    <div class="detail-field read-aloud-block">
+      <strong>Read Aloud:</strong>
+      ${readAloud.map((line) => {
+        if (typeof line === "string") {
+          return `<p class="read-aloud-line read-aloud-narration">${escapeHtml(line)}</p>`;
+        }
+
+        const type = line.type ?? "narration";
+        const speaker = line.speaker ? `${escapeHtml(line.speaker)}: ` : "";
+
+        return `
+          <p class="read-aloud-line read-aloud-${escapeHtml(type)}">
+            ${speaker ? `<span class="read-aloud-speaker">${speaker}</span>` : ""}
+            ${escapeHtml(line.text ?? "")}
+          </p>
+        `;
+      }).join("")}
+    </div>
+  `;
 }
 
 function getTitle(item) {

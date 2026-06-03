@@ -7,6 +7,10 @@ export const threads = [
     arcId: "arc_valhalla_intermission",
     status: "active",
     type: "mystery",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
     summary: "Root corruption destabilizes souls, overworks Valkyries, causes retrieval failures, degrades the Quiet Rows, and destabilizes Valhalla.",
     currentState: "The symptoms are visible, but the full chain should not be explained too early.",
     nextPressure: "Show one link in the chain at a time through the hub zone players visit.",
@@ -34,6 +38,10 @@ export const threads = [
     arcId: "arc_valhalla_intermission",
     status: "active",
     type: "omen",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
     summary: "Some souls may not be returning cleanly from death or mission fallout.",
     currentState: "The party has not yet seen the full failure, only strange return signs.",
     nextPressure: "Let Bifrost or Quiet Rows reveal a small inconsistency.",
@@ -56,6 +64,10 @@ export const threads = [
     arcId: "arc_valhalla_intermission",
     status: "active",
     type: "mystery",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
     summary: "Root corruption may be destabilizing Valhalla’s systems.",
     currentState: "The symptoms are visible before the cause is understood.",
     nextPressure: "Fields, Forge-Lanes, and Valkyrie retrievals can each reveal a different symptom.",
@@ -82,6 +94,10 @@ export const threads = [
     arcId: "arc_valhalla_intermission",
     status: "active",
     type: "relationship",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
     summary: "The Valkyries are beginning to disagree about retrieval, worthiness, and impossible choices.",
     currentState: "For now the fracture is mostly hidden behind discipline.",
     nextPressure: "A short argument, refusal, or clipped briefing can reveal strain.",
@@ -101,6 +117,10 @@ export const threads = [
     arcId: "arc_valhalla_intermission",
     status: "active",
     type: "promise",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
     summary: "Heimdall’s changed speech is a system signal.",
     currentState: "He is still speaking, but less than expected.",
     nextPressure: "If escalation rises, let silence replace explanation.",
@@ -120,6 +140,10 @@ export const threads = [
     arcId: "arc_valhalla_intermission",
     status: "active",
     type: "omen",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
     summary: "Names in the Quiet Rows may flicker, change, or disappear as soul anchors weaken.",
     currentState: "The threat is subtle and should be used sparingly.",
     nextPressure: "A name looks familiar, appears unfinished, or disappears while observed.",
@@ -139,6 +163,10 @@ export const threads = [
     arcId: "arc_valhalla_intermission",
     status: "active",
     type: "threat",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 7
+    },
     summary: "A Valkyrie who has seen too many failed returns may begin deciding who is worth saving.",
     currentState: "This is only foreshadow for now.",
     nextPressure: "A Valkyrie lingers, watches the party, or asks whether death hurt longer than it should have.",
@@ -192,6 +220,10 @@ export const threads = [
     "arcId": "arc_valhalla_intermission",
     "status": "active",
     "type": "threat / consequence",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 7
+    },
     "summary": "Deployment and extraction are degrading as the resurrection/return cycle destabilizes.",
     "currentState": "Extraction still works, but signs of delay, strain, and wrong return are accumulating.",
     "nextPressure": "Trigger a delayed return, Valkyrie strain, Heimdall anomaly line, or First Return Failure Event.",

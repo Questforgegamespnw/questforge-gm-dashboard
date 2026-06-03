@@ -1,0 +1,23 @@
+export const valhallaTags = [
+    "valhalla",
+    "ragnarok-meter",
+    "yggdrasil",
+    "yggdrasilmaed",
+    "bifrost",
+    "heimdall",
+    "valkyrie",
+    "aerie",
+    "mead-hall",
+    "quiet-rows",
+    "golden-fields",
+    "forge-lanes",
+    "ember-root",
+    "frost-root",
+    "ash-root",
+    "dwarf-folk",
+    "forge-lords",
+    "ironhand-guilds",
+    "ashbound",
+    "return-cycle",
+    "mortality-drift"
+];

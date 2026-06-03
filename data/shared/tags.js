@@ -1,6 +1,9 @@
 export const commonTags = [
   "active",
+  "available",
+  "hidden",
   "session-current",
+
   "social",
   "danger",
   "mystery",
@@ -11,5 +14,31 @@ export const commonTags = [
   "travel",
   "combat",
   "downtime",
-  "consequence"
+  "consequence",
+
+  "briefing",
+  "mission",
+  "deployment",
+  "extraction",
+  "return",
+  "omen",
+  "foreshadow",
+  "escalation",
+  "system-strain",
+  "high-escalation",
+
+  "gm-reminder",
+  "procedure",
+  "tracking",
+  "rule",
+  "lore",
+  "primer",
+
+  "relationship",
+  "pressure",
+  "choice",
+  "tradeoff",
+  "moral-pressure",
+  "resource",
+  "recovery"
 ];

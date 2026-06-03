@@ -126,6 +126,27 @@ questforge-gm-dashboard/
 ├── docs/
 └── archive/
 ```
+---
+
+## File Shape
+
+### Scenes
+
+id
+title
+session
+modeId
+campaignId
+arcId
+status
+type
+priority
+availability
+trigger
+summary
+playerFacing
+gmTruth
+
 
 ## Running Locally
 

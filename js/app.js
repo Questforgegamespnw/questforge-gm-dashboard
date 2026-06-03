@@ -20,6 +20,8 @@ import {
   clearSelection
 } from "./core/state.js";
 
+const mode = getModeById(campaignData.config.modeId);
+const activeData = getActiveData(campaignData);
 
 function getItemById(collection, id) {
   return collection.find((item) => item.id === id) ?? null;
@@ -28,6 +30,27 @@ function getItemById(collection, id) {
 function getSelectedLocation() {
   if (!state.selectedLocationId) return null;
   return getItemById(campaignData.locations, state.selectedLocationId);
+}
+
+function isVisibleStatus(item) {
+  return !item.status || item.status === "available" || item.status === "active";
+}
+
+function getTrackerValue(trackerId) {
+  const tracker = activeData.trackers.find((tracker) => tracker.id === trackerId);
+  return tracker?.value ?? 0;
+}
+
+function passesAvailabilityGate(item) {
+  const availability = item.availability;
+
+  if (!availability?.trackerId) return true;
+
+  const trackerValue = getTrackerValue(availability.trackerId);
+  const minValue = availability.minValue ?? Number.NEGATIVE_INFINITY;
+  const maxValue = availability.maxValue ?? Number.POSITIVE_INFINITY;
+
+  return trackerValue >= minValue && trackerValue <= maxValue;
 }
 
 function getActorsForLocation(location) {
@@ -41,22 +64,60 @@ function getActorsForLocation(location) {
 }
 
 function getThreadsForLocation(location) {
-  if (!location) return activeData.threads;
+  const threads = campaignData.threads.filter((thread) => {
+    return isVisibleStatus(thread) && passesAvailabilityGate(thread);
+  });
+
+  if (!location) return threads;
 
   const threadIds = new Set(location.relatedThreads ?? []);
 
-  return campaignData.threads.filter((thread) => {
+  return threads.filter((thread) => {
     return threadIds.has(thread.id) || thread.relatedLocations?.includes(location.id);
   });
 }
 
 function getScenesForLocation(location) {
-  if (!location) return activeData.scenes;
+  const scenes = campaignData.scenes.filter((scene) => {
+    return isVisibleStatus(scene) && passesAvailabilityGate(scene);
+  });
+
+  if (!location) return scenes;
 
   const sceneIds = new Set(location.availableScenes ?? []);
 
-  return campaignData.scenes.filter((scene) => {
-    return sceneIds.has(scene.id) || scene.involvedLocations?.includes(location.id);
+  return scenes.filter((scene) => {
+    return sceneIds.has(scene.id);
+  });
+}
+
+function getTablesForLocation(location) {
+  if (!location) return [];
+
+  return campaignData.tables.filter((table) => {
+    const locationMatch =
+      table.relatedLocation === location.id ||
+      table.relatedLocations?.includes(location.id);
+
+    return (
+      locationMatch &&
+      isVisibleStatus(table) &&
+      passesAvailabilityGate(table)
+    );
+  });
+}
+
+function getMomentsForLocation(location) {
+  if (!location) return [];
+
+  return (campaignData.fireableMoments ?? []).filter((moment) => {
+    const locationMatch = moment.locationIds?.includes(location.id);
+
+    return (
+      locationMatch &&
+      isVisibleStatus(moment) &&
+      passesAvailabilityGate(moment)
+    );
   });
 }
 
@@ -67,10 +128,6 @@ function getChildLocations(parentLocation) {
     return location.parentLocation === parentLocation.id;
   });
 }
-
-
-const mode = getModeById(campaignData.config.modeId);
-const activeData = getActiveData(campaignData);
 
 const elements = {
   title: document.querySelector("#campaign-title"),
@@ -95,7 +152,26 @@ elements.actorsLabel.textContent = mode.navLabels.actors;
 elements.locationsLabel.textContent = mode.navLabels.locations;
 elements.pressureLabel.textContent = `${mode.navLabels.threads} / ${mode.navLabels.trackers}`;
 
+function getSearchableCampaignItems() {
+  return [
+    ...campaignData.actors,
+    ...campaignData.locations,
+    ...campaignData.scenes,
+    ...(campaignData.fireableMoments ?? []),
+    ...campaignData.threads,
+    ...campaignData.trackers,
+    ...campaignData.tables,
+    ...campaignData.references
+  ];
+}
+
 function getTabItems(tab) {
+  const hasSearch = state.searchTerm.trim().length > 0;
+
+  if (hasSearch) {
+    return getSearchableCampaignItems();
+  }
+
   if (tab === "cockpit") {
     return [
       ...activeData.actors,
@@ -121,21 +197,14 @@ function getTabItems(tab) {
     ];
   }
 
-  if (tab === "session") {
-    return [
-      ...activeData.scenes,
-      ...activeData.tables
-    ];
-  }
-
   if (tab === "references") {
     return [
-      ...activeData.references,
-      ...activeData.tables
+      ...campaignData.references,
+      ...campaignData.tables
     ];
   }
 
-  return activeData[tab] ?? [];
+  return campaignData[tab] ?? activeData[tab] ?? [];
 }
 
 function collapseSelectedDetail() {
@@ -210,11 +279,13 @@ function render() {
 
   const locationThreads = getThreadsForLocation(selectedLocation);
   const locationScenes = getScenesForLocation(selectedLocation);
-  const locationMoments = selectedLocation?.fireableMoments ?? [];
+  const locationMoments = getMomentsForLocation(selectedLocation);
+  const locationTables = getTablesForLocation(selectedLocation);
 
-  renderFireablesPanel(elements.fireablesPanel, locationScenes, locationMoments, {
+  renderFireablesPanel(elements.fireablesPanel, locationScenes, locationMoments, locationTables, {
     onSceneSelect: handleSelect,
-    onMomentSelect: handleMomentSelect
+    onMomentSelect: handleMomentSelect,
+    onTableSelect: handleSelect
   });
 
   renderPressurePanel(elements.pressurePanel, locationThreads, activeData.trackers);

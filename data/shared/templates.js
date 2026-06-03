@@ -1,3 +1,9 @@
+export const availabilityTemplate = {
+  trackerId: "tracker_ragnarok_meter",
+  minValue: 0,
+  maxValue: 10
+};
+
 export const actorTemplate = {
   id: "actor_unique_id",
   name: "Actor Name",
@@ -10,6 +16,7 @@ export const actorTemplate = {
   currentLocation: "",
   currentState: "",
   sticky: false,
+
   presentation: {
     vibe: "",
     physicality: "",
@@ -17,17 +24,23 @@ export const actorTemplate = {
     sceneImpact: "",
     visualAnchor: ""
   },
+
   motivation: {
     wants: "",
     fears: "",
     leverage: ""
   },
+
   knowledge: {
     knows: [],
     secrets: []
   },
+
   quickLines: [],
+  answerMoments: [],
   relationships: [],
+  relatedThreads: [],
+  reference: "",
   tags: [],
   gmNotes: ""
 };
@@ -37,29 +50,40 @@ export const locationTemplate = {
   name: "Location Name",
   type: "settlement / district / room / wilderness / route / node",
   region: "",
+  locationRole: "child",
+  parentLocation: "",
   modeId: "",
   campaignId: "",
   arcId: "",
   status: "active",
   currentState: "",
+
   escalation: {
     stable: "",
     strain: "",
     fracture: "",
     break: ""
   },
+
   presentation: {
     establishingShot: "",
     vibe: "",
     sensory: []
   },
+
   function: "",
   pressure: "",
   opportunities: [],
   dangers: [],
+
   connectedLocations: [],
+  relatedThreads: [],
   factionsPresent: [],
   actorsPresent: [],
+  keyActors: [],
+
+  availableScenes: [],
+
   eventTable: "",
   reference: "",
   tags: [],
@@ -76,22 +100,214 @@ export const sceneTemplate = {
   status: "available",
   type: "",
   priority: "medium",
+
+  // Optional. Omit if always safe to show.
+  availability: {
+    trackerId: "",
+    minValue: 0,
+    maxValue: 10
+  },
+
   trigger: "",
   summary: "",
   playerFacing: "",
   gmTruth: "",
+
   involvedActors: [],
   involvedLocations: [],
   involvedFactions: [],
+
   clues: [],
   outcomes: [],
+
   forwardPath: {
     upNext: [],
     branches: [],
     scriptedMoments: []
   },
+
   pressure: "",
   runNote: "",
+  tags: [],
+  gmNotes: ""
+};
+
+export const fireableMomentTemplate = {
+  id: "moment_unique_id",
+  title: "Moment Title",
+  type: "omen / clue / warning / decompression / navigation",
+  modeId: "",
+  campaignId: "",
+  arcId: "",
+  status: "available",
+
+  locationIds: [],
+
+  // Optional. Omit if always safe to show.
+  availability: {
+    trackerId: "",
+    minValue: 0,
+    maxValue: 10
+  },
+
+  trigger: "",
+  compact: "",
+
+  spotlight: {
+    title: "",
+    readAloud: [],
+    gmPurpose: "",
+    followUp: ""
+  },
+
+  relatedActors: [],
+  relatedThreads: [],
+  reference: "",
+  tags: [],
+  gmNotes: ""
+};
+
+export const threadTemplate = {
+  id: "thread_unique_id",
+  title: "Thread / Omen / Pressure Title",
+  modeId: "",
+  campaignId: "",
+  arcId: "",
+  status: "active",
+  type: "thread",
+
+  // Optional. Omit if baseline-visible.
+  availability: {
+    trackerId: "",
+    minValue: 0,
+    maxValue: 10
+  },
+
+  summary: "",
+  currentState: "",
+  pressure: "",
+
+  relatedActors: [],
+  relatedLocations: [],
+  relatedFactions: [],
+  relatedScenes: [],
+
+  signals: [],
+  consequences: [],
+
+  tags: [],
+  gmNotes: ""
+};
+
+export const trackerTemplate = {
+  id: "tracker_unique_id",
+  title: "Tracker Name",
+  modeId: "",
+  campaignId: "",
+  arcId: "",
+  status: "active",
+  type: "meter",
+
+  value: 0,
+  min: 0,
+  max: 10,
+
+  summary: "",
+  tiers: [
+    {
+      range: "1-3",
+      label: "Subtle wrongness",
+      effect: ""
+    },
+    {
+      range: "4-6",
+      label: "Planar bleed",
+      effect: ""
+    },
+    {
+      range: "7-9",
+      label: "Reality fracture",
+      effect: ""
+    },
+    {
+      range: "10",
+      label: "Ragnarok",
+      effect: ""
+    }
+  ],
+
+  tags: [],
+  gmNotes: ""
+};
+
+export const referenceTemplate = {
+  id: "reference_unique_id",
+  label: "Reference / Lore / Rule Name",
+  modeId: "",
+  campaignId: "",
+  arcId: "",
+  status: "active",
+
+  category: "gm-reminder / rule / lore / procedure / table-note",
+  summary: "",
+  details: [],
+
+  reference: "",
+  relatedActors: [],
+  relatedLocations: [],
+  relatedThreads: [],
+
+  tags: [],
+  gmNotes: ""
+};
+
+export const factionTemplate = {
+  id: "faction_unique_id",
+  name: "Faction Name",
+  modeId: "",
+  campaignId: "",
+  arcId: "",
+  status: "active",
+
+  type: "faction / guild / house / corporation / community",
+  summary: "",
+  currentState: "",
+  pressure: "",
+
+  publicFace: "",
+  privateTruth: "",
+
+  goals: [],
+  resources: [],
+  tensions: [],
+
+  relatedActors: [],
+  relatedLocations: [],
+  relatedThreads: [],
+
+  tags: [],
+  gmNotes: ""
+};
+
+export const tableTemplate = {
+  id: "table_unique_id",
+  title: "Table Name",
+  modeId: "",
+  campaignId: "",
+  arcId: "",
+  status: "active",
+
+  category: "event / rumor / omen / complication / encounter",
+  summary: "",
+
+  entries: [
+    {
+      roll: "1",
+      result: "",
+      gmNote: ""
+    }
+  ],
+
   tags: [],
   gmNotes: ""
 };

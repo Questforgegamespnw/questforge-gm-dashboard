@@ -1,0 +1,15 @@
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Temporary generated files
+*.zip
+*.merged.js
+*.session_ready.js
+*.answer_bank.md
+*.deep_tour_answer_bank.md
+*.systems_additions.js
+
+# Logs
+*.log

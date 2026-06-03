@@ -9,7 +9,7 @@ import { trackers as globalTrackers } from "./global/trackers.js";
 import { scenes as globalScenes } from "./global/scenes.js";
 import { tables as globalTables } from "./global/tables.js";
 import { references as globalReferences } from "./global/references.js";
-
+import { fireableMoments as globalFireableMoments } from "./global/fireable_moments.js";
 import { actors as arcActors } from "./arcs/valhalla-intermission/actors.js";
 import { locations as arcLocations } from "./arcs/valhalla-intermission/locations.js";
 import { factions as arcFactions } from "./arcs/valhalla-intermission/factions.js";
@@ -19,18 +19,19 @@ import { scenes as arcScenes } from "./arcs/valhalla-intermission/scenes.js";
 import { tables as arcTables } from "./arcs/valhalla-intermission/tables.js";
 import { references as arcReferences } from "./arcs/valhalla-intermission/references.js";
 
-import { scenes as sessionScenes } from "./sessions/next-session/scenes.js";
-
 export const campaignData = {
   config: campaignConfig,
   currentLoadout,
 
   actors: [...globalActors, ...arcActors],
   locations: [...globalLocations, ...arcLocations],
+  fireableMoments: [
+    ...globalFireableMoments
+  ],
   factions: [...globalFactions, ...arcFactions],
   threads: [...globalThreads, ...arcThreads],
   trackers: [...globalTrackers, ...arcTrackers],
-  scenes: [...globalScenes, ...arcScenes, ...sessionScenes],
+  scenes: [...globalScenes, ...arcScenes],
   tables: [...globalTables, ...arcTables],
   references: [...globalReferences, ...arcReferences]
 };

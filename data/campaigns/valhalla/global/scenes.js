@@ -9,6 +9,10 @@ export const scenes = [
     status: "available",
     type: "intro",
     priority: "high",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 1,
+    },
     trigger: "Start of post-mission sequence.",
     summary: "Reset tone after mission danger and return players to Valhalla’s mythic structure.",
     playerFacing: "The party descends in streaks of burning rainbow light. Heat fades into warmth. Battle noise dissolves into distant laughter, bread, mead, and woodsmoke.",
@@ -55,6 +59,10 @@ export const scenes = [
     status: "available",
     type: "foreshadow",
     priority: "high",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 1,
+    },
     trigger: "Immediately after Bifrost return.",
     summary: "Signal system health through Heimdall’s behavior.",
     playerFacing: "Heimdall is waiting. He has already seen the party arrive before they have fully stood.",
@@ -108,6 +116,10 @@ export const scenes = [
     status: "available",
     type: "fallout",
     priority: "medium",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 1,
+    },
     trigger: "After Heimdall acknowledgment.",
     summary: "Show how the hub responds to what happened during the mission.",
     playerFacing: "NPCs react to injuries, missing details, recovered items, emotional state, or mission consequences.",
@@ -151,6 +163,10 @@ export const scenes = [
     status: "available",
     type: "choice",
     priority: "high",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 1,
+    },
     trigger: "Once players have control after return reactions.",
     summary: "Let players choose emotional pacing and which system layer they inspect.",
     playerFacing: "The hub opens to them: Mead-Hall, Forge-Lanes, Golden Fields, Valkyrie Aerie, or Quiet Rows.",
@@ -201,6 +217,10 @@ export const scenes = [
     status: "available",
     type: "social",
     priority: "medium",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 1,
+    },
     trigger: "Players go to the Mead-Hall after mission.",
     summary: "Offer warmth first, then optional tension.",
     playerFacing: "The hall is loud, warm, and alive. Einherjar boast, sing, drink, and demand the party tell the story.",
@@ -242,9 +262,13 @@ export const scenes = [
     status: "available",
     type: "clue",
     priority: "medium",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 1,
+    },
     trigger: "Players visit the Fields, or a farmer seeks them out.",
     summary: "Show world-state deterioration through grounded details.",
-    playerFacing: "The fields are golden and peaceful, but something in the crop rhythm is off.",
+    playerFacing: "The fields are golden and peaceful, but something in the crop's swaying rhythm is off.",
     gmTruth: "Yggdrasil’s influence is changing the crops.",
     involvedActors: [],
     involvedLocations: ["location_valhalla_golden_fields"],
@@ -283,6 +307,10 @@ export const scenes = [
     status: "available",
     type: "downtime",
     priority: "medium",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 1,
+    },
     trigger: "Players visit the Forge, especially with a Corewright character.",
     summary: "Tie upgrades to ancient war-tech and moral pressure.",
     playerFacing: "The Forge is alive with sparks, steel, runes, and heat. Someone recognizes the Corewright nature of the character.",
@@ -331,6 +359,10 @@ export const scenes = [
     status: "available",
     type: "foreshadow",
     priority: "medium",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4,
+    },
     trigger: "After a death, failed return, name anomaly, or emotional beat.",
     summary: "Slow everything down and show memory instability.",
     playerFacing: "The room is quiet, candlelit, and warm. Names are carved into wood. One name looks different than it should.",
@@ -373,6 +405,10 @@ export const scenes = [
     status: "available",
     type: "choice",
     priority: "high",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4,
+    },
     trigger: "Players seek next mission, need deployment, or escalation requires Valkyrie involvement.",
     summary: "Connect mission selection to retrieval strain and moral fracture.",
     playerFacing: "Valkyries stand amid open sky and wind, composed but visibly strained.",
@@ -415,6 +451,10 @@ export const scenes = [
     status: "hidden",
     type: "complication",
     priority: "high",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 7,
+    },
     trigger: "Major escalation moment involving the Valkyries or return cycle.",
     summary: "Make the retrieval system failure undeniable.",
     playerFacing: "A Valkyrie returns alone, or a returning soul slips from her grasp and vanishes before reaching Valhalla.",
@@ -493,5 +533,226 @@ export const scenes = [
     runNote: "Close the free-roam phase when player attention points outward again.",
     tags: ["active", "valhalla", "mission-selection", "choice"],
     gmNotes: ""
-  }
+  },
+
+  {
+    id: "scene_valhalla_briefing_ember_root",
+    title: "Briefing: Ember-Root",
+    session: "post-mission-loop",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+    type: "briefing",
+    priority: "high",
+    
+    trigger: "Players seek mission options from Svinhild in the Valkyrie Aerie.",
+    summary: "Svinhild briefs the party on troubling reports from dwarf-folk near the Ember-Root, where fire, containment failure, and faction pressure suggest a new Ragnarok offensive is forming.",
+    playerFacing: "Svinhild marks the Ember-Root on the campaign table. The line glows red beneath her hand, not like a beacon, but like a coal buried under ash.",
+    gmTruth: "The Ember-Root is not a simple battlefield. It is an active collapse zone where fire, failing structures, containment systems, and desperate factions will force the party into tradeoffs.",
+    involvedActors: [
+      "actor_svinhild",
+      "actor_brokk_ironvein"
+    ],
+    involvedLocations: [
+      "location_valhalla_valkyrie_aerie",
+      "location_valhalla_forge_lanes"
+    ],
+    involvedFactions: [
+      "faction_valkyries"
+    ],
+    clues: [
+      "Valkyrie scouts have received troubling news from dwarf-folk near the Ember-Root.",
+      "The fires are spreading faster than local defenses can contain.",
+      "Containment systems below the region are still functioning, but only barely.",
+      "This may be another Ragnarok offensive beginning before Valhalla is ready to answer it."
+    ],
+    outcomes: [
+      "Players accept deployment to the Ember-Root.",
+      "Players ask what the dwarf-folk are reporting.",
+      "Players ask whether this is a rescue, containment, or military response.",
+      "Players consult Brokk before departure for dwarf-folk, forge, or containment context."
+    ],
+    forwardPath: {
+      upNext: [
+        "scene_valhalla_mission_selection"
+      ],
+      branches: [
+        {
+          condition: "Players ask what the mission objective is",
+          nextScene: "scene_valhalla_mission_selection",
+          note: "Clarify that the objective is not to save everything. They must stabilize what they can, extract who they can, and identify what is driving the collapse."
+        },
+        {
+          condition: "Players ask about the dwarf-folk",
+          nextScene: "scene_valhalla_brokk_ember_root_primer",
+          note: "Brokk gives a practical caste primer and warns them that the crisis exposed old failures."
+        },
+        {
+          condition: "Players ask if this is Ragnarok",
+          nextScene: "scene_valhalla_valkyrie_aerie_briefing",
+          note: "Svinhild should not fully confirm it. She says it has the shape of an offensive."
+        }
+      ],
+      scriptedMoments: [
+        {
+          timing: "When Svinhild opens the briefing",
+          speaker: "actor_svinhild",
+          line: "Our scouts have received troubling news from the dwarf-folk residing near the Ember-Root.",
+          purpose: "Ground the mission in reports from local survivors rather than abstract prophecy."
+        },
+        {
+          timing: "When she names the threat",
+          speaker: "actor_svinhild",
+          line: "We fear another Ragnarok offensive is bubbling beneath the region.",
+          purpose: "Establish urgency without over-certainty."
+        },
+        {
+          timing: "If players ask whether they are being sent to stop the fire",
+          speaker: "actor_svinhild",
+          line: "We have no way of knowing how bad things are yet. Use your best judgement to decide what survives.",
+          purpose: "State the core Act 2 theme directly."
+        },
+        {
+          timing: "If players ask what success looks like",
+          speaker: "actor_svinhild",
+          line: "Survivors extracted. Containment assessed. The cause identified. Anything beyond that, we earn in the field.",
+          purpose: "Set expectations around partial success and tradeoffs."
+        }
+      ]
+    },
+    pressure: "The Ember-Root is already burning. The party is not arriving before the crisis; they are arriving inside it.",
+    runNote: "Do not frame this as a clean rescue or boss-hunt. Frame it as a collapsing front with too many needs and not enough time.",
+    tags: [
+      "active",
+      "valhalla",
+      "briefing",
+      "svinhild",
+      "mission",
+      "ember-root",
+      "dwarf-folk",
+      "ragnarok-offensive",
+      "containment",
+      "tradeoffs"
+    ],
+    gmNotes: ""
+  },
+
+  {
+    id: "scene_valhalla_brokk_ember_root_primer",
+    title: "Brokk: Ember-Root Primer",
+    session: "post-mission-loop",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+    type: "briefing-followup",
+    priority: "medium",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 2
+    },
+    trigger: "Players ask Brokk for more information after Svinhild briefs them on the Ember-Root.",
+    summary: "Brokk gives the party a sober primer on the dwarf-folk near the Ember-Root: their caste tensions, likely crisis behavior, and why the situation was already unstable before Ragnarok pressure arrived.",
+    playerFacing: "Brokk is waiting near the forge-mouth, arms folded, expression grim. He does not insult anyone. He does not joke. That is the first sign something is wrong.",
+    gmTruth: "Brokk has been in Valhalla a long time. His information is culturally accurate but not fully current. He understands the shape of dwarf society, but not every present fracture on the ground.",
+    involvedActors: [
+      "actor_brokk_ironvein"
+    ],
+    involvedLocations: [
+      "location_valhalla_forge_lanes",
+      "location_valhalla_valkyrie_aerie"
+    ],
+    involvedFactions: [],
+    clues: [
+      "The Ember-Root society is divided between Forge Lords, Ironhand Guilds, and Ashbound.",
+      "Forge Lords will try to preserve control and production even during collapse.",
+      "Ironhand Guilds will argue over how to stabilize the system and may provide conflicting technical advice.",
+      "Ashbound are likely to distrust authority and prioritize escape, mutual aid, and survival.",
+      "The crisis did not create these tensions. It exposed them."
+    ],
+    outcomes: [
+      "Players understand the caste structure before arrival.",
+      "Players anticipate conflicting local priorities.",
+      "Players decide which caste they are most likely to trust first.",
+      "Players realize this mission will involve social triage, not only crisis response."
+    ],
+    forwardPath: {
+      upNext: [
+        "scene_valhalla_mission_selection",
+        "scene_valhalla_briefing_ember_root"
+      ],
+      branches: [
+        {
+          condition: "Players ask who is in charge",
+          nextScene: "scene_valhalla_mission_selection",
+          note: "Brokk explains that the Forge Lords will claim command, but command and wisdom are not the same thing."
+        },
+        {
+          condition: "Players ask who can actually fix the system",
+          nextScene: "scene_valhalla_mission_selection",
+          note: "Brokk points to the Ironhand Guilds, but warns that engineers in crisis can split into rival certainties."
+        },
+        {
+          condition: "Players ask who is most at risk",
+          nextScene: "scene_valhalla_mission_selection",
+          note: "Brokk names the Ashbound without hesitation."
+        }
+      ],
+      scriptedMoments: [
+        {
+          timing: "When the party approaches Brokk after the briefing",
+          speaker: "actor_brokk_ironvein",
+          line: "I heard you are the team heading to the Ember-Root. What do you need to know?",
+          purpose: "Signal Brokk’s deep concern by removing his usual gruff mockery."
+        },
+        {
+          timing: "If players notice he is being unusually direct",
+          speaker: "actor_brokk_ironvein",
+          line: "If I am not giving you shit, use your head and notice why.",
+          purpose: "Make his seriousness explicit without losing his voice."
+        },
+        {
+          timing: "When explaining the Forge Lords",
+          speaker: "actor_brokk_ironvein",
+          line: "Forge Lords will tell you the system must endure. They may even believe it. Watch what they are willing to feed into it.",
+          purpose: "Frame the upper caste as control-first and morally compromised."
+        },
+        {
+          timing: "When explaining the Ironhand Guilds",
+          speaker: "actor_brokk_ironvein",
+          line: "The Ironhands know the machinery. That does not mean they agree on what it says.",
+          purpose: "Set up conflicting technical guidance and factional engineering arguments."
+        },
+        {
+          timing: "When explaining the Ashbound",
+          speaker: "actor_brokk_ironvein",
+          line: "The Ashbound kept the heat moving, the vents clear, the floors under everyone’s boots. If they are running, assume they have a reason.",
+          purpose: "Make the lower caste sympathetic and credible before the players meet them."
+        },
+        {
+          timing: "If players ask what has changed since Brokk knew the culture",
+          speaker: "actor_brokk_ironvein",
+          line: "I have been dead long enough for customs to grow teeth I have not seen. But caste? Pressure? Pride? Those do not change so quickly.",
+          purpose: "Clarify that Brokk is reliable on structure but not perfect on current conditions."
+        }
+      ]
+    },
+    pressure: "Brokk’s concern turns the Ember-Root from a mission briefing into a cultural and moral warning.",
+    runNote: "Play Brokk as unusually sober. He should give practical cultural intelligence, not a full encyclopedia. Keep the focus on what each caste will do under pressure.",
+    tags: [
+      "active",
+      "valhalla",
+      "briefing-followup",
+      "brokk",
+      "ember-root",
+      "dwarf-folk",
+      "caste-system",
+      "forge-lords",
+      "ironhand-guilds",
+      "ashbound"
+    ],
+    gmNotes: ""
+  },
+
 ];
