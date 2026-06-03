@@ -1,3 +1,43 @@
+function renderEstablishingShot(establishingShot, approachBeat) {
+  if (!establishingShot && !approachBeat) return "";
+
+  return `
+    <div class="detail-field location-description-block establishing-shot-block">
+      <strong>Establishing Shot:</strong>
+      ${establishingShot ? `<p>${escapeHtml(establishingShot)}</p>` : ""}
+      ${approachBeat ? `<p class="approach-beat">${escapeHtml(approachBeat)}</p>` : ""}
+    </div>
+  `;
+}
+
+function renderSensoryBlock(values) {
+  if (!values?.length) return "";
+
+  return `
+    <div class="detail-field location-description-block sensory-block">
+      <strong>Sensory:</strong>
+      <ul>
+        ${values.map((value) => `<li>${escapeHtml(String(value))}</li>`).join("")}
+      </ul>
+    </div>
+  `;
+}
+
+function renderQuickLinesBlock(lines) {
+  if (!lines?.length) return "";
+
+  return `
+    <div class="detail-field actor-lines-block">
+      <strong>Quick Lines:</strong>
+      ${lines.map((line) => `
+        <p class="read-aloud-line read-aloud-speech actor-quick-line">
+          ${escapeHtml(String(line))}
+        </p>
+      `).join("")}
+    </div>
+  `;
+}
+
 export function renderCards(container, items, { mode, onSelect }) {
   container.innerHTML = "";
 
@@ -60,10 +100,11 @@ export function renderDetail(container, item) {
     ${renderDetailField("Vibe", item.presentation?.vibe)}
     ${renderDetailField("Physicality", item.presentation?.physicality)}
     ${renderDetailField("Voice", item.presentation?.voice)}
+    ${renderQuickLinesBlock(item.quickLines)}
     ${renderDetailField("Scene Impact", item.presentation?.sceneImpact)}
     ${renderDetailField("Visual Anchor", item.presentation?.visualAnchor)}
-    ${renderDetailField("Establishing Shot", item.presentation?.establishingShot)}
-    ${renderListField("Sensory", item.presentation?.sensory)}
+    ${renderEstablishingShot(item.presentation?.establishingShot, item.presentation?.approachBeat)}
+    ${renderSensoryBlock(item.presentation?.sensory)}
 
     ${renderDetailField("Function", item.function)}
     ${renderDetailField("Pressure", item.pressure)}
@@ -75,7 +116,7 @@ export function renderDetail(container, item) {
     ${renderDetailField("Leverage", item.motivation?.leverage)}
     ${renderListField("Knows", item.knowledge?.knows)}
     ${renderListField("Secrets", item.knowledge?.secrets)}
-    ${renderListField("Quick Lines", item.quickLines)}
+    
 
     ${renderDetailField("Trigger", item.trigger)}
     ${renderDetailField("Summary", item.summary)}

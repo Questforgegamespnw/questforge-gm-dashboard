@@ -312,3 +312,41 @@ button:hover,
 .scripted-moment-purpose strong {
   color: var(--accent);
 }
+
+.location-description-block {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.establishing-shot-block p {
+  margin: 0.45rem 0 0;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.sensory-block ul {
+  margin: 0.45rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.sensory-block li {
+  margin-bottom: 0.3rem;
+  color: var(--muted);
+}
+
+.actor-lines-block {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.actor-quick-line {
+  margin-bottom: 0.45rem;
+  font-weight: 600;
+}

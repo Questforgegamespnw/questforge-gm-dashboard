@@ -12,6 +12,7 @@ export const locations = [
     currentState: "Functional, structured, beautiful, and beginning to fail under Ragnarok pressure.",
     presentation: {
       establishingShot: "Massive rune-carved timber walls, dragon-headed beams, golden sky, and battle echoes that never quite fade.",
+      approachBeat: "As you move deeper in, the beauty resolves into order: warriors drilling, messengers crossing bridges, and small rituals repeating with the certainty of a machine still insisting it works.",
       vibe: "Eternal readiness with hairline cracks beneath the glory.",
       sensory: [
         "Gold light that never fully dims.",
@@ -78,6 +79,7 @@ export const locations = [
     },
     presentation: {
       establishingShot: "The party falls in streaks of burning rainbow light, striking the platform with impossible force. Heat flashes and fades into warmth as battle noise dissolves into distant laughter, bread, mead, and woodsmoke.",
+      approachBeat: "As your vision clears, the return platform feels familiar beneath your boots, but the edges of the light take one breath longer than they should to fade.",
       vibe: "Violent arrival contained by divine order.",
       sensory: [
         "Burning rainbow light.",
@@ -146,6 +148,7 @@ export const locations = [
     },
     presentation: {
       establishingShot: "At the edge of the Bifrost platform, the return-light thins into stillness. Heimdall stands unmoving, framed by gold and impossible distance, his gaze already fixed on the party before they fully rise.",
+      approachBeat: "Crossing toward him feels less like approaching a person and more like stepping into something already observed.",
       vibe: "Still, watchful, and uncomfortably certain.",
       sensory: [
         "Strange reflected light.",
@@ -213,6 +216,7 @@ export const locations = [
     },
     presentation: {
       establishingShot: "The Mead-Hall stretches ahead in firelit immensity, its beams carved with ancient battles while Einherjar laugh, argue, sing, and slam tankards beneath a ceiling glowing like burnished gold.",
+      approachBeat: "As you enter, the noise folds around you immediately: invitations, insults, laughter, and the smell of food arriving before anyone asks whether you are hungry.",
       vibe: "Loud, warm, alive, and remembered.",
       sensory: [
         "Roasting meat and spilled mead.",
@@ -285,6 +289,7 @@ export const locations = [
     },
     presentation: {
       establishingShot: "The road opens onto wheat so golden it seems to hold its own light, moving in slow waves beneath a sky that never fully darkens while distant farmers work in steady cadence.",
+      approachBeat: "Closer in, the perfection becomes work: calloused hands, careful bundles, worried glances, and farmers noticing small changes before heroes do.",
       vibe: "Peaceful, maintained, and faintly unnatural.",
       sensory: [
         "Wheat glowing faintly gold.",
@@ -350,6 +355,7 @@ export const locations = [
     },
     presentation: {
       establishingShot: "Heat rolls through the Forge-Lanes in waves, carrying the ring of hammers, the hiss of quenching steel, and the glow of rune-fire from workshops where dragon-headed bellows breathe flame.",
+      approachBeat: "As you pass between the workshops, conversations shorten around you; smiths keep working, but more than one set of eyes checks what you carry.",
       vibe: "Productive, dangerous, and old enough to remember things it should not.",
       sensory: [
         "Constant sparks and ringing steel.",
@@ -417,6 +423,7 @@ export const locations = [
     },
     presentation: {
       establishingShot: "The noise of Valhalla falls away into a candlelit hall where names cover wooden boards in careful rows and armor rests along the walls like sleeping bodies.",
+      approachBeat: "Every step feels like it should be softer. The names do not demand attention, but your eyes keep finding them anyway.",
       vibe: "Sacred, quiet, and increasingly uncertain.",
       sensory: [
         "Candlelight that barely flickers.",
@@ -488,7 +495,8 @@ export const locations = [
       break: "Refusal, abandonment, dark energy, radiant wings flickering into shadow."
     },
     presentation: {
-      establishingShot: "High above the fortress, open-air platforms hang in the golden sky, joined by narrow bridges and spires while Valkyries stand in composed silence and winged mounts circle in slow arcs below.",
+      establishingShot: "High above the fortress, open-air platforms hang in the golden sky, joined by narrow bridges and spires while Valkyries and their winged mounts perform precise drills and impressive dives.",
+      approachBeat: "As you approach the entrance, you spot a few Valkyries you recognize among the formations; some acknowledge you, while others look too focused or too tired to break discipline.",
       vibe: "Awe-inspiring discipline under increasing strain.",
       sensory: [
         "Endless sky with drifting clouds below.",
@@ -564,6 +572,7 @@ export const locations = [
     currentState: "A disciplined combat field where drills, readiness checks, and strange function-drift symptoms can surface.",
     presentation: {
       establishingShot: "Rows of warriors drill beneath bright Valhalla sky, each movement sharp enough to look rehearsed by the world itself.",
+      approachBeat: "As you approach the yard, the rhythm becomes physical: bootfalls, shouted counts, and weapon impacts landing in patterns just clean enough to feel slightly unnatural.",
       vibe: "Martial, orderly, slightly too synchronized.",
       sensory: [
         "Weapon impacts ring in measured rhythm.",

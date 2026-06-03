@@ -67,6 +67,7 @@ export const locationTemplate = {
 
   presentation: {
     establishingShot: "",
+    approachBeat: "",
     vibe: "",
     sensory: []
   },
