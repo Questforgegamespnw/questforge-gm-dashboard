@@ -575,6 +575,7 @@ export const references = [
       "session-dossier"
     ]
   },
+
   {
     "id": "reference_emberroot_unsavable_crisis_modules",
     "label": "Unsavable Expanded Crisis Modules",
@@ -590,5 +591,150 @@ export const references = [
       "ember-root",
       "session-dossier"
     ]
+  },
+
+  {
+    "id": "reference_emberroot_hot_landing_cluster",
+    "label": "Opening Cluster — Hot Landing",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "category": "scene cluster",
+    "summary": "Hot Landing routes into three immediate nearby crisis branches: Civilians, Structure, and Forge Overlord.",
+    "details": [
+      "Phase Zero is the disorientation wrapper.",
+      "Crisis A: Evacuate Civilians.",
+      "Crisis B: Stabilize Collapsing Structure.",
+      "Crisis C: Stop the Forge Overlord / Fire Giant.",
+      "After the first cluster quiets, move to High Forge Refuge."
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "hot-landing",
+      "scene-cluster"
+    ],
+    "gmNotes": "This replaces the flat OneNote opening with a cockpit-native hub-and-spoke beat."
+  },
+  {
+    "id": "reference_emberroot_high_forge_branch_setup",
+    "label": "High Forge Refuge / Branch Setup",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "category": "scene cluster",
+    "summary": "The first calmer pocket after the hot landing. It exposes the ABC branches through conflicting caste explanations.",
+    "details": [
+      "Not safe. Safer.",
+      "A — System Failure: Midworks / Ironhand readings contradict.",
+      "B — Fire Giant Interference: Chainways / giants targeted stabilizers.",
+      "C — Root Resonance: Lower Furnaces / heat pulsed before the attack."
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "high-forge",
+      "branch-setup"
+    ],
+    "gmNotes": "Exposition should arrive through argument, not briefing."
+  },
+  {
+    "id": "reference_emberroot_join_skarth_branch",
+    "label": "Join Skarth Branch Conditions",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "category": "variant path",
+    "summary": "Only offer Join Skarth if players earned High Insight and showed real sympathy for transformation over control.",
+    "details": [
+      "Only offer if High Insight is reached.",
+      "Only offer if players expressed doubt about control or sympathy toward Skarth's view.",
+      "Do not offer if they are clearly in heroic save-everyone mode.",
+      "State clearly: helping Skarth makes things worse for the city.",
+      "This is not evil path or failure path; it is philosophical alignment path."
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "skarth",
+      "join-skarth",
+      "variant"
+    ],
+    "gmNotes": "This works because it does not offer power. It offers a different answer to the same problem."
+  },
+  {
+    "id": "reference_emberroot_hot_landing_cluster",
+    "label": "Opening Cluster — Hot Landing",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "category": "scene cluster",
+    "summary": "Hot Landing routes into three immediate nearby crisis branches: Civilians, Structure, and Forge Overlord.",
+    "details": [
+      "Phase Zero is the disorientation wrapper.",
+      "Crisis A: Evacuate Civilians.",
+      "Crisis B: Stabilize Collapsing Structure.",
+      "Crisis C: Stop the Forge Overlord / Fire Giant.",
+      "After the first cluster quiets, move to High Forge Refuge."
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "hot-landing",
+      "scene-cluster"
+    ],
+    "gmNotes": "This replaces the flat OneNote opening with a cockpit-native hub-and-spoke beat."
+  },
+  {
+    "id": "reference_emberroot_high_forge_branch_setup",
+    "label": "High Forge Refuge / Branch Setup",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "category": "scene cluster",
+    "summary": "The first calmer pocket after the hot landing. It exposes the ABC branches through conflicting caste explanations.",
+    "details": [
+      "Not safe. Safer.",
+      "A — System Failure: Midworks / Ironhand readings contradict.",
+      "B — Fire Giant Interference: Chainways / giants targeted stabilizers.",
+      "C — Root Resonance: Lower Furnaces / heat pulsed before the attack."
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "high-forge",
+      "branch-setup"
+    ],
+    "gmNotes": "Exposition should arrive through argument, not briefing."
+  },
+  {
+    "id": "reference_emberroot_join_skarth_branch",
+    "label": "Join Skarth Branch Conditions",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "category": "variant path",
+    "summary": "Only offer Join Skarth if players earned High Insight and showed real sympathy for transformation over control.",
+    "details": [
+      "Only offer if High Insight is reached.",
+      "Only offer if players expressed doubt about control or sympathy toward Skarth's view.",
+      "Do not offer if they are clearly in heroic save-everyone mode.",
+      "State clearly: helping Skarth makes things worse for the city.",
+      "This is not evil path or failure path; it is philosophical alignment path."
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "skarth",
+      "join-skarth",
+      "variant"
+    ],
+    "gmNotes": "This works because it does not offer power. It offers a different answer to the same problem."
   }
 ];

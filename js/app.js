@@ -25,6 +25,7 @@ import {
   setSelectedItem,
   setSelectedLocation,
   setSelectedArc,
+  setSelectedVisibilityGate,
   clearSelectedItem,
   clearSelection,
   isPinned,
@@ -96,16 +97,77 @@ function passesAvailabilityGate(item) {
   return trackerValue >= minValue && trackerValue <= maxValue;
 }
 
+function normalizeVisibilityGates(item) {
+  const gates = item.visibilityGates ?? item.visibilityGate ?? item.actGate ?? [];
+  const gateArray = Array.isArray(gates) ? gates : [gates];
+
+  return gateArray
+    .map((gate) => {
+      if (!gate) return null;
+      if (typeof gate === "string") return { id: gate, label: formatGateLabel(gate) };
+      if (typeof gate === "object" && gate.id) {
+        return {
+          id: gate.id,
+          label: gate.label ?? gate.name ?? formatGateLabel(gate.id)
+        };
+      }
+      return null;
+    })
+    .filter(Boolean);
+}
+
+function formatGateLabel(gateId = "") {
+  return String(gateId)
+    .replaceAll("_", " ")
+    .replaceAll("-", " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function getVisibilityGateOptions() {
+  const optionsById = new Map();
+
+  getSearchableCampaignItems().forEach((item) => {
+    normalizeVisibilityGates(item).forEach((gate) => {
+      if (!optionsById.has(gate.id)) optionsById.set(gate.id, gate);
+    });
+  });
+
+  return [...optionsById.values()];
+}
+
+function setDefaultVisibilityGate() {
+  const options = getVisibilityGateOptions();
+  setSelectedVisibilityGate(options[0]?.id ?? null);
+}
+
+function itemMatchesVisibilityGate(item) {
+  const gateId = state.selectedVisibilityGate;
+  if (!gateId) return true;
+
+  const gates = normalizeVisibilityGates(item);
+  if (!gates.length) return true;
+
+  return gates.some((gate) => gate.id === gateId);
+}
+
+function passesLiveGates(item) {
+  return isVisibleStatus(item) && passesAvailabilityGate(item) && itemMatchesVisibilityGate(item);
+}
+
+function filterByVisibilityGate(items = []) {
+  return items.filter((item) => itemMatchesVisibilityGate(item));
+}
+
 // -----------------------------------------------------------------------------
 // Location-aware content helpers
 // -----------------------------------------------------------------------------
 
 function getActorsForLocation(location) {
-  if (!location) return uniqueById([...activeData.actors, ...getPinnedActors()]);
+  if (!location) return uniqueById([...filterByVisibilityGate(activeData.actors), ...getPinnedActors()]);
 
   const actorIds = new Set(location.actorsPresent ?? []);
   const locationActors = campaignData.actors.filter((actor) => {
-    return actor.currentLocation === location.id || actorIds.has(actor.id);
+    return (actor.currentLocation === location.id || actorIds.has(actor.id)) && itemMatchesVisibilityGate(actor);
   });
 
   return uniqueById([...locationActors, ...getPinnedActors()]);
@@ -114,13 +176,12 @@ function getActorsForLocation(location) {
 function getAmbientCastForLocation(location) {
   const pinnedAmbientCast = getPinnedAmbientCast();
 
-  if (!location) return uniqueById([...(activeData.ambientCast ?? []), ...pinnedAmbientCast]);
+  if (!location) return uniqueById([...filterByVisibilityGate(activeData.ambientCast ?? []), ...pinnedAmbientCast]);
 
   const locationAmbientCast = (campaignData.ambientCast ?? []).filter((cast) => {
     return (
       cast.locationIds?.includes(location.id) &&
-      isVisibleStatus(cast) &&
-      passesAvailabilityGate(cast)
+      passesLiveGates(cast)
     );
   });
 
@@ -129,10 +190,10 @@ function getAmbientCastForLocation(location) {
 
 function getThreadsForLocation(location) {
   const threads = campaignData.threads.filter((thread) => {
-    return isVisibleStatus(thread) && passesAvailabilityGate(thread);
+    return passesLiveGates(thread);
   });
 
-  if (!location) return uniqueById([...activeData.threads, ...getPinnedThreads()]);
+  if (!location) return uniqueById([...filterByVisibilityGate(activeData.threads), ...getPinnedThreads()]);
 
   const threadIds = new Set(location.relatedThreads ?? []);
 
@@ -145,10 +206,10 @@ function getThreadsForLocation(location) {
 
 function getScenesForLocation(location) {
   const scenes = campaignData.scenes.filter((scene) => {
-    return isVisibleStatus(scene) && passesAvailabilityGate(scene);
+    return passesLiveGates(scene);
   });
 
-  if (!location) return uniqueById([...activeData.scenes, ...getPinnedScenes()]);
+  if (!location) return uniqueById([...filterByVisibilityGate(activeData.scenes), ...getPinnedScenes()]);
 
   const sceneIds = new Set(location.availableScenes ?? []);
 
@@ -160,7 +221,7 @@ function getScenesForLocation(location) {
 }
 
 function getTablesForLocation(location) {
-  if (!location) return uniqueById([...activeData.tables, ...getPinnedTables()]);
+  if (!location) return uniqueById([...filterByVisibilityGate(activeData.tables), ...getPinnedTables()]);
 
   const locationTables = campaignData.tables.filter((table) => {
     const locationMatch =
@@ -169,8 +230,7 @@ function getTablesForLocation(location) {
 
     return (
       locationMatch &&
-      isVisibleStatus(table) &&
-      passesAvailabilityGate(table)
+      passesLiveGates(table)
     );
   });
 
@@ -178,15 +238,14 @@ function getTablesForLocation(location) {
 }
 
 function getMomentsForLocation(location) {
-  if (!location) return uniqueById([...activeData.fireableMoments, ...getPinnedMoments()]);
+  if (!location) return uniqueById([...filterByVisibilityGate(activeData.fireableMoments), ...getPinnedMoments()]);
 
   const locationMoments = (campaignData.fireableMoments ?? []).filter((moment) => {
     const locationMatch = moment.locationIds?.includes(location.id);
 
     return (
       locationMatch &&
-      isVisibleStatus(moment) &&
-      passesAvailabilityGate(moment)
+      passesLiveGates(moment)
     );
   });
 
@@ -197,7 +256,7 @@ function getChildLocations(parentLocation) {
   if (!parentLocation) return [];
 
   return campaignData.locations.filter((location) => {
-    return location.parentLocation === parentLocation.id;
+    return location.parentLocation === parentLocation.id && itemMatchesVisibilityGate(location);
   });
 }
 
@@ -218,6 +277,7 @@ const elements = {
   searchInput: document.querySelector("#search-input"),
   viewFilter: document.querySelector("#view-filter"),
   arcSelect: document.querySelector("#arc-select"),
+  visibilityGateSelect: document.querySelector("#visibility-gate-select"),
   resetButton: document.querySelector("#reset-filters"),
   mainPanelTitle: document.querySelector("#main-panel-title"),
   mainPanelSubtitle: document.querySelector("#main-panel-subtitle")
@@ -244,6 +304,29 @@ function populateArcSelector() {
   `).join("");
 
   elements.arcSelect.value = campaignData.activeArc?.id ?? availableArcs[0]?.id ?? "";
+}
+
+function populateVisibilityGateSelector() {
+  if (!elements.visibilityGateSelect) return;
+
+  const options = getVisibilityGateOptions();
+
+  if (!options.length) {
+    elements.visibilityGateSelect.innerHTML = `<option value="">All Beats</option>`;
+    elements.visibilityGateSelect.value = "";
+    elements.visibilityGateSelect.hidden = true;
+    return;
+  }
+
+  elements.visibilityGateSelect.hidden = false;
+  elements.visibilityGateSelect.innerHTML = options.map((gate) => `
+    <option value="${gate.id}">${gate.label}</option>
+  `).join("");
+
+  const selectedStillExists = options.some((gate) => gate.id === state.selectedVisibilityGate);
+  if (!selectedStillExists) setSelectedVisibilityGate(options[0].id);
+
+  elements.visibilityGateSelect.value = state.selectedVisibilityGate ?? options[0].id;
 }
 
 // -----------------------------------------------------------------------------
@@ -317,11 +400,11 @@ function getPinnedMoments() {
 
 function getCockpitItems() {
   return uniqueById([
-    ...activeData.actors,
-    ...activeData.locations,
-    ...(activeData.ambientCast ?? []),
-    ...activeData.scenes,
-    ...activeData.threads,
+    ...filterByVisibilityGate(activeData.actors),
+    ...filterByVisibilityGate(activeData.locations),
+    ...filterByVisibilityGate(activeData.ambientCast ?? []),
+    ...filterByVisibilityGate(activeData.scenes),
+    ...filterByVisibilityGate(activeData.threads),
     ...activeData.trackers,
     ...getPinnedItems()
   ]);
@@ -432,10 +515,14 @@ function handleArcChange(arcId) {
   setTab("cockpit");
   clearSelection();
   refreshCampaignContext(arcId);
+  setDefaultVisibilityGate();
+  populateVisibilityGateSelector();
 
   elements.searchInput.value = "";
   elements.viewFilter.value = "cockpit";
+  if (elements.visibilityGateSelect) elements.visibilityGateSelect.value = state.selectedVisibilityGate ?? "";
   if (elements.arcSelect) elements.arcSelect.value = campaignData.activeArc?.id ?? arcId;
+  if (elements.visibilityGateSelect) elements.visibilityGateSelect.value = state.selectedVisibilityGate ?? "";
 
   document.querySelectorAll(".tab-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.tab === "cockpit");
@@ -470,7 +557,7 @@ function render() {
   const displayedLocations = uniqueById([
     ...(selectedLocation?.locationRole === "parent"
       ? getChildLocations(selectedLocation)
-      : activeData.locations),
+      : filterByVisibilityGate(activeData.locations)),
     ...getPinnedLocations()
   ]);
 
@@ -522,6 +609,13 @@ if (elements.arcSelect) {
   });
 }
 
+if (elements.visibilityGateSelect) {
+  elements.visibilityGateSelect.addEventListener("change", (event) => {
+    setSelectedVisibilityGate(event.target.value || null);
+    render();
+  });
+}
+
 document.querySelectorAll(".tab-button").forEach((button) => {
   button.addEventListener("click", () => {
     document.querySelectorAll(".tab-button").forEach((btn) => btn.classList.remove("active"));
@@ -549,10 +643,13 @@ elements.resetButton.addEventListener("click", () => {
   setSearch("");
   setTab("cockpit");
   clearSelection();
+  setDefaultVisibilityGate();
+  populateVisibilityGateSelector();
   renderSelectedDetail(null);
 
   elements.searchInput.value = "";
   elements.viewFilter.value = "cockpit";
+  if (elements.visibilityGateSelect) elements.visibilityGateSelect.value = state.selectedVisibilityGate ?? "";
 
   document.querySelectorAll(".tab-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.tab === "cockpit");
@@ -571,6 +668,8 @@ elements.centerDetailPanel.addEventListener("click", () => {
 // -----------------------------------------------------------------------------
 
 setSelectedArc(campaignData.activeArc?.id ?? availableArcs[0]?.id ?? null);
+setDefaultVisibilityGate();
 populateArcSelector();
+populateVisibilityGateSelector();
 applyStaticLabels();
 render();

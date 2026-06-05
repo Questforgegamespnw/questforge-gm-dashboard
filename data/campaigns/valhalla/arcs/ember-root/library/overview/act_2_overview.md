@@ -172,3 +172,65 @@ Players should walk away thinking:
 > “We did everything we could…
 >
 > and it still wasn’t enough.”
+
+
+
+Opening Cluster
+- Phase Zero — Hot Landing
+- Crisis A — Evacuate Civilians
+- Crisis B — Stabilize Collapsing Structure
+- Crisis C — Stop Forge Overlord
+- High Forge Refuge — Managed Panic
+
+Investigation Cluster
+- Thread A — System Failure
+- Thread B — Fire Giant Interference
+- Thread C — Root Resonance
+- Realization Shift
+- Descent Hook
+
+Core Cluster
+- Forge Below / Living Core
+- Break the Chains
+- Core State Determination
+
+Choice Cluster
+- The Choice / Molten Council
+- Skarth Reframe
+- Optional Join Skarth Branch
+
+Consequence Cluster
+- The Unsavable
+- Runaway Transformation Variant
+- Hot Exfil
+- Final Escape / Emotional Button
+
+And each cluster should get cockpit wiring:
+
+Scenes:
+what beat is playable right now?
+
+Locations:
+where does this beat happen, and what is adjacent?
+
+Actors:
+who should appear in the rail?
+
+Ambient Cast:
+whose voices fill the room?
+
+Fireable Moments:
+what can I drop instantly?
+
+Tables:
+what quick result tools matter here?
+
+Trackers:
+what state is changing?
+
+References:
+what GM truth or rule should be one click away?
+
+The key upgrade is that things no longer have to stay numerically locked. For example, Thread A/B/C can be routed from the High Forge refuge, but once the players pick one, the UI should narrow to that location and its relevant people. Then the other threads remain adjacent/searchable, not constantly cluttering the main view.
+
+Next patch should be a connective tissue pass, not a content import pass. We’ll preserve the prose in markdown where useful, but the cockpit cards should be concise, linked, and location-aware.

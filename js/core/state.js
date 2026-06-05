@@ -6,6 +6,7 @@ export const state = {
   selectedLocationId: null,
   spotlightMomentId: null,
   selectedArcId: null,
+  selectedVisibilityGate: null,
 
   // Runtime-only session overlay.
   // This intentionally does not write to current_loadout.js or browser storage.
@@ -41,6 +42,10 @@ export function setSpotlightMoment(momentId) {
 
 export function setSelectedArc(arcId) {
   state.selectedArcId = arcId;
+}
+
+export function setSelectedVisibilityGate(gateId) {
+  state.selectedVisibilityGate = gateId;
 }
 
 export function isPinned(itemOrId) {

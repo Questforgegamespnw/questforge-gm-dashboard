@@ -51,3 +51,43 @@ Arc pressure third
 ## Design Rule
 
 If a proposed feature does not help the GM answer “where are we,” “who is nearby,” “what do they say,” or “how do I make this room feel alive,” it should be treated as secondary until proven by table use.
+
+## Each cluster of scenes should get the following cockpit wiring
+
+Scenes:
+what beat is playable right now?
+
+Locations:
+where does this beat happen, and what is adjacent?
+
+Actors:
+who should appear in the rail?
+
+Ambient Cast:
+whose voices fill the room?
+
+Fireable Moments:
+what can I drop instantly?
+
+Tables:
+what quick result tools matter here?
+
+Trackers:
+what state is changing?
+
+References:
+what GM truth or rule should be one click away?
+
+Which then translate into these: 
+
+scenes.js
+fireable_moments.js
+ambient_cast/*
+locations.js
+actors/*
+threads.js
+tables.js
+references.js
+trackers.js if needed
+
+The main design standard: every card earns its visibility. If it is not useful for the current beat, current location, or current pressure state, it should be searchable/pinnable but not cluttering the cockpit.

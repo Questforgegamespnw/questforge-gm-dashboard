@@ -14,6 +14,77 @@ Who is nearby?
 What do they say?
 How do I make this room feel alive?
 ```
+## Design Doctrine: The Moving Camera
+
+Questforge GM Dashboard is not meant to behave like a traditional campaign wiki, static module, or top-down prep binder.
+
+Most GM prep asks the GM to move through information like a book:
+
+- Read the scene.
+- Find the NPC.
+- Check the map.
+- Look up the rule.
+- Remember the consequence.
+- Improvise the connective tissue.
+
+That works, but it puts a lot of pressure on the GM to keep the whole arc structure in their head while also running the table.
+
+This dashboard flips that model.
+
+Instead of asking “where am I in the document?”, the cockpit asks:
+
+- Where are the players right now?
+- Who is near them?
+- What can happen here?
+- What pressure is active?
+- What changes if they move, delay, split, or choose?
+
+The result is a moving-camera model of GM prep. The current location, scene, or player focus becomes the center of gravity. The dashboard then pulls nearby actors, ambient cast, available moments, active threads, trackers, tables, and references into view.
+
+This may feel disorienting at first if you are used to traditional top-down module design. The prep is not arranged primarily as Chapter 1, Chapter 2, Chapter 3. It is arranged as connected story material that responds to where the players point the camera.
+
+A traditional module might say:
+
+Scene A leads to Scene B, then Scene C.
+
+The cockpit model says:
+
+The players are here.
+These people are nearby.
+These pressures are active.
+These moments can fire.
+These are the adjacent exits.
+These consequences follow them.
+
+When the connective tissue is designed well, the GM does not need a huge arc map open at all times. The players guide the camera through play. The dashboard keeps the relevant orbit of information close, while deeper lore and less immediate material remain searchable, pinnable, or referenceable.
+
+This makes the tool especially strong for:
+
+- RP-heavy sessions
+- crisis scenes
+- branching investigations
+- faction pressure
+- consequence-driven arcs
+- living hubs
+- location-aware narration
+- improvisational GMing with strong structure underneath
+
+The goal is not to make the story shallow or overly automated. The goal is to make deep narrative prep easier to run live.
+
+Questforge GM Dashboard keeps the table focused on the most important questions:
+
+Who is here?
+What do they want?
+What is happening now?
+What can go wrong next?
+What choice is the party actually making?
+
+In short:
+
+Traditional prep is often top-down.
+This cockpit is player-camera-out.
+
+The GM still controls the world, the tone, and the consequences. But the dashboard keeps the live scene lightweight, responsive, and centered on the characters instead of buried inside a static prep document.
 
 ---
 

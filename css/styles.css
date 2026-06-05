@@ -358,3 +358,12 @@ button:hover,
 .ambient-cast-hook-line {
   color: var(--text);
 }
+
+.visibility-gate-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+#visibility-gate-select {
+  min-width: 190px;
+}
