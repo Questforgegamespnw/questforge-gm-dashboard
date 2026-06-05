@@ -46,7 +46,7 @@ export const forgeLanesAmbientCast = [
     ],
 
     relatedActors: ["actor_brokk_ironvein"],
-    relatedThreads: ["thread_corewright_old_war_tech"],
+    relatedThreads: [],
     relatedLocations: ["location_valhalla_forge_lanes"],
     tags: ["ambient", "smiths", "forge-lanes", "craft", "corewright", "old-war-tech"],
     gmNotes: "Use this cast when the room needs heat, work rhythm, and moral weight around making dangerous things useful."

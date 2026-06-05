@@ -46,7 +46,7 @@ export const goldenFieldsAmbientCast = [
     ],
 
     relatedActors: ["actor_eira_goldwind"],
-    relatedThreads: ["thread_yggdrasil_root_failure"],
+    relatedThreads: ["thread_yggdrasil_root_sickness"],
     relatedLocations: ["location_valhalla_golden_fields"],
     tags: ["ambient", "fieldhands", "golden-fields", "harvest", "yggdrasil", "quiet-dread"],
     gmNotes: "Use this cast to make system failure feel agricultural, local, and bodily before it becomes cosmic."

@@ -367,3 +367,204 @@ button:hover,
 #visibility-gate-select {
   min-width: 190px;
 }
+
+/* ============================================================
+   Phone Cockpit Mode
+   Target: Galaxy S23 Ultra / large phones / narrow table use
+   ============================================================ */
+
+@media (max-width: 700px) {
+  body {
+    font-size: 15px;
+  }
+
+  .top-bar {
+    padding: 0.75rem;
+    gap: 0.65rem;
+  }
+
+  .top-bar h1 {
+    font-size: 1.05rem;
+    line-height: 1.2;
+  }
+
+  .top-bar p {
+    font-size: 0.82rem;
+    line-height: 1.3;
+  }
+
+  .top-controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+    width: 100%;
+  }
+
+  .top-controls label,
+  .top-controls input,
+  .top-controls select,
+  .top-controls button,
+  #search-input,
+  #view-filter,
+  #arc-select,
+  #reset-filters {
+    width: 100%;
+  }
+
+  input,
+  select,
+  button {
+    min-height: 44px;
+    font-size: 1rem;
+  }
+
+  .tabs {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem;
+    scrollbar-width: thin;
+  }
+
+  .tab-button {
+    flex: 0 0 auto;
+    min-height: 40px;
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+
+  .dashboard-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  /*
+    Phone order:
+    1. Main selected detail / cards
+    2. Fireables and pressure
+    3. Actors / nearby / locations
+
+    This keeps the live table material higher on the phone.
+  */
+  .main-panel {
+    order: 1;
+  }
+
+  .right-panel {
+    order: 2;
+  }
+
+  .left-rail {
+    order: 3;
+  }
+
+  .left-rail,
+  .main-panel,
+  .right-panel {
+    padding: 0.75rem;
+    border-radius: 0.65rem;
+    min-height: auto;
+  }
+
+  .left-rail section,
+  .right-panel section {
+    margin-bottom: 0.9rem;
+  }
+
+  .panel-header h2,
+  .left-rail h2,
+  .right-panel h2 {
+    font-size: 0.95rem;
+  }
+
+  .panel-header p {
+    font-size: 0.85rem;
+  }
+
+  .center-detail-panel {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-radius: 0.65rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .card {
+    padding: 0.8rem;
+    border-radius: 0.65rem;
+  }
+
+  .card h3 {
+    font-size: 1rem;
+  }
+
+  .card .meta {
+    font-size: 0.78rem;
+  }
+
+  .rail-list {
+    gap: 0.35rem;
+  }
+
+  .rail-item {
+    min-height: 42px;
+    padding: 0.55rem 0.65rem;
+    font-size: 0.92rem;
+  }
+
+  .story-pressure,
+  .detail-panel {
+    padding: 0.65rem;
+    border-radius: 0.65rem;
+  }
+
+  .detail-field {
+    margin-bottom: 0.65rem;
+  }
+
+  .read-aloud-block {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .read-aloud-line {
+    padding-left: 0.6rem;
+  }
+
+  .scene-run-block,
+  .location-description-block,
+  .actor-lines-block {
+    padding: 0.65rem;
+    border-radius: 0.65rem;
+  }
+
+  .scripted-moment-cue,
+  .scripted-moment-purpose {
+    margin-left: 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .tag-row {
+    gap: 0.25rem;
+  }
+
+  .tag {
+    font-size: 0.66rem;
+  }
+
+  .detail-action-row {
+    justify-content: stretch;
+  }
+
+  .detail-action-row button {
+    flex: 1 1 auto;
+  }
+}

@@ -92,7 +92,7 @@ The GM still controls the world, the tone, and the consequences. But the dashboa
 
 **Status:** Pre-alpha / V1 stabilization candidate  
 **Current working campaign:** Valhalla  
-**Current stage:** Sprint 2 bridge complete plus content-architecture cleanup  
+**Current stage:** V1 stabilization / live-use readiness pass  
 **Current app model:** Local static HTML/CSS/JavaScript module app  
 **Current persistence model:** Runtime-only UI state; no backend, no database, no browser storage, no file writing
 
@@ -109,9 +109,10 @@ The project has completed:
 - Valhalla global-vs-arc relocation pass.
 - Reference split between global campaign systems and Valhalla intermission hub material.
 - Reusable arc template scaffold stored under `dev/`.
-- Expanded smoke-test coverage for the current architecture.
+- Expanded smoke-test coverage for the current architecture, including Ambient Cast.
+- Phone-aware responsive CSS for large mobile-device table use.
 
-The next major design input should come from fake table drills and live-use friction, not speculative feature growth.
+The next major design input should come from fake table drills, phone/table use, and live-use friction, not speculative feature growth.
 
 ---
 
@@ -127,6 +128,7 @@ The next major design input should come from fake table drills and live-use fric
 - Current loadout filtering for active session material.
 - Campaign-wide search across loaded dashboard material.
 - Runtime-only pinning for promoting found content into the live cockpit.
+- Phone-aware responsive CSS for large mobile devices and emergency table use.
 - Smoke test page for data integrity, relationship checks, renderer checks, and runtime pin checks.
 
 ### Generic Data Types
@@ -160,6 +162,7 @@ These names are intentionally game-agnostic. Mode-specific terms such as NPCs, z
 - Parent/child location support for hub navigation.
 - Tracker-based availability gates for surfacing content at the right escalation level.
 - Visual pinned-state indicators for cards and rail items.
+- Responsive stacked cockpit layout for narrow screens and large phones.
 
 ### Table-Facing Delivery
 
@@ -175,30 +178,35 @@ These names are intentionally game-agnostic. Mode-specific terms such as NPCs, z
 
 ## Current Valhalla Content
 
-The current Valhalla data layer includes approximately:
+The current Valhalla data layer includes a working hub/intermission package with:
 
-- 11 actors
-- 6 ambient cast groups
-- 9 locations
-- 2 factions
-- 9 threads
-- 1 tracker
-- 18 scenes
-- 28 fireable moments
-- 4 tables
-- 14 references, including the Yggdrasilmaed Counter
+- named actors
+- ambient cast groups
+- hub locations
+- factions
+- active pressure threads
+- trackers
+- scenes
+- fireable moments
+- location-linked tables
+- short reference cards
+- deeper markdown reference targets
+
+Valhalla is currently the proof campaign for the dashboard’s moving-camera workflow, reusable intermission structure, Ambient Cast model, tracker-gated pressure, runtime pinning behavior, and table-facing delivery model.
 
 Recent verification state:
 
 ```text
 Website: opens and behaves as intended
 Runtime pinning: works in the live UI
-Ambient Cast: visible and selectable by location
+Ambient Cast: smoke-tested as a first-class data type
 Renderer split/helper patches: no observed UI regression
 Campaign index binding: repaired after Valhalla arc relocation
+Functional smoke state: clean aside from deferred markdown reference stubs
+Known remaining smoke-test failures: missing markdown reference files only
 ```
 
-Run the smoke test after major data moves, especially after changing import paths or adding new data types.
+Run the smoke test after major data moves, especially after changing import paths, adding new data types, or altering renderer/state behavior.
 
 ---
 
@@ -245,6 +253,23 @@ Locations
   → sensory details visually grouped
   → function/pressure/opportunities/dangers lower
 ```
+
+---
+
+## Mobile / Phone Use
+
+The dashboard is still primarily designed for laptop or desktop GM use, but it now includes phone-aware responsive CSS for large mobile devices.
+
+Current phone support focuses on:
+
+- stacked cockpit panels
+- full-width controls
+- touch-safe input and button sizing
+- sticky horizontal tabs
+- single-column cards
+- table-use ordering that prioritizes main detail and live cockpit panels before lower-priority rails
+
+Phone support is intended for emergency, secondary, or constrained table use, not yet as a fully dedicated mobile app layout. Future passes may add collapsible rails, drawer panels, or a dedicated phone cockpit toggle.
 
 ---
 
@@ -985,7 +1010,7 @@ Current examples:
 - reusable arc template zip
 - future scaffolds for new campaign/arc setup
 
-The root `README.md` and `CHANGELOG.md` remain project-facing. The `dev/` folder is builder-facing.
+The root `README.md` and `CHANGELOG.md` remain project-facing. The `dev/` folder is builder-facing. Campaign content changes should be documented in campaign files, markdown notes, or commit messages unless they change reusable dashboard structure or workflow.
 
 ---
 
@@ -993,12 +1018,14 @@ The root `README.md` and `CHANGELOG.md` remain project-facing. The `dev/` folder
 
 1. Keep the core app generic.
 2. Keep Valhalla hub/intermission readiness stable.
-3. Use fake table drills to identify real friction.
+3. Use fake table drills and phone/table use to identify real friction.
 4. Update shared templates and smoke tests when data shapes change.
-5. Expand actor-linked answer moments from markdown dialogue banks.
-6. Decide whether renderer maintainability needs pass 2 after actual use.
-7. Keep runtime pins runtime-only until the standalone app/session-state epic.
-8. Avoid backend/database/cloud features until the static MVP proves useful at the table.
+5. Create deferred markdown reference stubs when documentation cleanup becomes useful.
+6. Test phone cockpit layout on actual large-phone hardware.
+7. Consider actor-linked `answerMoments` after live-use confirms the need.
+8. Decide whether renderer maintainability needs pass 2 after actual use.
+9. Keep runtime pins runtime-only until the standalone app/session-state epic.
+10. Avoid backend/database/cloud features until the static MVP proves useful at the table.
 
 ## Completed Development Milestones
 
@@ -1014,7 +1041,7 @@ Complete.
 - Actors, locations, scenes, threads, trackers, tables, and references render.
 - Search works across campaign material.
 - Location context drives actors/scenes/moments/tables.
-- Smoke test is green.
+- Smoke test introduced and used to validate core runtime/data integrity.
 
 ### Sprint 1.5 — Table-Use Polish
 
@@ -1069,11 +1096,12 @@ Implemented.
 ### Near-Term
 
 - Run a fake Valhalla table drill.
+- Test phone cockpit layout on actual large-phone hardware.
 - Identify any remaining OneNote/memory friction points.
 - Update templates when new data patterns prove stable.
-- Consider actor-linked `answerMoments`.
+- Create deferred markdown reference stubs when documentation cleanup becomes useful.
+- Consider actor-linked `answerMoments` after live-use confirms the need.
 - Consider renderer maintainability pass 2 only if the file starts becoming painful again.
-- Update smoke-test coverage for `ambientCast` if not already covered in the working test file.
 
 ### Standalone App & Persistent Campaign Builder Epic
 

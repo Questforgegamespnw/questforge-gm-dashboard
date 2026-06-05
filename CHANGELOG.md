@@ -4,6 +4,12 @@ All notable project changes will be documented in this file.
 
 This project is currently in **pre-alpha**. Version numbers are provisional until the first stable table-ready release.
 
+## Changelog Scope
+
+This changelog tracks product-facing app changes, reusable data model changes, workflow decisions, architectural decisions, and design-language discoveries.
+
+Campaign content edits should be summarized only when they affect the dashboard structure, reusable authoring patterns, or table-running workflow. Individual scene, actor, moment, or lore edits belong in commit messages, session notes, or campaign content files.
+
 ## Current Stage Snapshot
 
 **Current stage:** Sprint 2 bridge complete / V1 stabilization candidate / content architecture cleanup complete  
@@ -14,6 +20,32 @@ This project is currently in **pre-alpha**. Version numbers are provisional unti
 The app now supports the Valhalla hub/intermission flow with location-aware live content, standalone fireable moments, runtime pinning, broad campaign search, tracker-gated surfacing, Ambient Cast room-life support, grouped actor files, arc-local Valhalla Intermission content, split references, and the first renderer maintainability split.
 
 ---
+
+## [0.4.1-prealpha] - 2026-06-04
+
+### Added
+
+- Added phone-specific responsive CSS support for large mobile devices, including a practical phone cockpit layout for Galaxy S23 Ultra-style use.
+- Added `ambientCast` coverage to the smoke test so room-life data is validated as a first-class content type.
+
+### Changed
+
+- Established changelog discipline: campaign data changes should be summarized only when they affect reusable app structure, workflow, or design doctrine.
+- Refined Valhalla Intermission/Ember-Root content alignment using the reusable hub-layer model rather than cloning per-act intermission structures.
+- Confirmed missing markdown references are documentation hygiene issues, not current runtime blockers, because markdown files are not yet opened directly by the dashboard UI.
+
+### Fixed
+
+- Removed duplicate imported content after Valhalla Intermission relocation.
+- Fixed stale Ambient Cast relationship references caught by the expanded smoke test.
+- Cleaned remaining broken relationship IDs so the remaining smoke-test failures are limited to missing markdown reference files.
+
+### Verified
+
+- Smoke test confirms core app/data relationships are clean after duplicate import cleanup and Ambient Cast coverage.
+- Remaining failures are missing markdown reference targets only; these are deferred documentation stubs, not live cockpit blockers.
+
+--- 
 
 ## [0.4.0-prealpha] - 2026-06-03
 
@@ -129,12 +161,6 @@ Syntax checks were run during generated patch creation for touched JavaScript fi
 
 ---
 
-# Changelog
-
-All notable project changes will be documented in this file.
-
-This project is currently in **pre-alpha**. Version numbers are provisional until the first stable table-ready release.
-
 ## [0.2.0-prealpha] - 2026-06-02
 
 ### Added
@@ -245,52 +271,11 @@ Validated systems include:
 - Added parent/child location support for the Valhalla hub.
 - Added smoke test page for validating campaign data integrity.
 
-### Added — Valhalla Content
+### Added — Initial Valhalla Campaign Layer
 
-- Added Valhalla global actors:
-  - Heimdall
-  - Sven
-  - Eira Goldwind
-  - Brokk Ironvein
-  - Odin
-  - Svinhild
-  - Ryndis Ironwing
-  - Eldri Softsky
-  - Thora Stormcall
-  - Kara Veilfeather
-  - Sylva Emberwing
-- Added Valhalla global locations:
-  - Valhalla Hub
-  - Bifrost Platform
-  - Heimdall’s Threshold
-  - The Mead-Hall
-  - The Golden Fields
-  - The Forge-Lanes
-  - The Quiet Rows
-  - The Valkyrie Aerie
-  - Training Grounds
-- Added Valhalla factions:
-  - Einherjar
-  - Valkyries
-- Added Valhalla threads, including:
-  - Valhalla System Failure Chain
-  - Returned Incomplete
-  - Yggdrasil Root Sickness
-  - Valkyrie Disagreement
-  - Heimdall Knows More Than He Says
-  - Names Changing in the Quiet Rows
-  - Dark Valkyrie Foreshadow
-  - Borrowed Souls
-  - Return Is Not Guaranteed
-- Added Ragnarok Meter tracker.
-- Added Valhalla scene spine for post-mission hub flow.
-- Added Valhalla event tables for Mead-Hall, Golden Fields, Forge-Lanes, and Quiet Rows.
-- Added Valhalla reference cards for return loop, hub failure textures, and system/rules references.
-- Added location-specific `availableScenes` for hub locations.
-- Added location-specific `fireableMoments` across the Valhalla hub.
-- Added Aerie-focused NPC presence for Valkyrie interactions.
-- Added initial answer-bank markdown expansions for Valkyries and stewards as staging content.
-- Added deeper Sven tour-guide answer bank as staging content.
+- Added the initial Valhalla campaign data set to prove the dashboard against a real table-running use case.
+- Added the first working hub/intermission package with actors, locations, factions, threads, trackers, scenes, tables, references, and location-linked moments.
+- Used Valhalla to validate the core cockpit doctrine: people first, place second, pressure third, mechanics/reference last.
 
 ### Changed
 

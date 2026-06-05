@@ -102,27 +102,29 @@
     // ============================================================
 
     const contentTypes = [
-      "actors",
-      "locations",
-      "factions",
-      "threads",
-      "trackers",
-      "scenes",
-      "fireableMoments",
-      "tables",
-      "references"
-    ];
+        "actors",
+        "ambientCast",
+        "locations",
+        "factions",
+        "threads",
+        "trackers",
+        "scenes",
+        "fireableMoments",
+        "tables",
+        "references"
+      ];
 
     const loadoutKeys = {
-      actors: "activeActors",
-      locations: "activeLocations",
-      factions: "activeFactions",
-      threads: "activeThreads",
-      trackers: "activeTrackers",
-      scenes: "activeScenes",
-      tables: "activeTables",
-      references: "activeReferences"
-    };
+        actors: "activeActors",
+        ambientCast: "activeAmbientCast",
+        locations: "activeLocations",
+        factions: "activeFactions",
+        threads: "activeThreads",
+        trackers: "activeTrackers",
+        scenes: "activeScenes",
+        tables: "activeTables",
+        references: "activeReferences"
+      };
 
     const requiredFields = {
       actors: ["id", "name", "role", "modeId", "campaignId", "status", "tags"],
@@ -133,7 +135,8 @@
       scenes: ["id", "title", "type", "modeId", "campaignId", "status", "priority", "tags"],
       fireableMoments: ["id", "title", "type", "modeId", "campaignId", "status", "locationIds", "trigger", "compact", "spotlight", "tags"],
       tables: ["id", "name", "modeId", "campaignId", "status", "die", "category", "entries", "tags"],
-      references: ["id", "label", "modeId", "campaignId", "status", "category", "summary", "tags"]
+      references: ["id", "label", "modeId", "campaignId", "status", "category", "summary", "tags"],
+      ambientCast: ["id", "title", "type", "modeId", "campaignId", "status", "locationIds", "tags"],
     };
 
     const validStatuses = new Set(["active", "available", "inactive", "draft", "archived", "hidden"]);
@@ -479,6 +482,17 @@
         checkIdRefs(actor.id, "relatedThreads", actor.relatedThreads, threadIds, { allowEmpty: true });
       }
 
+      for (const cast of campaignData.ambientCast ?? []) {
+        checkIdRefs(cast.id, "locationIds", cast.locationIds, locationIds, {
+          allowEmpty: false,
+          levelForEmpty: "fail"
+        });
+
+        checkIdRefs(cast.id, "relatedActors", cast.relatedActors, actorIds, { allowEmpty: true });
+        checkIdRefs(cast.id, "relatedThreads", cast.relatedThreads, threadIds, { allowEmpty: true });
+        checkIdRefs(cast.id, "relatedLocations", cast.relatedLocations, locationIds, { allowEmpty: true });
+      }
+      
       for (const thread of campaignData.threads ?? []) {
         checkIdRefs(thread.id, "relatedActors", thread.relatedActors, actorIds, { allowEmpty: true });
         checkIdRefs(thread.id, "relatedLocations", thread.relatedLocations, locationIds, { allowEmpty: true });
