@@ -1238,5 +1238,292 @@ export const fireableMoments = [
     locationIds: [
       "location_valhalla_training_grounds"
     ]
+  },
+
+  {
+    id: "moment_bifrost_ember_root_heat_lingers",
+    title: "Ember-Root: Heat Lingers",
+    type: "aftermath",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
+    trigger: "Use after Ember-Root when the party returns through the Bifrost.",
+    compact: "The Bifrost gives them back, but Ember-Root heat clings for one breath too long.",
+    spotlight: {
+      title: "Heat Lingers",
+      readAloud: [
+        {
+          type: "narration",
+          text: "The Bifrost gives you back to Valhalla in a crash of color and force."
+        },
+        {
+          type: "narration",
+          text: "The heat should vanish."
+        },
+        {
+          type: "narration",
+          text: "For one breath, it does not. Ember-Root warmth clings under your armor, in your lungs, behind your teeth."
+        },
+        {
+          type: "narration",
+          text: "Then Valhalla’s cold air finally reaches you."
+        }
+      ],
+      gmPurpose: "Show that Ember-Root followed the party home through the return system.",
+      followUp: "Let Heimdall, the Aerie, or the players themselves notice the delay."
+    },
+    locationIds: [
+      "location_valhalla_bifrost_platform"
+    ],
+    relatedThreads: [
+      "thread_valhalla_system_failure_chain",
+      "thread_returned_incomplete",
+      "thread_return_is_not_guaranteed"
+    ],
+    tags: [
+      "valhalla",
+      "bifrost",
+      "ember-root",
+      "aftermath",
+      "heat",
+      "system-strain"
+    ],
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+    gmNotes: "Use as the Ember-Root-specific version of lingering mission sensation."
+  },
+
+  {
+    id: "moment_golden_fields_ember_ash_on_wind",
+    title: "Ember-Root: Ash on the Wind",
+    type: "aftermath",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
+    trigger: "Use after Ember-Root when the party visits or passes near the Golden Fields.",
+    compact: "Gold wheat still ripples, but ash drifts through it now.",
+    spotlight: {
+      title: "Ash on the Wind",
+      readAloud: [
+        {
+          type: "narration",
+          text: "The fields are still gold."
+        },
+        {
+          type: "narration",
+          text: "The wheat still moves in soft waves under impossible light."
+        },
+        {
+          type: "narration",
+          text: "Then a dark fleck of ash drifts through the air and lands among the stalks."
+        },
+        {
+          type: "narration",
+          text: "No one in the field stops working."
+        }
+      ],
+      gmPurpose: "Show Ember-Root fallout entering Valhalla’s living systems without explaining it outright.",
+      followUp: "Let the players choose whether to ask Eira, inspect the soil, or keep moving."
+    },
+    locationIds: [
+      "location_valhalla_golden_fields"
+    ],
+    relatedThreads: [
+      "thread_yggdrasil_root_sickness",
+      "thread_valhalla_system_failure_chain"
+    ],
+    tags: [
+      "valhalla",
+      "golden-fields",
+      "ember-root",
+      "aftermath",
+      "ash",
+      "yggdrasil"
+    ],
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+    gmNotes: "Keep this quiet. The image should do the work."
+  },
+
+  {
+    id: "moment_mead_hall_ember_smoke_aftertaste",
+    title: "Ember-Root: Smoke Aftertaste",
+    type: "aftermath",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
+    trigger: "Use after Ember-Root when the party drinks, eats, or tries to decompress in the Mead-Hall.",
+    compact: "The Mead-Hall is warm, but the mead carries a faint smoke aftertaste.",
+    spotlight: {
+      title: "Smoke Aftertaste",
+      readAloud: [
+        {
+          type: "narration",
+          text: "The Mead-Hall receives you the way it always does: heat, noise, food, and the press of living bodies."
+        },
+        {
+          type: "narration",
+          text: "A drink finds your hand before anyone asks if you want one."
+        },
+        {
+          type: "narration",
+          text: "The first swallow is warm."
+        },
+        {
+          type: "narration",
+          text: "The second tastes faintly of smoke."
+        }
+      ],
+      gmPurpose: "Let comfort remain real while showing that Ember-Root has stained the recovery rhythm.",
+      followUp: "Sven may notice their reaction, but he should not explain it unless asked."
+    },
+    locationIds: [
+      "location_valhalla_mead_hall"
+    ],
+    relatedThreads: [
+      "thread_valhalla_system_failure_chain",
+      "thread_returned_incomplete"
+    ],
+    tags: [
+      "valhalla",
+      "mead-hall",
+      "ember-root",
+      "aftermath",
+      "smoke",
+      "decompression"
+    ],
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+    gmNotes: "This should echo but not replace the existing mead-tastes-wrong moment."
+  },
+
+  {
+    id: "moment_quiet_rows_ember_scored_name",
+    title: "Ember-Root: Ember-Scored Name",
+    type: "aftermath",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
+    trigger: "Use after Ember-Root when the party visits the Quiet Rows or follows the emotional weight of loss.",
+    compact: "One carved name looks faintly scorched, as if heat touched the wood from inside.",
+    spotlight: {
+      title: "Ember-Scored Name",
+      readAloud: [
+        {
+          type: "narration",
+          text: "The Quiet Rows do not raise their voice."
+        },
+        {
+          type: "narration",
+          text: "The names wait in candlelight, carved clean into warm wood."
+        },
+        {
+          type: "narration",
+          text: "One of them is darker than the others."
+        },
+        {
+          type: "narration",
+          text: "Not burned away. Not gone. Just faintly ember-scored, as if the heat came from inside the grain."
+        }
+      ],
+      gmPurpose: "Tie Ember-Root fallout to memory, souls, and the return-cycle cost.",
+      followUp: "Let the players decide whether this is a name they know, almost know, or fear recognizing."
+    },
+    locationIds: [
+      "location_valhalla_quiet_rows"
+    ],
+    relatedThreads: [
+      "thread_names_changing_quiet_rows",
+      "thread_returned_incomplete",
+      "thread_return_is_not_guaranteed"
+    ],
+    tags: [
+      "valhalla",
+      "quiet-rows",
+      "ember-root",
+      "aftermath",
+      "memory",
+      "soul-failure"
+    ],
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+    gmNotes: "Use only when the table has room for quiet aftermath. Do not explain the mechanism immediately."
+  },
+
+  {
+    id: "moment_aerie_empty_horse_returns",
+    title: "Ember-Root: Empty Horse Returns",
+    type: "aftermath",
+    availability: {
+      trackerId: "tracker_ragnarok_meter",
+      minValue: 4
+    },
+    trigger: "Use after Ember-Root when the party remains in or returns to the Valkyrie Aerie.",
+    compact: "A Valkyrie horse returns without its rider, exhausted and trembling.",
+    spotlight: {
+      title: "Empty Horse Returns",
+      readAloud: [
+        {
+          type: "narration",
+          text: "A shadow crosses the platform."
+        },
+        {
+          type: "narration",
+          text: "A Valkyrie horse drops from the sky, wings beating hard and uneven."
+        },
+        {
+          type: "narration",
+          text: "It lands without a rider."
+        },
+        {
+          type: "narration",
+          text: "For one breath, every Valkyrie close enough to see it goes still."
+        },
+        {
+          type: "narration",
+          text: "Then the Aerie moves again."
+        }
+      ],
+      gmPurpose: "Show Valkyrie strain and retrieval danger through action instead of exposition.",
+      followUp: "Svinhild may give orders immediately; Kara or Thora may react if present."
+    },
+    locationIds: [
+      "location_valhalla_valkyrie_aerie"
+    ],
+    relatedActors: [
+      "actor_svinhild",
+      "actor_thora_stormcall",
+      "actor_kara_veilfeather"
+    ],
+    relatedThreads: [
+      "thread_valkyrie_disagreement",
+      "thread_return_is_not_guaranteed",
+      "thread_returned_incomplete"
+    ],
+    tags: [
+      "valhalla",
+      "valkyrie-aerie",
+      "ember-root",
+      "aftermath",
+      "valkyrie-strain",
+      "retrieval"
+    ],
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+    gmNotes: "This is a strong beat. Use sparingly; it implies serious retrieval stress."
   }
 ];

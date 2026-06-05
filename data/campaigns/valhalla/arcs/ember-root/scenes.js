@@ -24,7 +24,8 @@ export const scenes = [
     "priority": "high",
     "trigger": "",
     "summary": "The party lands inside an active disaster with three immediate nearby crises: civilians in danger, a collapsing structure, and a fire giant/forge overlord escalating the damage.",
-    "playerFacing": "For one breath, there is nothing but rainbow-white light and the sensation of floating inside a silent fall. Emberfall burns somewhere below the veil, vast and unreadable. Then the Bifrost sputters, the color snaps out, and gravity takes you all at once.",    "gmTruth": "This scene teaches the Act 2 rule: they can save something, but not everything.",
+    "playerFacing": "For one breath, there is nothing but rainbow-white light and the sensation of floating inside a silent fall. Emberfall burns somewhere below the veil, vast and unreadable. Then the Bifrost sputters, the color snaps out, and gravity takes you all at once.",   
+    "gmTruth": "This scene teaches the Act 2 rule: they can save something, but not everything.",
     "involvedActors": [
       "actor_thora_kara_emberroot",
       "actor_magma_reaver",
@@ -113,7 +114,6 @@ export const scenes = [
       "scene_emberroot_arrival_stop_forge_overlord"
     ],
     "relatedThreads": [
-      "thread_emberroot_arrival_forced_triage",
       "thread_emberroot_no_clean_victories",
       "thread_emberroot_caste_pressure",
       "thread_emberroot_giants_want_release",
@@ -438,7 +438,7 @@ export const scenes = [
     },
     "relatedThreads": [
       "thread_emberroot_giants_want_release",
-      "thread_emberroot_skarth_mirror",
+      "thread_emberroot_skarth_philosophical_alignment_path",
       "thread_emberroot_caste_pressure"
     ],
     "visibilityGates": [
@@ -619,8 +619,6 @@ export const scenes = [
     ],
     "relatedThreads": [
       "thread_emberroot_caste_pressure",
-      "thread_emberroot_caste_existed_before_arrival",
-      "thread_emberroot_correct_interpretation_under_pressure",
       "thread_emberroot_giants_want_release",
       "thread_emberroot_core_is_not_enemy"
     ],
@@ -779,7 +777,6 @@ export const scenes = [
     },
     "relatedThreads": [
       "thread_emberroot_core_is_not_enemy",
-      "thread_emberroot_correct_interpretation_under_pressure",
       "thread_emberroot_caste_pressure"
     ],
     "relatedTrackers": [
@@ -918,8 +915,8 @@ export const scenes = [
     },
     "relatedThreads": [
       "thread_emberroot_giants_want_release",
-      "thread_emberroot_skarth_mirror",
-      "thread_emberroot_correct_interpretation_under_pressure"
+      "thread_emberroot_skarth_philosophical_alignment_path",
+      "thread_emberroot_core_is_not_enemy",
     ],
     "relatedTrackers": [
       "tracker_emberroot_investigation_clock"
@@ -1060,8 +1057,7 @@ export const scenes = [
     },
     "relatedThreads": [
       "thread_emberroot_core_is_not_enemy",
-      "thread_emberroot_core_furnace_truth",
-      "thread_emberroot_correct_interpretation_under_pressure"
+
     ],
     "relatedTrackers": [
       "tracker_emberroot_investigation_clock",
@@ -1225,7 +1221,6 @@ export const scenes = [
       ]
     },
     "relatedThreads": [
-      "thread_emberroot_correct_interpretation_under_pressure",
       "thread_emberroot_core_is_not_enemy"
     ],
     "relatedTrackers": [
@@ -1357,7 +1352,7 @@ export const scenes = [
       ]
     },
     "relatedThreads": [
-      "thread_emberroot_core_furnace_truth",
+      "thread_emberroot_core_is_not_enemy",
       "thread_emberroot_giants_want_release"
     ],
     "visibilityGates": [
@@ -1507,7 +1502,6 @@ export const scenes = [
     },
     "relatedThreads": [
       "thread_emberroot_core_is_not_enemy",
-      "thread_emberroot_core_furnace_truth",
       "thread_emberroot_giants_want_release",
       "thread_emberroot_skarth_philosophical_alignment_path"
     ],
@@ -1859,9 +1853,8 @@ export const scenes = [
     },
     "relatedThreads": [
       "thread_emberroot_no_clean_victories",
-      "thread_emberroot_correct_interpretation_under_pressure",
+      "thread_emberroot_core_is_not_enemy",
       "thread_emberroot_skarth_philosophical_alignment_path",
-      "thread_emberroot_transformation_over_control"
     ],
     "relatedTrackers": [
       "tracker_emberroot_investigation_clock",
@@ -2005,7 +1998,6 @@ export const scenes = [
     },
     "relatedThreads": [
       "thread_emberroot_skarth_philosophical_alignment_path",
-      "thread_emberroot_transformation_over_control"
     ],
     "relatedTrackers": [
       "tracker_emberroot_core_stability",
@@ -2322,7 +2314,6 @@ export const scenes = [
       ]
     },
     "relatedThreads": [
-      "thread_emberroot_transformation_over_control",
       "thread_emberroot_skarth_philosophical_alignment_path",
       "thread_emberroot_hot_exfil_consequence_chain"
     ],
@@ -2508,176 +2499,6 @@ export const scenes = [
 
   // ============================================================================
   //#endregion ACT 2 / SESSION 05 — UNSAVABLE / HOT EXFIL
-  // ============================================================================
-
-
-  // ============================================================================
-  //#region ACT 2 / FALLOUT
-  // ============================================================================
-
-  {
-    "id": "scene_valhalla_post_act2_reflection",
-    "title": "Valhalla Fallout — After EmberRoot",
-    "session": "session_05_the_unsavable",
-    "modeId": "valhalla",
-    "campaignId": "valhalla",
-    "arcId": "arc_ember_root",
-    "status": "available",
-    "type": "fallout / hub",
-    "priority": "high",
-    "trigger": "",
-    "summary": "The party returns to Valhalla after EmberRoot. Field chaos gives way to hub aftermath, but the Valkyrie Aerie is already in motion around the cost of what happened.",
-    "playerFacing": "The noise of Emberfall falls away, but not all at once. Heat becomes cold air. Smoke becomes high wind. Screaming metal becomes the thunder of wings. The Valkyrie Aerie is alive with motion: riders launching, riders landing, armor half-fastened, horses stamping sparks against the stone, voices calling names across the platforms. Hundreds of wings descend through the open sky beyond the threshold. No one stops to explain why. No one needs to.",
-    "gmTruth": "The hub is quieter than the field, but not untouched. The aftermath has reached Valhalla before the party can process it.",
-    "involvedActors": [
-      "actor_sven",
-      "actor_heimdall",
-      "actor_svinhild",
-      "actor_thora_kara_emberroot"
-    ],
-    "involvedLocations": [
-      "location_valhalla_valkyrie_aerie",
-      "location_valhalla_mead_hall",
-      "location_valhalla_quiet_rows",
-      "location_valhalla_heimdalls_threshold"
-    ],
-    "involvedFactions": [
-      "faction_valkyries"
-    ],
-    "clues": [
-      "The Aerie is moving at emergency scale, but no one pauses to narrate the obvious.",
-      "Thora and Kara return carrying more than exhaustion.",
-      "The Quiet Rows feel closer after EmberRoot.",
-      "Heimdall may already know enough to be waiting.",
-      "Sven offers stillness without pretending the cost is small."
-    ],
-    "outcomes": [
-      "Ragnarok Meter or equivalent fallout pressure can be updated.",
-      "Valkyrie strain surfaces through action rather than exposition.",
-      "The party can decompress in the Mead-Hall, confront silence in the Quiet Rows, or seek answers at Heimdall’s Threshold.",
-      "Thora and Kara’s relationship to the party may shift based on the EmberRoot choice.",
-      "The consequences of Act 2 become hub texture for later sessions."
-    ],
-    "pressure": "The cost follows them home, and home is already answering it.",
-    "runNote": "Do not over-explain what the Valkyries are doing. Let the players infer it from the scale of motion: wings descending, names being called, riders leaving in waves, horses returning empty or exhausted. Keep the emotional volume lower than Emberfall, but make it clear Valhalla is not outside the consequence.",
-    "tags": [
-      "valhalla",
-      "ember-root",
-      "fallout",
-      "hub",
-      "reflection"
-    ],
-    "forwardPath": {
-      "upNext": [],
-      "branches": [
-        {
-          "id": "fallout_aerie_first",
-          "label": "Stay at the Aerie",
-          "condition": "The party lingers with Thora, Kara, or the returning Valkyries.",
-          "effect": "Valkyrie strain surfaces directly through exhaustion, duty, and unsaid judgment.",
-          "softPoint": "Best for processing extraction and the cost of being returned."
-        },
-        {
-          "id": "fallout_mead_hall_decompression",
-          "label": "Mead-Hall Decompression",
-          "condition": "The party seeks warmth, food, Sven, or other survivors of the hub rhythm.",
-          "effect": "The emotional pressure lowers enough for conversation, but not enough to forget.",
-          "softPoint": "Best for player reflection and soft roleplay."
-        },
-        {
-          "id": "fallout_heimdall_threshold",
-          "label": "Heimdall’s Threshold",
-          "condition": "The party seeks answers, accountability, or a formal debrief.",
-          "effect": "The mission becomes part of the larger Valhalla/Ragnarok pressure line.",
-          "softPoint": "Best for arc-level consequence and foreshadowing."
-        },
-        {
-          "id": "fallout_quiet_rows",
-          "label": "Quiet Rows",
-          "condition": "The party follows the weight of loss, names, or souls not yet processed.",
-          "effect": "The cost of EmberRoot becomes personal, quiet, and hard to dismiss.",
-          "softPoint": "Best for grief, silence, and aftermath texture."
-        },
-        {
-          "id": "fallout_golden_fields_ash_on_wind",
-          "label": "Golden Fields — Ash on the Wind",
-          "condition": "The party visits or passes near the Golden Fields after EmberRoot.",
-          "effect": "The fields remain golden, but now ash sometimes drifts through the air on quiet wind.",
-          "softPoint": "Do not explain it directly. Let the image carry the aftermath: Valhalla is not untouched by what happened."
-        }
-      ],
-      "scriptedMoments": [
-        {
-          "timing": "Return through the threshold",
-          "speaker": "GM",
-          "line": "The Bifrost gives you back to cold air, high stone, and the thunder of wings.",
-          "purpose": "Transition from Emberfall heat into Valhalla aftermath."
-        },
-        {
-          "timing": "Aerie in motion",
-          "speaker": "GM",
-          "line": "The Valkyrie Aerie is not still. Riders launch from every platform. Horses strike sparks from the stone. Armor is being buckled while names are shouted across the wind.",
-          "purpose": "Show the scale of response without explicitly explaining it."
-        },
-        {
-          "timing": "Sky image",
-          "speaker": "GM",
-          "line": "Beyond the open edge of the Aerie, hundreds of wings descend through the sky in widening arcs.",
-          "purpose": "Let the players put together what the Valkyries are going to do."
-        },
-        {
-          "timing": "Thora and Kara return",
-          "speaker": "GM",
-          "line": "Thora and Kara land hard, not dramatically — just tired. Their horses lower their heads, wings trembling, and for a moment neither Valkyrie speaks.",
-          "purpose": "Bring the cost back to the party’s escorts."
-        },
-        {
-          "timing": "Valkyrie strain",
-          "speaker": "Kara",
-          "line": "We got you back.",
-          "purpose": "Let the unsaid part hang."
-        },
-        {
-          "timing": "Heimdall presence",
-          "speaker": "GM",
-          "line": "At the far end of the platform, Heimdall is already watching. Not the sky. You.",
-          "purpose": "Point toward fallout accountability or debrief."
-        },
-        {
-          "timing": "Sven soft landing",
-          "speaker": "Sven",
-          "line": "Come in before the wind gets into your bones.",
-          "purpose": "Offer decompression without erasing the weight."
-        },
-        {
-          "timing": "Quiet Rows pull",
-          "speaker": "GM",
-          "line": "Somewhere below the Aerie, the Quiet Rows feel less distant than they did this morning.",
-          "purpose": "Seed reflection, loss, and later hub consequences."
-        },
-        {
-          "timing": "Golden Fields pull",
-          "speaker": "GM",
-          "line": "A worker in the Golden Fields digs with a tool, and the soil is warm to the touch. And a speckle of hot ash drifts past.",
-          "purpose": "Seed reflection, loss, and later hub consequences."
-        }
-      ]
-    },
-    "relatedThreads": [
-      "thread_emberroot_no_clean_victories",
-      "thread_emberroot_valkyrie_strain"
-    ],
-    "visibilityGates": [
-      {
-        "id": "collapse_escape",
-        "label": "Collapse / Escape"
-      }
-    ],
-    "visibilityGate": "collapse_escape"
-  }
-
-  // ============================================================================
-  //#endregion ACT 2 / FALLOUT
   // ============================================================================
 
 ];

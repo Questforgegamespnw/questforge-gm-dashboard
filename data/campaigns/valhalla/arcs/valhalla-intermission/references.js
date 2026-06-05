@@ -58,5 +58,60 @@ export const references = [
       "failure-textures"
     ],
     gmNotes: "Do not make every location ominous in the same way. Each hub space should reveal a different kind of system strain."
+  },
+
+  {
+    id: "reference_ember_root_aftermath_textures",
+    label: "Ember-Root Aftermath Textures",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "active",
+
+    category: "reminder",
+    summary: "Use after Ember-Root to show that Valhalla remains structurally the same hub, but now carries heat, ash, fatigue, and soul-retrieval strain from the mission fallout.",
+    details: [
+      "Do not clone the intermission layer. The return loop remains the same; only the hub state changes.",
+      "Bifrost Platform: heat lingers longer than it should, and the return feels less clean.",
+      "Heimdall’s Threshold: Heimdall watches what followed the party home, not just the party.",
+      "Valkyrie Aerie: riders launch and return at emergency scale; show motion before explanation.",
+      "Mead-Hall: warmth still works, but smoke, ash, or tired silence can sit under the feast.",
+      "Golden Fields: soil may be warm to the touch; ash can drift through gold light without immediate explanation.",
+      "Forge-Lanes: sealed projects, old craft, and heat-response should feel more alert after Ember-Root.",
+      "Quiet Rows: the cost of extraction and missed souls should feel closer, quieter, and harder to dismiss.",
+      "Sven offers decompression without pretending the cost was small.",
+      "Thora and Kara should carry visible exhaustion, unsaid judgment, or changed respect depending on the party's Ember-Root choices.",
+      "Use these as texture, not exposition. Let players infer the shape of the consequence."
+    ],
+
+    reference: "arcs/valhalla-intermission/library/references/ember_root_aftermath_textures.md",
+    relatedLocations: [
+      "location_valhalla_bifrost_platform",
+      "location_valhalla_heimdalls_threshold",
+      "location_valhalla_valkyrie_aerie",
+      "location_valhalla_mead_hall",
+      "location_valhalla_golden_fields",
+      "location_valhalla_forge_lanes",
+      "location_valhalla_quiet_rows"
+    ],
+    relatedThreads: [
+      "thread_valhalla_system_failure_chain",
+      "thread_returned_incomplete",
+      "thread_return_is_not_guaranteed",
+      "thread_yggdrasil_root_sickness",
+      "thread_valkyrie_disagreement"
+    ],
+
+    tags: [
+      "active",
+      "valhalla",
+      "intermission",
+      "ember-root",
+      "aftermath",
+      "hub-texture",
+      "fallout"
+    ],
+    gmNotes: "This is the reusable aftermath overlay for post-Ember-Root hub play. Keep it concise and adjustable."
   }
+
 ];

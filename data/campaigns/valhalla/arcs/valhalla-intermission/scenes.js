@@ -755,4 +755,182 @@ export const scenes = [
     gmNotes: ""
   },
 
+  {
+    id: "scene_valhalla_ember_root_fallout",
+    title: "Valhalla Fallout — After Ember-Root",
+    session: "post-mission-loop",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+    type: "fallout",
+    priority: "high",
+
+    trigger: "Use when the party returns to Valhalla after Ember-Root.",
+    summary: "Translate Ember-Root consequences into the Valhalla hub loop: the party returns home, but the hub is already responding to the cost of what happened.",
+    playerFacing: "The noise of Emberfall falls away, but not all at once. Heat becomes cold air. Smoke becomes high wind. Screaming metal becomes the thunder of wings. The Valkyrie Aerie is alive with motion: riders launching, riders landing, armor half-fastened, horses stamping sparks against the stone, voices calling names across the platforms. Hundreds of wings descend through the open sky beyond the threshold. No one stops to explain why. No one needs to.",
+    gmTruth: "The hub is quieter than the field, but not untouched. Ember-Root fallout has reached Valhalla before the party can process it.",
+
+    involvedActors: [
+      "actor_sven",
+      "actor_heimdall",
+      "actor_svinhild",
+      "actor_thora_stormcall",
+      "actor_kara_veilfeather"
+    ],
+    involvedLocations: [
+      "location_valhalla_valkyrie_aerie",
+      "location_valhalla_mead_hall",
+      "location_valhalla_quiet_rows",
+      "location_valhalla_heimdalls_threshold",
+      "location_valhalla_golden_fields"
+    ],
+    involvedFactions: [
+      "faction_valkyries"
+    ],
+
+    clues: [
+      "The Aerie is moving at emergency scale, but no one pauses to narrate the obvious.",
+      "Thora and Kara return carrying more than exhaustion.",
+      "The Quiet Rows feel closer after Ember-Root.",
+      "Heimdall may already know enough to be waiting.",
+      "Sven offers stillness without pretending the cost is small.",
+      "Ash, heat, or soil changes can appear in the Golden Fields as quiet aftermath texture."
+    ],
+
+    outcomes: [
+      "Ragnarok Meter or equivalent fallout pressure can be updated.",
+      "Valkyrie strain surfaces through action rather than exposition.",
+      "The party can decompress in the Mead-Hall, confront silence in the Quiet Rows, seek answers at Heimdall’s Threshold, or watch the Aerie respond.",
+      "Thora and Kara’s relationship to the party may shift based on the Ember-Root choice.",
+      "Ember-Root consequences become reusable hub texture for later intermission sessions."
+    ],
+
+    pressure: "The cost follows them home, and home is already answering it.",
+    runNote: "Do not over-explain what the Valkyries are doing. Let the players infer it from the scale of motion: wings descending, names being called, riders leaving in waves, horses returning empty or exhausted. Keep the emotional volume lower than Emberfall, but make it clear Valhalla is not outside the consequence.",
+
+    forwardPath: {
+      upNext: [
+        "scene_valhalla_choose_hub_location",
+        "scene_valhalla_mead_hall_decompression",
+        "scene_valhalla_quiet_rows_foreshadowing",
+        "scene_valhalla_valkyrie_aerie_briefing"
+      ],
+      branches: [
+        {
+          id: "fallout_aerie_first",
+          label: "Stay at the Aerie",
+          condition: "The party lingers with Thora, Kara, Svinhild, or the returning Valkyries.",
+          effect: "Valkyrie strain surfaces directly through exhaustion, duty, and unsaid judgment.",
+          softPoint: "Best for processing extraction and the cost of being returned."
+        },
+        {
+          id: "fallout_mead_hall_decompression",
+          label: "Mead-Hall Decompression",
+          condition: "The party seeks warmth, food, Sven, or the familiar rhythm of the hub.",
+          effect: "The emotional pressure lowers enough for conversation, but not enough to forget.",
+          softPoint: "Best for player reflection and soft roleplay."
+        },
+        {
+          id: "fallout_heimdall_threshold",
+          label: "Heimdall’s Threshold",
+          condition: "The party seeks answers, accountability, or a formal debrief.",
+          effect: "The mission becomes part of the larger Valhalla/Ragnarok pressure line.",
+          softPoint: "Best for arc-level consequence and foreshadowing."
+        },
+        {
+          id: "fallout_quiet_rows",
+          label: "Quiet Rows",
+          condition: "The party follows the weight of loss, names, or souls not yet processed.",
+          effect: "The cost of Ember-Root becomes personal, quiet, and hard to dismiss.",
+          softPoint: "Best for grief, silence, and aftermath texture."
+        },
+        {
+          id: "fallout_golden_fields_ash_on_wind",
+          label: "Golden Fields — Ash on the Wind",
+          condition: "The party visits or passes near the Golden Fields after Ember-Root.",
+          effect: "The fields remain golden, but ash sometimes drifts through the air on quiet wind.",
+          softPoint: "Do not explain it directly. Let the image carry the aftermath: Valhalla is not untouched by what happened."
+        }
+      ],
+      scriptedMoments: [
+        {
+          timing: "Return through the threshold",
+          speaker: "GM",
+          line: "The Bifrost gives you back to cold air, high stone, and the thunder of wings.",
+          purpose: "Transition from Emberfall heat into Valhalla aftermath."
+        },
+        {
+          timing: "Aerie in motion",
+          speaker: "GM",
+          line: "The Valkyrie Aerie is not still. Riders launch from every platform. Horses strike sparks from the stone. Armor is being buckled while names are shouted across the wind.",
+          purpose: "Show the scale of response without explicitly explaining it."
+        },
+        {
+          timing: "Sky image",
+          speaker: "GM",
+          line: "Beyond the open edge of the Aerie, hundreds of wings descend through the sky in widening arcs.",
+          purpose: "Let the players put together what the Valkyries are going to do."
+        },
+        {
+          timing: "Thora and Kara return",
+          speaker: "GM",
+          line: "Thora and Kara land hard, not dramatically — just tired. Their horses lower their heads, wings trembling, and for a moment neither Valkyrie speaks.",
+          purpose: "Bring the cost back to the party’s escorts."
+        },
+        {
+          timing: "Valkyrie strain",
+          speaker: "Kara",
+          line: "We got you back.",
+          purpose: "Let the unsaid part hang."
+        },
+        {
+          timing: "Heimdall presence",
+          speaker: "GM",
+          line: "At the far end of the platform, Heimdall is already watching. Not the sky. You.",
+          purpose: "Point toward fallout accountability or debrief."
+        },
+        {
+          timing: "Sven soft landing",
+          speaker: "Sven",
+          line: "Come in before the wind gets into your bones.",
+          purpose: "Offer decompression without erasing the weight."
+        },
+        {
+          timing: "Quiet Rows pull",
+          speaker: "GM",
+          line: "Somewhere below the Aerie, the Quiet Rows feel less distant than they did this morning.",
+          purpose: "Seed reflection, loss, and later hub consequences."
+        },
+        {
+          timing: "Golden Fields pull",
+          speaker: "GM",
+          line: "A worker in the Golden Fields digs with a tool, and the soil is warm to the touch. A speckle of hot ash drifts past.",
+          purpose: "Seed the idea that Ember-Root consequences have entered Valhalla’s living systems."
+        }
+      ]
+    },
+
+    relatedThreads: [
+      "thread_valhalla_system_failure_chain",
+      "thread_returned_incomplete",
+      "thread_return_is_not_guaranteed",
+      "thread_yggdrasil_root_sickness",
+      "thread_valkyrie_disagreement"
+    ],
+
+    reference: "arcs/valhalla-intermission/library/references/ember_root_aftermath_textures.md",
+
+    tags: [
+      "active",
+      "valhalla",
+      "ember-root",
+      "fallout",
+      "hub",
+      "reflection",
+      "aftermath"
+    ],
+    gmNotes: "This scene is the crosspoint between Act 2 fallout and the reusable Valhalla intermission loop."
+  }
+  
 ];

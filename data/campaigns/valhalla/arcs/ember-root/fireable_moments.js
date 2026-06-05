@@ -160,7 +160,6 @@ export const fireableMoments = [
       "actor_kaldra_steelmind"
     ],
     "relatedThreads": [
-      "thread_emberroot_correct_interpretation_under_pressure",
       "thread_emberroot_core_is_not_enemy"
     ],
     "visibilityGates": [
@@ -276,7 +275,6 @@ export const fireableMoments = [
     ],
     "relatedThreads": [
       "thread_emberroot_skarth_philosophical_alignment_path",
-      "thread_emberroot_skarth_mirror"
     ],
     "visibilityGates": [
       {
@@ -343,8 +341,6 @@ export const fireableMoments = [
     ],
     "relatedThreads": [
       "thread_emberroot_skarth_philosophical_alignment_path",
-      "thread_emberroot_transformation_over_control",
-      "thread_emberroot_skarth_mirror"
     ],
     "tags": [
       "valhalla",

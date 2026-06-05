@@ -1,28 +1,20 @@
 # Questforge GM Dashboard — Content Entry Guide
 
-## Design Doctrine Addendum
+This guide defines where table-facing content belongs in the Questforge GM Cockpit Dashboard. The dashboard is a **GM cockpit / narration engine**, not a wiki, VTT, or rules automation layer.
 
-The cockpit's table-facing doctrine is:
+## Core Doctrine
 
-> People first. Places second. Arc pressure third. Mechanics in reference.
+> **People first. Places second. Arc pressure third. Mechanics in reference.**
 
-Content should help the GM answer four live room questions quickly:
+Every entry should help the GM answer live room questions quickly:
 
 - Where are we?
 - Who is nearby?
-- What do they say?
-- How do I make this room feel alive?
+- What can happen here?
+- What pressure follows the players?
+- What can I say or fire right now?
 
-`ambientCast` is the planned lightweight content type for location-linked crowd texture, name banks, hook lines, and casual interaction seeds.
-
-
-This guide is the working reference for adding table-facing content to the Questforge GM Dashboard.
-
-The dashboard is a **GM cockpit / narration engine**. Enter content so it can be found, filtered, pinned, and used quickly during play. Long lore belongs in markdown. Short, actionable table cues belong in JavaScript data arrays.
-
-Core doctrine:
-
-> People first. Place second. Arc pressure third. Mechanics in reference.
+Long lore belongs in markdown. Short, structured, searchable table cues belong in JavaScript data arrays.
 
 ---
 
@@ -32,6 +24,7 @@ Use these internal names in data and app logic:
 
 ```text
 actors
+ambientCast
 locations
 factions
 threads
@@ -47,9 +40,57 @@ Avoid mode-specific internal names such as `npcs`, `zones`, `omens`, `ragnarok`,
 
 ---
 
-## 2. Where Content Belongs
+## 2. Quick Type Map
 
-### Use dashboard arrays for fast table use
+### `actors`
+
+Actors are named people or major entities the GM may need to run directly. Use them for motives, current state, knowledge, quick lines, relationships, and persistent presence at the table.
+
+### `ambientCast`
+
+Ambient cast entries are lightweight location-linked people, crowds, voices, and casual interactions. Use them to make a room feel populated without promoting every face into a full actor card.
+
+### `locations`
+
+Locations are the camera and context layer: where the players are, what hits them first, who is present, what can happen here, and what persistent pressures touch this place. Locations should point to playable scenes, nearby actors, factions, threads, and useful hazards without becoming full scene writeups.
+
+### `factions`
+
+Factions are pressure voices and agenda engines. Use them to define what a group believes, wants, hides, resists, and how it behaves when the party interacts with the world.
+
+### `threads`
+
+Threads are unresolved pressures that follow the party across multiple scenes. They should not hold one-scene outcomes, branch logic, dialogue banks, or reminders that only matter in one location.
+
+### `trackers`
+
+Trackers are changing state at the table. Use them for clocks, meters, stability states, progress levels, insight, threat escalation, and other values that move during play.
+
+### `scenes`
+
+Scenes are concrete playable beats: arrivals, choices, investigations, fights, consequences, transitions, briefings, and fallout. A scene should tell the GM what is happening, what the players can learn or do, and what changes afterward.
+
+### `fireableMoments`
+
+Fireable moments are small location-linked beats that can be clicked and run immediately. Use them for reusable interruptions, dialogue bursts, pressure injections, short reveals, or emotional buttons that should not become full scenes.
+
+### `tables`
+
+Tables are roll-or-pick tools. Use them for quick reactions, hazards, event prompts, crisis types, encounter texture, or dialogue bursts when random or fast selection is actually useful.
+
+### `references`
+
+References are reusable GM support cards and library entry points. Use them for arc-wide procedures, rules reminders, doctrine, summaries, and compact links to markdown—not for scene branches, NPC lines, tracker effects, or local clues.
+
+### `assets`
+
+Assets are media and presentation support. Use them for images, maps, handouts, icons, visual references, and other non-data material the cockpit may surface or link.
+
+---
+
+## 3. JavaScript vs Markdown
+
+### Use JavaScript arrays for fast table use
 
 Put short, structured, searchable content in JavaScript arrays:
 
@@ -59,16 +100,7 @@ data/campaigns/<campaign>/arcs/<arc>/
 data/campaigns/<campaign>/sessions/<session>/
 ```
 
-Use arrays for:
-
-- cards
-- filters
-- quick lines
-- scene beats
-- fireable moments
-- event tables
-- pressure summaries
-- current-state notes
+Use arrays for cards, filters, quick lines, scene beats, fireable moments, event tables, pressure summaries, current-state notes, and live links between content.
 
 ### Use markdown for depth
 
@@ -78,23 +110,31 @@ Put longform reference material in:
 data/campaigns/<campaign>/library/
 ```
 
-Use markdown for:
-
-- full lore
-- full NPC backstory
-- deep answer banks
-- full location dossiers
-- rules explanations
-- design notes
-- GM-only prose
+Use markdown for full lore, full NPC backstory, deep answer banks, full location dossiers, rules explanations, design notes, and GM-only prose.
 
 If a dashboard field starts turning into paragraphs, move it into markdown and add a `reference` path.
 
 ---
 
-## 3. Required Base Fields
+## 4. Base Fields
 
-Every item should have a stable `id`, mode/campaign metadata, status, and tags.
+Every dashboard item should have a stable ID, mode/campaign metadata, status, and tags.
+
+Common baseline:
+
+```js
+id
+modeId
+campaignId
+status
+tags
+```
+
+Use `arcId` for arc-specific material and `session` or `sessionId` when an item is tied to a specific session structure.
+
+---
+
+## 5. Type Patterns
 
 ### Actors
 
@@ -128,6 +168,39 @@ reference
 gmNotes
 ```
 
+Use actor entries for people the GM may need to portray directly or track across scenes.
+
+### Ambient Cast
+
+Required:
+
+```js
+id
+name
+modeId
+campaignId
+status
+locationIds
+tags
+```
+
+Recommended:
+
+```js
+arcId
+type
+role
+currentState
+hookLine
+quickLines
+rumors
+relatedActors
+relatedThreads
+gmNotes
+```
+
+Use ambient cast for crowd texture, passerby voices, tavern chatter, refugees, guards, workers, and minor interaction seeds.
+
 ### Locations
 
 Required:
@@ -149,13 +222,13 @@ arcId
 region
 locationRole
 parentLocation
-currentState
+connectedLocations
+adjacentLocations
 presentation
 function
 pressure
 opportunities
 dangers
-connectedLocations
 relatedThreads
 factionsPresent
 actorsPresent
@@ -164,6 +237,21 @@ availableScenes
 eventTable
 reference
 gmNotes
+```
+
+Use locations as the player-facing camera layer. Keep `availableScenes` limited to scenes that can actually fire from that place.
+
+Recommended presentation shape:
+
+```js
+presentation: {
+  establishingShot: "The wide camera: the strong visual image of the place.",
+  approachBeat: "The second camera beat: what immediately interacts with the players.",
+  vibe: "Immediate emotional tone.",
+  sensory: [
+    "Sound, smell, texture, temperature, light, motion, etc."
+  ]
+}
 ```
 
 ### Factions
@@ -187,16 +275,22 @@ arcId
 summary
 currentState
 pressure
-publicFace
-privateTruth
+motto
+belief
+truth
 goals
 resources
 tensions
+genericLines
+inPlayUse
 relatedActors
 relatedLocations
 relatedThreads
+reference
 gmNotes
 ```
+
+Use factions to create pressure through agenda and voice, not just lore. A faction card should help the GM know what that group pushes for when the room gets tense.
 
 ### Threads
 
@@ -218,7 +312,7 @@ Recommended:
 arcId
 summary
 currentState
-pressure
+nextPressure
 relatedActors
 relatedLocations
 relatedFactions
@@ -228,6 +322,8 @@ consequences
 availability
 gmNotes
 ```
+
+Threads should answer: **What unresolved pressure follows the players across multiple scenes?** Do not use threads for single-scene branch logic, outcome matrices, NPC dialogue, or location-only reminders.
 
 ### Trackers
 
@@ -256,6 +352,8 @@ effects
 tiers
 gmNotes
 ```
+
+Use trackers when a value changes during play and the dashboard needs to surface what that change means.
 
 ### Scenes
 
@@ -291,11 +389,39 @@ forwardPath
 pressure
 runNote
 gmNotes
+relatedThreads
+relatedTrackers
+visibilityGate
+```
+
+Scenes should be playable from the cockpit. Put table-facing delivery first, then support it with clues, outcomes, branches, scripted moments, and a short run note.
+
+Recommended forward path shape:
+
+```js
+forwardPath: {
+  upNext: ["scene_next_id"],
+  branches: [
+    {
+      id: "branch_id",
+      label: "Visible branch label",
+      condition: "When this branch applies.",
+      effect: "What changes.",
+      softPoint: "How to run it at the table."
+    }
+  ],
+  scriptedMoments: [
+    {
+      timing: "When this fires.",
+      speaker: "Speaker name or GM.",
+      line: "Short table-facing line.",
+      purpose: "Why this beat exists."
+    }
+  ]
+}
 ```
 
 ### Fireable Moments
-
-Fireable moments are small location-linked beats that can be clicked and run immediately.
 
 Required:
 
@@ -322,6 +448,35 @@ relatedActors
 relatedThreads
 reference
 gmNotes
+visibilityGate
+```
+
+Use fireable moments for small beats under **Can Fire Here**. They should be short enough to fire, resolve, and return control to the players.
+
+Recommended spotlight shape:
+
+```js
+spotlight: {
+  title: "Moment title",
+  readAloud: [
+    {
+      type: "speech",
+      speaker: "Speaker",
+      text: "Short line."
+    }
+  ],
+  gmPurpose: "Why to fire this moment.",
+  followUp: "How to hand control back to the table."
+}
+```
+
+Supported read-aloud line types:
+
+```text
+narration
+speech
+gm
+aside
 ```
 
 ### Tables
@@ -350,7 +505,10 @@ relatedLocations
 availability
 reference
 gmNotes
+visibilityGate
 ```
+
+Use tables only when rolling or quick picking improves table flow. If an entry is really an outcome matrix, scene branch, tracker effect, or dialogue bank, it belongs somewhere else.
 
 ### References
 
@@ -379,14 +537,17 @@ relatedThreads
 gmNotes
 ```
 
+Use references for reusable procedures, rules reminders, doctrine, compact summaries, and links to deeper markdown. Do not use references as a junk drawer for scene-specific notes.
+
 ---
 
-## 4. ID Rules
+## 6. ID Rules
 
 Use stable lowercase snake-case IDs with type prefixes.
 
 ```text
 actor_
+ambient_
 location_
 faction_
 thread_
@@ -397,12 +558,14 @@ table_
 reference_
 arc_
 session_
+asset_
 ```
 
 Examples:
 
 ```text
 actor_sven
+ambient_mead_hall_weary_raider
 location_valhalla_mead_hall
 thread_returned_incomplete
 tracker_ragnarok_meter
@@ -412,11 +575,11 @@ table_mead_hall_events
 reference_valhalla_return_loop
 ```
 
-Do not rename IDs casually once another file references them. Change `name`, `title`, or `label` when the display wording changes.
+Do not rename IDs casually once another file references them. Change `name`, `title`, or `label` when display wording changes.
 
 ---
 
-## 5. Tag Rules
+## 7. Tag Rules
 
 Use lowercase kebab-case tags.
 
@@ -444,129 +607,17 @@ Tags should help with search and filtering. They are not prose.
 
 ---
 
-## 6. Location Content Pattern
+## 8. Availability and Visibility
 
-Locations are the “where are we?” layer. They should help the GM describe the place and surface what can happen there.
-
-Recommended presentation shape:
+Use `status` for whether content exists in the active data set:
 
 ```js
-presentation: {
-  establishingShot: "The first strong visual image.",
-  approachBeat: "A second beat as the players enter, approach, or notice who is present.",
-  vibe: "Immediate emotional tone.",
-  sensory: [
-    "Sound, smell, texture, temperature, light, motion, etc."
-  ]
-}
+status: "available"
 ```
 
-Use location links to drive the live table flow:
+Use `visibilityGate` or `visibilityGates` for cockpit phase filtering, such as arrival, investigation, choice, or escape.
 
-```js
-actorsPresent: ["actor_sven"],
-relatedThreads: ["thread_returned_incomplete"],
-availableScenes: ["scene_valhalla_bifrost_return"],
-eventTable: "table_mead_hall_events"
-```
-
-For parent/child navigation:
-
-```js
-locationRole: "parent",
-connectedLocations: ["location_valhalla_mead_hall"]
-```
-
-```js
-locationRole: "child",
-parentLocation: "location_valhalla_hub"
-```
-
----
-
-## 7. Scene Content Pattern
-
-Scenes are structured beats, choices, briefings, consequences, and events.
-
-Put table-facing delivery first:
-
-```js
-playerFacing: "What the GM can say or paraphrase at the table.",
-forwardPath: {
-  scriptedMoments: [
-    {
-      timing: "When the players hesitate.",
-      speaker: "actor_sven",
-      line: "Sit. Drink. You are still here. That matters.",
-      purpose: "Give the party permission to decompress."
-    }
-  ]
-}
-```
-
-Use deeper fields for prep:
-
-```js
-gmTruth: "What is really happening.",
-clues: [],
-outcomes: [],
-runNote: "How to run this cleanly."
-```
-
----
-
-## 8. Fireable Moment Pattern
-
-Use `fireableMoments` for short beats that should appear under **Can Fire Here**.
-
-```js
-{
-  id: "moment_sven_sit_drink",
-  title: "Sven: Sit. Drink.",
-  type: "decompression",
-  modeId: "valhalla",
-  campaignId: "valhalla",
-  arcId: "arc_valhalla_intermission",
-  status: "available",
-  locationIds: ["location_valhalla_mead_hall"],
-  trigger: "When the party returns shaken or scattered.",
-  compact: "Sven makes space and grounds the room.",
-  spotlight: {
-    title: "Sven: Sit. Drink.",
-    readAloud: [
-      {
-        type: "narration",
-        text: "Sven is already clearing space before you reach the table."
-      },
-      {
-        type: "speech",
-        speaker: "Sven",
-        text: "Sit. Drink. You are still here. That matters."
-      }
-    ],
-    gmPurpose: "Give the party permission to decompress.",
-    followUp: "Ask who accepts the drink and who does not."
-  },
-  tags: ["decompression", "mead-hall"]
-}
-```
-
-Supported read-aloud line types currently include:
-
-```text
-narration
-speech
-gm
-aside
-```
-
-The renderer also tolerates legacy string lines, but structured objects are preferred.
-
----
-
-## 9. Availability Gates
-
-Scenes, threads, tables, and fireable moments can be gated by tracker state.
+Use `availability` when an item depends on tracker state:
 
 ```js
 availability: {
@@ -578,46 +629,40 @@ availability: {
 
 Omit `availability` if the item should be baseline-visible.
 
-Use gates for escalation. Do not use them for permanent archive status; use `status` for that.
-
 ---
 
-## 10. Runtime Pins
+## 9. Runtime Pins
 
-Runtime pins are a temporary session overlay.
-
-Use them when the GM finds something through search and wants it kept close without editing `current_loadout.js`.
+Runtime pins are a temporary session overlay. Use them when the GM finds something through search and wants it kept close without editing the current loadout.
 
 Rules:
 
 - Pins are runtime-only.
-- Pins do not write to `current_loadout.js`.
-- Pins do not use browser storage in the current bridge implementation.
 - Pins supplement active loadout and location-aware filtering.
-- Pinned content can appear in the cockpit and pinned panel.
-
-This is the current bridge model before a future standalone app/session-state architecture.
+- Pins are for table convenience, not content architecture.
 
 ---
 
-## 11. Entry Checklist
+## 10. Entry Checklist
 
-Before adding new content, check:
+Before adding or importing content, check:
 
 - [ ] Is this short and table-facing? Put it in a JS data array.
-- [ ] Is this long lore or deep answer-bank content? Put it in markdown.
+- [ ] Is this long lore or a deep answer bank? Put it in markdown.
 - [ ] Does the item use a stable prefixed ID?
 - [ ] Are tags lowercase kebab-case?
 - [ ] Are linked IDs valid?
 - [ ] Does a scene or moment include table-facing delivery text?
-- [ ] Does a location include useful presentation text?
-- [ ] Does gated content use a real tracker ID?
-- [ ] Does current live material belong in `current_loadout.js`?
+- [ ] Does a location include a useful wide shot and immediate approach beat?
+- [ ] Does a thread persist across multiple scenes?
+- [ ] Does a table actually need rolling or quick picking?
+- [ ] Does a reference support reusable GM procedure or doctrine?
+- [ ] Does gated content use a real tracker ID or visibility gate?
 - [ ] Is this only temporarily needed tonight? Consider runtime pinning instead.
 
 ---
 
-## 12. Verification
+## 11. Verification
 
 After significant content changes, run the smoke test through a local server:
 
