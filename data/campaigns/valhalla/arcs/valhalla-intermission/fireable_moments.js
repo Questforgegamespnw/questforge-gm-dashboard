@@ -1,4 +1,360 @@
 export const fireableMoments = [
+  
+  {
+    id: "moment_prologue_death_and_dissolution",
+    title: "PROLOGUE STARTER — Death & Dissolution",
+    type: "prologue-starter",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+
+    locationIds: ["location_astral_stairway"],
+
+    trigger: "Use as the first scene of a fresh Valhalla campaign, or as a prologue recap before the first Act 1 drop.",
+    compact: "Players describe legendary deaths, then awaken as suppressed shades in the Astral Stairway.",
+
+    spotlight: {
+      title: "Prologue Starter: You Are Not Gone",
+      readAloud: [
+        {
+          type: "narration",
+          text: "You are not gone."
+        },
+        {
+          type: "narration",
+          text: "You are not yet anything."
+        },
+        {
+          type: "narration",
+          text: "Names dissolve, forms blur, and others drift around you."
+        }
+      ],
+      gmPurpose: "Open the campaign through death, identity loss, and afterlife routing without over-explaining the cosmology.",
+      followUp: "Let each player anchor one death image if needed, then fire the Baldur / Shepherds moment."
+    },
+
+    relatedActors: [],
+    relatedThreads: ["thread_chosen_vs_assigned"],
+    reference: "arcs/frost-root/library/prologue/prologue_astral_stairway_first_descent.md",
+    tags: [
+      "prologue",
+      "scene-0",
+      "starter-scene",
+      "campaign-launch",
+      "death",
+      "astral-stairway",
+      "soul-routing"
+    ],
+
+    gmNotes: "Identity suppression protects souls from astral predators that feed on conscious identity. Make them feel disoriented, not confused. Do not linger too long."
+  },
+
+  {
+    id: "moment_prologue_shepherds_and_baldur",
+    title: "PROLOGUE — Shepherds of the Dead",
+    type: "prologue-reveal",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+
+    locationIds: ["location_astral_stairway"],
+
+    trigger: "After players acclimate to the Way and understand they are among many dead souls.",
+    compact: "Multiple shepherds call souls toward different afterlives. Baldur routes the party to Valhalla.",
+
+    spotlight: {
+      title: "Baldur: Gold or Orange Tickets",
+      readAloud: [
+        {
+          type: "narration",
+          text: "Figures call to the dead. Paths diverge. Some souls move toward warmth, others toward shadow, others toward doors you cannot understand."
+        },
+        {
+          type: "speech",
+          speaker: "Baldur",
+          text: "Those with gold or orange tickets—come with me."
+        },
+        {
+          type: "speech",
+          speaker: "Baldur",
+          text: "This way."
+        }
+      ],
+      gmPurpose: "Make the afterlife feel sorted, calm, and slightly strange while seeding multi-pantheon routing and later 'on loan' reveals.",
+      followUp: "Guide the party toward Valhalla. If they try to deviate, the paths gently correct."
+    },
+
+    relatedActors: ["actor_baldur_shepherd_of_the_dead"],
+    relatedThreads: ["thread_chosen_vs_assigned", "thread_loki_balder_misdirection"],
+    reference: "arcs/frost-root/library/prologue/prologue_astral_stairway_first_descent.md",
+    tags: [
+      "prologue",
+      "scene-0",
+      "afterlife",
+      "baldur",
+      "sorting",
+      "campaign-launch"
+    ],
+
+    gmNotes: "The party is being directed, not freely choosing. No matter what, they reach Valhalla."
+  },
+
+  {
+    id: "moment_prologue_astral_bridge_to_valhalla",
+    title: "PROLOGUE — The Bridge to Valhalla",
+    type: "prologue-transition",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+
+    locationIds: ["location_astral_stairway"],
+
+    trigger: "After Baldur begins leading the party from the Astral Stairway toward Valhalla.",
+    compact: "The party sees the astral sea and the things beyond the path before Valhalla's boundary rises ahead.",
+
+    spotlight: {
+      title: "The Safe Path Across the Sea",
+      readAloud: [
+        {
+          type: "narration",
+          text: "The path beneath you narrows into something like a bridge, though it was not built by hands."
+        },
+        {
+          type: "narration",
+          text: "For one moment, the gray opens."
+        },
+        {
+          type: "narration",
+          text: "Below and around you stretches an impossible sea: depth without water, stars without sky, shapes moving beneath the surface of thought."
+        },
+        {
+          type: "narration",
+          text: "Something vast turns far below. Not toward you. Not yet."
+        },
+        {
+          type: "speech",
+          speaker: "Baldur",
+          text: "Eyes forward."
+        },
+        {
+          type: "narration",
+          text: "Ahead, gold gathers in the distance. Walls, towers, banners, impossible height. A boundary bright enough to make the dark around it feel kept out."
+        },
+        {
+          type: "narration",
+          text: "Valhalla does not appear like a destination. It appears like a claim."
+        }
+      ],
+      gmPurpose: "Show the danger outside the routed afterlife path, establish Baldur as a competent guide, and make Valhalla feel like a protected divine domain before the party enters it.",
+      followUp: "Move directly into the Yggdrasilmaed restoration moment with Sven."
+    },
+
+    relatedActors: ["actor_baldur_shepherd_of_the_dead"],
+    relatedThreads: [
+      "thread_chosen_vs_assigned",
+      "thread_loki_balder_misdirection"
+    ],
+    reference: "arcs/frost-root/library/prologue/prologue_astral_stairway_first_descent.md",
+    tags: [
+      "prologue",
+      "scene-0",
+      "astral-stairway",
+      "astral-sea",
+      "valhalla",
+      "domain-boundary",
+      "baldur",
+      "campaign-launch"
+    ],
+
+    gmNotes: "Keep this brief and awe-forward. Do not turn the astral sea into an encounter. The monsters are scale, warning, and cosmology texture. Baldur redirects attention quickly because conscious identity is dangerous here."
+  },
+
+  {
+    id: "moment_prologue_gates_of_valhalla",
+    title: "PROLOGUE — The Gates of Valhalla",
+    type: "prologue-threshold",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+
+    locationIds: ["location_astral_stairway"],
+
+    trigger: "After the party crosses the astral bridge and before Sven gives them Yggdrasilmaed.",
+    compact: "Valhalla's gates rise ahead: not welcoming, exactly, but absolute.",
+
+    spotlight: {
+      title: "The Boundary of the Hall",
+      readAloud: [
+        {
+          type: "narration",
+          text: "The bridge ends where gold and iron begin."
+        },
+        {
+          type: "narration",
+          text: "Before you rise gates taller than any fortress wall you knew in life, carved with wars, oaths, feasts, deaths, and names too old to read."
+        },
+        {
+          type: "narration",
+          text: "Beyond them, you hear it: voices, horns, steel, laughter, song. A thousand endings refusing to stay ended."
+        },
+        {
+          type: "narration",
+          text: "The dark behind you does not cross the threshold."
+        },
+        {
+          type: "speech",
+          speaker: "Baldur",
+          text: "In you go."
+        }
+      ],
+      gmPurpose: "Give Valhalla a clear domain-boundary image before the party enters the safer, warmer Sven/Yggdrasilmaed beat.",
+      followUp: "Move immediately into Sven's restoration moment. Do not open the full hub yet."
+    },
+
+    relatedActors: ["actor_baldur_shepherd_of_the_dead"],
+    relatedThreads: [
+      "thread_chosen_vs_assigned",
+      "thread_loki_balder_misdirection"
+    ],
+    reference: "arcs/frost-root/library/prologue/prologue_astral_stairway_first_descent.md",
+    tags: [
+      "prologue",
+      "scene-0",
+      "valhalla",
+      "threshold",
+      "gates",
+      "domain-boundary",
+      "baldur",
+      "campaign-launch"
+    ],
+
+    gmNotes: "Keep this as a threshold image, not a full Valhalla tour. The gates should feel protective, immense, and absolute. Then hand the emotional landing to Sven."
+  },
+
+  {
+    id: "moment_prologue_yggdrasilmaed_restoration",
+    title: "PROLOGUE — Rebirth with Sven",
+    type: "prologue-restoration",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+
+    locationIds: ["location_valhalla_mead_hall"],
+
+    trigger: "After the party reaches Valhalla from the Astral Stairway.",
+    compact: "Sven gives the party Yggdrasilmaed. Bodies, names, and purpose return.",
+
+    spotlight: {
+      title: "Sven: Drink, Then Ask Questions",
+      readAloud: [
+        {
+          type: "narration",
+          text: "Color returns violently: sky, structure, weight."
+        },
+        {
+          type: "narration",
+          text: "The world does not fade in. It asserts itself."
+        },
+        {
+          type: "narration",
+          text: "The drink burns, then settles. Your body remembers itself. Names. Faces. Purpose."
+        },
+        {
+          type: "speech",
+          speaker: "Sven",
+          text: "Drink. Then ask questions."
+        }
+      ],
+      gmPurpose: "Restore identity, introduce Yggdrasilmaed, and make Valhalla feel safe and functional before later failures matter.",
+      followUp: "Give the Yggdrasilmaed resource, answer only immediate orientation questions, then move to Svinhild's first briefing."
+    },
+
+    relatedActors: ["actor_sven_keeper_of_the_mead"],
+    relatedThreads: ["thread_chosen_vs_assigned", "thread_sap_flow_weakening"],
+    reference: "arcs/frost-root/library/prologue/prologue_astral_stairway_first_descent.md",
+    tags: [
+      "prologue",
+      "scene-0",
+      "valhalla",
+      "sven",
+      "mead",
+      "rebirth",
+      "yggdrasilmaed",
+      "campaign-launch"
+    ],
+
+    gmNotes: "Yggdrasilmaed starter rule: each player begins with 4 uses. Per use: heal 50% HP OR restore spell slots/abilities as pseudo-long-rest without healing. Let warmth land, but do not fully explain the system."
+  },
+
+  {
+    id: "moment_prologue_svinhild_first_mission_briefing",
+    title: "PROLOGUE — First Einherjar Briefing",
+    type: "prologue-briefing",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "arc_valhalla_intermission",
+    status: "available",
+
+    locationIds: ["location_valhalla_aerie"],
+
+    trigger: "After the party becomes whole and before the first Bifrost deployment.",
+    compact: "Svinhild defines the strike loop: deploy, assess, neutralize, extract. Do not reveal what you are.",
+
+    spotlight: {
+      title: "Svinhild: Deploy. Assess. Neutralize. Withdraw.",
+      readAloud: [
+        {
+          type: "narration",
+          text: "Mounted Valkyries cut through the sky in organized drills before one of them descends and turns spectacle into orders."
+        },
+        {
+          type: "speech",
+          speaker: "Svinhild",
+          text: "You are here for a reason."
+        },
+        {
+          type: "speech",
+          speaker: "Svinhild",
+          text: "Deploy. Assess. Neutralize. Withdraw."
+        },
+        {
+          type: "speech",
+          speaker: "Svinhild",
+          text: "You do not reveal what you are."
+        },
+        {
+          type: "speech",
+          speaker: "Heimdall",
+          text: "You will be seen."
+        }
+      ],
+      gmPurpose: "Establish the Einherjar strike system, secrecy rule, and first mission frame without exposing the deeper system failure.",
+      followUp: "Immediately fire the Bifrost drop into Frostroot."
+    },
+
+    relatedActors: ["actor_svinhild_valkyrie_commander"],
+    relatedThreads: ["thread_chosen_vs_assigned", "thread_system_correcting_anomaly"],
+    reference: "arcs/frost-root/library/prologue/prologue_astral_stairway_first_descent.md",
+    tags: [
+      "prologue",
+      "scene-0",
+      "valhalla",
+      "briefing",
+      "einherjar",
+      "mission-loop",
+      "bifrost",
+      "campaign-launch",
+      "frost-root-runway"
+    ],
+
+    gmNotes: "The party believes they were chosen. Hidden truth: they were assigned to a failing system. Reveal enough to run the loop, not enough to reveal system truth."
+  },
+
   {
     id: "moment_valhalla_hub_choose_direction",
     title: "Choose Where to Go",

@@ -1,4 +1,36 @@
 export const locations = [
+  
+  {
+    id: "location_astral_stairway",
+    name: "The Astral Stairway / The Way",
+    type: "astral staging space",
+    region: "Between afterlives",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "frost-root",
+    status: "available",
+    currentState: "Gray, formless, direction without landmarks; identity suppressed to protect souls.",
+    presentation: {
+      establishingShot: "No sky. No ground. Only direction. Shades drift as unfinished silhouettes while names and faces slip away.",
+      vibe: "Disorientation without full panic.",
+      sensory: ["Thoughts are difficult to hold.", "Forms are shadowy and incomplete.", "There is movement, but no clear walking or falling."]
+    },
+    function: "Scene 0 opening space for death, dissolution, and afterlife sorting.",
+    pressure: "Conscious identity attracts predators, so the system suppresses clarity.",
+    opportunities: ["Let players describe heroic deaths before memory collapses.", "Introduce multiple afterlife shepherds."],
+    dangers: ["Over-explaining turns disorientation into confusion."],
+    actorsPresent: ["actor_baldur_shepherd_of_the_dead"],
+    reference: "arcs/frost-root/library/prologue/prologue_astral_stairway_first_descent.md",
+    tags: [
+      "prologue",
+      "scene-0",
+      "campaign-starter",
+      "afterlife",
+      "astral",
+      "soul-routing"
+    ]
+  },
+  
   {
     id: "location_valhalla_hub",
     name: "Valhalla Hub",

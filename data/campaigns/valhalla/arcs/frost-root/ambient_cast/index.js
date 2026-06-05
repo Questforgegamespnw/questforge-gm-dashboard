@@ -1,7 +1,11 @@
-// Add location-based ambient cast imports here.
-// Example:
-// import { exampleLocationAmbientCast } from "./example_location.js";
+import { skjoldyrsHollowAmbient } from "./skjoldyrs_hollow.js";
+import { gatePalisadeAmbient } from "./gate_palisade.js";
+import { sapHearthAmbient } from "./sap_hearth.js";
+import { rootShrineAmbient } from "./root_shrine.js";
 
 export const ambientCast = [
-  // ...exampleLocationAmbientCast
+  ...skjoldyrsHollowAmbient,
+  ...gatePalisadeAmbient,
+  ...sapHearthAmbient,
+  ...rootShrineAmbient
 ];

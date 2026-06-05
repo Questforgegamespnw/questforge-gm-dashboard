@@ -328,5 +328,86 @@ export const references = [
       "act-1"
     ],
     gmNotes: "Use to spotlight the Bard, not to tax every spell."
-  }
+  },
+
+  {
+    id: "thread_loki_balder_misdirection",
+    title: "Loki / Balder Misdirection",
+    type: "long-game-mystery",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "valhalla",
+    status: "active",
+    summary: "Balder may not be what he appears; Loki may be embedded, interfering, or exploiting instability.",
+    currentState: "Do not confirm in Act 1. Let suspicion build slowly through contradictions and too-clean sorting.",
+    nextPressure: "Later arcs can complicate the first guide figure from Scene 0.",
+    relatedActors: ["actor_baldur_shepherd_of_the_dead"],
+    tags: ["scene-0", "loki", "balder", "misdirection", "long-game"]
+  },
+  {
+    id: "thread_maker_awareness",
+    title: "The Maker Notices Differently",
+    type: "meta-mystery",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "frost-root",
+    status: "available",
+    summary: "The Maker exists outside the Yggdrasil system and is aware of the players in a way the system is not.",
+    currentState: "Only implied through pattern-focus, above-view echo moments, and being noticed by something without eyes.",
+    nextPressure: "Use sparingly. This is a long-term payoff thread, not an Act 1 explanation.",
+    relatedScenes: ["scene_act1_phase_0_drop_skirmish", "scene_act1_root_shrine_too_late"],
+    tags: ["maker", "meta", "long-game", "do-not-explain"]
+  },
+
+  {
+    id: "thread_chosen_vs_assigned",
+    title: "Chosen vs Assigned",
+    type: "mystery / identity",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "valhalla",
+    status: "active",
+    summary: "The players are allowed to believe they were chosen, while the hidden truth is that they were assigned to a system under strain.",
+    currentState: "Scene 0 introduces the party as worthy heroes and new Einherjar assets.",
+    nextPressure: "Future Heimdall, Yrsa, and system-glitch moments can imply they are not being processed like normal souls.",
+    relatedActors: ["actor_baldur_shepherd_of_the_dead", "actor_svinhild_valkyrie_commander", "actor_yrsa_root_seer"],
+    relatedScenes: ["scene_prologue_death_and_dissolution", "scene_prologue_valhalla_briefing"],
+    tags: ["scene-0", "identity", "hidden-truth", "valhalla"]
+  },
+
+  {
+    id: "reference_einherjar_strike_system",
+    label: "Einherjar Strike System",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "valhalla",
+    status: "available",
+    category: "procedure",
+    summary: "Deployment loop established in Scene 0.",
+    details: [
+      "Deploy: Bifrost Down.",
+      "Assess: identify local pressure and hidden objective.",
+      "Neutralize: stop immediate escalation without revealing true nature.",
+      "Extract: Valkyrie Up.",
+      "Operational secrecy: do not reveal Valhalla, origin, or cosmic Ragnarok truth."
+    ],
+    tags: ["scene-0", "mission-loop", "einherjar", "procedure"]
+  },
+  {
+    id: "reference_yggdrasilmaed",
+    label: "Yggdrasilmaed",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "valhalla",
+    status: "available",
+    category: "rules",
+    summary: "Divine mead resource introduced by Sven to support hard encounters from session 1.",
+    details: [
+      "Each player begins with 4 uses.",
+      "Per use: heal 50% HP OR restore spell slots/abilities as pseudo-long-rest without healing.",
+      "Encourage use under pressure, but never make it feel free.",
+      "Optional: small surge / environmental reaction when used near Root strain."
+    ],
+    tags: ["scene-0", "mead", "resource", "rules"]
+  },
 ];

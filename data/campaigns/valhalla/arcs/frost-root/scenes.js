@@ -1,117 +1,59 @@
 export const scenes = [
   {
-    id: "scene_prologue_death_and_dissolution",
-    title: "Scene 0 — Death & Dissolution",
-    session: "Scene 0 / Prologue",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "frost-root",
-    status: "available",
-    type: "intro",
-    priority: "high",
-    trigger: "Campaign opening or prologue recap.",
-    summary: "Players describe legendary deaths, then awaken as suppressed shades in the Astral Stairway.",
-    playerFacing: "You are not gone. You are not yet anything. Names dissolve, forms blur, and others drift around you.",
-    gmTruth: "Identity suppression protects souls from astral predators that feed on conscious identity.",
-    involvedLocations: ["location_astral_stairway"],
-    clues: ["Memory is suppressed by design.", "The afterlife has systems, routing, and shepherds."],
-    outcomes: ["Players enter soul-routing and meet Baldur."],
-    forwardPath: { upNext: ["scene_prologue_shepherds_and_baldur"], branches: [], scriptedMoments: [] },
-    pressure: "Make them feel disoriented, not confused.",
-    runNote: "Do not linger too long. The prologue must flow directly into Act 1.",
-    tags: ["scene-0", "prologue", "death", "astral"]
-  },
-  {
-    id: "scene_prologue_shepherds_and_baldur",
-    title: "Scene 0 — Shepherds of the Dead / Baldur's Arrival",
-    session: "Scene 0 / Prologue",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "frost-root",
-    status: "available",
-    type: "reveal",
-    priority: "high",
-    trigger: "After players acclimate to the Way.",
-    summary: "Multiple death shepherds call souls toward different afterlives. Baldur routes the party to Valhalla.",
-    playerFacing: "Figures call to the dead. Paths diverge. Baldur says: 'Those with gold or orange tickets—come with me.'",
-    gmTruth: "The party is being directed, not freely choosing. This seeds multi-pantheon logic and later 'on loan' reveals.",
-    involvedActors: ["actor_baldur_shepherd_of_the_dead"],
-    involvedLocations: ["location_astral_stairway"],
-    outcomes: ["Party moves toward Valhalla."],
-    forwardPath: { upNext: ["scene_prologue_rebirth_with_sven"], branches: [], scriptedMoments: [{ timing: "Baldur entry", speaker: "actor_baldur_shepherd_of_the_dead", line: "Those with gold or orange tickets—come with me.", purpose: "Make the afterlife feel sorted, calm, and slightly strange." }] },
-    pressure: "Players may notice they are being sorted by a system.",
-    runNote: "If players deviate, paths gently correct. No matter what, they reach Valhalla.",
-    tags: ["scene-0", "afterlife", "baldur", "sorting"]
-  },
-  {
-    id: "scene_prologue_rebirth_with_sven",
-    title: "Scene 0 — Rebirth with Sven and Yggdrasilmaed",
-    session: "Scene 0 / Prologue",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "frost-root",
-    status: "available",
-    type: "social",
-    priority: "high",
-    trigger: "Arrival in Valhalla after the Way.",
-    summary: "Sven gives the party Yggdrasilmaed, restoring forms, memory, and identity.",
-    playerFacing: "The drink burns, then settles. Your body remembers itself. Names. Faces. Purpose. You are whole again.",
-    gmTruth: "This establishes Valhalla as safe and functional so later failures matter.",
-    involvedActors: ["actor_sven_keeper_of_the_mead"],
-    involvedLocations: ["location_valhalla_mead_introduction"],
-    outcomes: ["Players gain Yggdrasilmaed resource.", "Identity clarity returns."],
-    forwardPath: { upNext: ["scene_prologue_valhalla_briefing"], branches: [], scriptedMoments: [] },
-    pressure: "Let warmth land, but do not make the system feel fully explained.",
-    runNote: "Yggdrasilmaed: 4 uses; heal 50% HP OR restore spell slots/abilities as pseudo-long-rest without healing.",
-    tags: ["scene-0", "sven", "mead", "rebirth", "reference-yggdrasilmaed"]
-  },
-  {
-    id: "scene_prologue_valhalla_briefing",
-    title: "Scene 0 — Svinhild and the Einherjar Strike System",
-    session: "Scene 0 / Prologue",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "frost-root",
-    status: "available",
-    type: "briefing",
-    priority: "high",
-    trigger: "After the party becomes whole.",
-    summary: "Svinhild explains the mission framework: the party is a specialized Einherjar strike unit deployed through the Bifrost under secrecy constraints.",
-    playerFacing: "You are deployed to stabilize threats beyond mortal scale. You do not reveal Valhalla, your origin, or the truth of Ragnarok.",
-    gmTruth: "They believe they were chosen. Reality: they were assigned to a failing system.",
-    involvedActors: ["actor_svinhild_valkyrie_commander"],
-    involvedLocations: ["location_valhalla_valkyrie_aerie"],
-    clues: ["Some souls are on loan.", "The threat aims to force Ragnarok.", "Skjoldyr's Hollow sits near a root access point."],
-    outcomes: ["Party receives first mission brief and proceeds to Bifrost drop."],
-    forwardPath: { upNext: ["scene_prologue_bifrost_first_drop"], branches: [], scriptedMoments: [{ timing: "Before deployment", speaker: "Heimdall", line: "You will be seen.", purpose: "Seed cosmic awareness and future instability." }] },
-    pressure: "Reveal enough to run the campaign loop, not enough to reveal system truth.",
-    runNote: "Deploy → Assess → Neutralize → Extract. Secrecy remains a standing rule.",
-    tags: ["scene-0", "briefing", "einherjar", "bifrost", "mission-loop"]
-  },
-  {
-    id: "scene_prologue_bifrost_first_drop",
-    title: "Scene 0 → Act 1 — The First Drop",
-    session: "Scene 0 / Act 1 transition",
+    id: "scene_frostroot_bifrost_drop",
+    title: "Bifrost Drop — First Impact",
+    session: "Act 1 — The Frost Root",
     modeId: "valhalla",
     campaignId: "valhalla",
     arcId: "frost-root",
     status: "active",
     type: "transition",
     priority: "high",
-    trigger: "Immediately after the briefing. No downtime.",
-    summary: "Bifrost delivery throws the party into snow and war, feeding directly into Act 1 Phase 0.",
-    playerFacing: "Light tears open above you. You are pulled—not falling—delivered. Snow erupts outward. And for the first time since death—you hear war.",
-    gmTruth: "The party arrives after the process has already begun.",
-    involvedLocations: ["location_skjoldyrs_hollow_outer_field"],
-    outcomes: ["Drop Skirmish begins."],
-    forwardPath: { upNext: ["scene_act1_phase_0_drop_skirmish"], branches: [], scriptedMoments: [] },
-    pressure: "No safety buffer. Drop → snow → process already underway.",
-    runNote: "Scene 0 is not separate. It is the runway into Act 1.",
-    tags: ["scene-0", "act-1", "bifrost", "drop", "active"]
+
+    trigger: "Immediately after the Valhalla briefing. No downtime.",
+    summary: "The Bifrost throws the party directly into snow, impact, and the first signs that the battlefield was already wrong before they arrived.",
+
+    playerFacing: "Light tears open above you. You are pulled—not falling—delivered. Snow erupts outward. And for the first time since death, you hear war.",
+    gmTruth: "The party arrives after the process has already begun. This is not the start of the enemy plan; it is the players interrupting it.",
+
+    involvedLocations: [
+      "location_skjoldyrs_hollow_outer_field"
+    ],
+
+    relatedMoments: [
+      "moment_bifrost_first_impact"
+    ],
+
+    outcomes: [
+      "The party lands outside Skjoldyr's Hollow.",
+      "The outskirts skirmish begins immediately.",
+      "The players understand there is no safe onboarding buffer."
+    ],
+
+    forwardPath: {
+      upNext: [
+        "scene_frostroot_outskirts_drop_skirmish"
+      ],
+      branches: [],
+      scriptedMoments: []
+    },
+
+    pressure: "No safety buffer. Drop, snow, impact, war.",
+    runNote: "Keep this fast. This is the runway into Act 1, not a standalone prologue scene.",
+
+    tags: [
+      "act-1",
+      "frost-root",
+      "bifrost",
+      "drop",
+      "transition",
+      "active"
+    ]
   },
+
   {
-    id: "scene_act1_phase_0_drop_skirmish",
-    title: "Phase 0 — The Drop Skirmish",
+    id: "scene_frostroot_outskirts_drop_skirmish",
+    title: "Outskirts — The Interrupted Work",
     session: "Act 1 — The Frost Root",
     modeId: "valhalla",
     campaignId: "valhalla",
@@ -119,175 +61,648 @@ export const scenes = [
     status: "active",
     type: "combat / investigation",
     priority: "high",
+
     trigger: "Immediately after Bifrost impact outside Skjoldyr's Hollow.",
-    summary: "The party interrupts draugr placing bodies and runes. This is tone, mystery, positioning, and ritual/process foreshadowing—not the real fight.",
+    summary: "The party interrupts draugr placing bodies, marks, and rune structure in the snow. This is the first proof that the enemy was performing a process, not simply attacking.",
+
     playerFacing: "The snow is not untouched. Drag lines, broken crates, and bodies placed too deliberately cut through the field.",
-    gmTruth: "The ground was already wrong before they arrived. The players are interrupting a process, not an ambush.",
-    involvedActors: ["actor_draugr_unfinished_dead"],
-    involvedLocations: ["location_skjoldyrs_hollow_outer_field"],
-    clues: ["Draugr ignore players for one round.", "Bodies and markings form a triangle.", "Something in the pattern notices the observer."],
-    outcomes: ["Bridge to Ridge Reveal and siege."],
-    forwardPath: { upNext: ["scene_act1_ridge_reveal"], branches: [], scriptedMoments: [{ timing: "High perception", speaker: "GM", line: "They are not attacking. They are building something.", purpose: "Shift the scene from ambush to process." }] },
-    pressure: "Wrong before dangerous. Controlled, not chaotic. Intentional.",
-    runNote: "Skald is not used yet. Draugr engage only if interrupted or after one full round.",
-    tags: ["act-1", "phase-0", "drop-skirmish", "draugr", "active"]
+    gmTruth: "The draugr are unfinished dead being directed into a task. They do not treat the party as the priority until the party disrupts the work.",
+
+    involvedActors: [
+      "actor_draugr_unfinished_dead",
+      "actor_skald_frozen_tongue"
+    ],
+
+    involvedLocations: [
+      "location_skjoldyrs_hollow_outer_field"
+    ],
+
+    relatedThreads: [
+      "thread_draugr_are_unfinished_dead",
+      "thread_siege_as_distraction"
+    ],
+
+    relatedMoments: [
+      "moment_outer_field_drag_marks",
+      "moment_draugr_continue_the_work",
+      "moment_ritual_node_being_formed",
+      "moment_draugr_turn_when_disrupted",
+      "moment_skald_first_chant_hint"
+    ],
+
+    clues: [
+      "Draugr continue their task before engaging.",
+      "Bodies and markings form a deliberate pattern.",
+      "The markings imply a process already underway.",
+      "The larger battle is audible beyond the ridge."
+    ],
+
+    outcomes: [
+      "The players can disrupt or study the pattern.",
+      "The draugr eventually turn to engage.",
+      "The party moves toward the ridge and sees the full siege."
+    ],
+
+    forwardPath: {
+      upNext: [
+        "scene_frostroot_ridge_reveal_battlefield_opens"
+      ],
+      branches: [],
+      scriptedMoments: []
+    },
+
+    pressure: "Wrong before dangerous. The field is not an ambush; it is interrupted work.",
+    runNote: "Let the players notice the draugr behavior before combat fully snaps into place.",
+
+    tags: [
+      "act-1",
+      "frost-root",
+      "outskirts",
+      "drop-zone",
+      "draugr",
+      "process",
+      "active"
+    ]
   },
+
   {
-    id: "scene_act1_ridge_reveal",
-    title: "The Ridge Reveal",
+    id: "scene_frostroot_ridge_reveal_battlefield_opens",
+    title: "Ridge Reveal — The Battlefield Opens",
     session: "Act 1 — The Frost Root",
     modeId: "valhalla",
     campaignId: "valhalla",
     arcId: "frost-root",
     status: "active",
-    type: "reveal",
+    type: "reveal / transition",
     priority: "high",
-    trigger: "After Phase 0 enemies fall or retreat.",
-    summary: "The party crests the ridge and sees the full siege of Skjoldyr's Hollow.",
+
+    trigger: "After the outskirts skirmish resolves or the party pushes toward the sound of battle.",
+    summary: "The party crests the ridge and sees the full siege of Skjoldyr's Hollow. The scale changes from local skirmish to settlement-wide crisis.",
+
     playerFacing: "The ridge breaks—and below you—war.",
-    gmTruth: "This reframes the session from a local skirmish to organized pressure across the town.",
-    involvedLocations: ["location_skjoldyrs_hollow_gate_palisade"],
-    outcomes: ["Set gate state and start Phase 1 Siege."],
-    forwardPath: { upNext: ["scene_act1_phase_1_siege"], branches: [
-      { condition: "Fast Phase 0", nextScene: "scene_act1_phase_1_siege", note: "Gate intact." },
-      { condition: "Moderate Phase 0", nextScene: "scene_act1_phase_1_siege", note: "Gate cracking." },
-      { condition: "Slow Phase 0", nextScene: "scene_act1_phase_1_siege", note: "Gate breached." }
-    ], scriptedMoments: [] },
-    pressure: "Players should feel they arrived late, but not too late.",
-    runNote: "Use this to set Gate State tracker.",
-    tags: ["act-1", "ridge", "reveal", "siege", "active"]
+    gmTruth: "This reframes the session. The outskirts were not the main attack. They were a sign of the larger pattern around the town.",
+
+    involvedLocations: [
+      "location_skjoldyrs_hollow_outer_field",
+      "location_skjoldyrs_hollow_gate_palisade"
+    ],
+
+    relatedThreads: [
+      "thread_siege_as_distraction",
+      "thread_draugr_are_unfinished_dead"
+    ],
+
+    relatedTrackers: [
+      "tracker_gate_state",
+      "tracker_civilian_state"
+    ],
+
+    relatedMoments: [
+      "moment_ridge_reveal_gate_state",
+      "moment_town_under_siege_first_look",
+      "moment_defenders_already_losing"
+    ],
+
+    clues: [
+      "The gate is under heavy pressure.",
+      "Defenders are brave and organized, but outmatched.",
+      "The attack has multiple pressure lanes.",
+      "The battle has a center forming around the crossroads."
+    ],
+
+    outcomes: [
+      "Set the initial Gate State.",
+      "Set the initial Civilian State.",
+      "The players choose how to enter the siege."
+    ],
+
+    forwardPath: {
+      upNext: [
+        "scene_frostroot_siege_of_skjoldyrs_hollow"
+      ],
+      branches: [
+        {
+          condition: "Fast outskirts resolution",
+          nextScene: "scene_frostroot_siege_of_skjoldyrs_hollow",
+          note: "Gate begins stronger; defenders have more time."
+        },
+        {
+          condition: "Moderate outskirts resolution",
+          nextScene: "scene_frostroot_siege_of_skjoldyrs_hollow",
+          note: "Gate is cracking; defenders are strained."
+        },
+        {
+          condition: "Slow outskirts resolution",
+          nextScene: "scene_frostroot_siege_of_skjoldyrs_hollow",
+          note: "Gate is breached or partially breached."
+        }
+      ],
+      scriptedMoments: []
+    },
+
+    pressure: "They arrived late, but not too late.",
+    runNote: "Use this scene to set the initial battlefield state before the siege becomes active.",
+
+    tags: [
+      "act-1",
+      "frost-root",
+      "ridge",
+      "reveal",
+      "gate",
+      "siege",
+      "active"
+    ]
   },
+
   {
-    id: "scene_act1_phase_1_siege",
-    title: "Phase 1 — Siege of Skjoldyr's Hollow",
+    id: "scene_frostroot_siege_of_skjoldyrs_hollow",
+    title: "Siege of Skjoldyr's Hollow",
     session: "Act 1 — The Frost Root",
     modeId: "valhalla",
     campaignId: "valhalla",
     arcId: "frost-root",
     status: "active",
-    type: "combat / defense",
+    type: "system crisis / combat",
     priority: "high",
-    trigger: "Ridge Reveal completes and players choose how to enter the fight.",
-    summary: "The party must hold the line while managing gate pressure, civilians, nodes, Skald disruption, and brute structure damage.",
-    playerFacing: "Skjoldyr's Hollow burns. The gate shudders under repeated impact. Villagers run through snow and fire. Beneath it all—something pulses.",
-    gmTruth: "The siege matters, but it is not the whole story. It is pressure, containment, and distraction.",
-    involvedActors: ["actor_brinhild_field_captain", "actor_jarl_eirik_skjoldrson", "actor_frostwake_gate_captain", "actor_draugr_unfinished_dead", "actor_frostbound_brute", "actor_skald_frozen_tongue"],
-    involvedLocations: ["location_skjoldyrs_hollow_gate_palisade"],
-    clues: ["Enemy waves feel too structured.", "Brutes target structure, not people.", "Skald makes the battlefield move in time."],
-    outcomes: ["Players stabilize one area but cannot solve all pressures.", "Runecaller arrives."],
-    forwardPath: { upNext: ["scene_act1_phase_2_runecaller_arrives"], branches: [], scriptedMoments: [
-      { timing: "Brinhild command", speaker: "actor_brinhild_field_captain", line: "You're late. Good. That means you're needed.", purpose: "Ally pressure and welcome without softness." },
-      { timing: "Jarl recognition", speaker: "actor_jarl_eirik_skjoldrson", line: "If you're here to help, then stop watching and start killing!", purpose: "Ground mortal stakes." }
-    ] },
-    pressure: "They cannot do everything: hold gate, protect civilians, disable nodes, stop Skald.",
-    runNote: "Defenders are environmental storytelling with hit points. They are already losing but not routing.",
-    tags: ["act-1", "phase-1", "siege", "gate", "active"]
+
+    trigger: "After the ridge reveal, when the party enters the battlefield or chooses a pressure lane.",
+    summary: "The full battlefield breathes as one living scene: gate pressure, defender collapse, rune nodes, Skald duels, Runecaller control, Rift opening, and heroic recovery all fire inside this scene.",
+
+    playerFacing: "Skjoldyr's Hollow burns. The gate shudders under repeated impact. Defenders hold formation around splintering timber. Beneath the snow, blue light pulses in places it should not be.",
+    gmTruth: "The siege is real, but it is also cover, containment, and timing. The Runecaller is directing the battlefield while the deeper Root process has already moved ahead.",
+
+    involvedActors: [
+      "actor_brinhild_field_captain",
+      "actor_jarl_eirik_skjoldrson",
+      "actor_frostwake_gate_captain",
+      "actor_frostroot_gate_defender_cluster",
+      "actor_draugr_unfinished_dead",
+      "actor_frostbound_brute",
+      "actor_skald_frozen_tongue",
+      "actor_runecaller_the_director",
+      "object_frostroot_rune_node",
+      "object_frostroot_rift_core"
+    ],
+
+    involvedLocations: [
+      "location_skjoldyrs_hollow_gate_palisade",
+      "location_skjoldyrs_hollow_crossroads"
+    ],
+
+    relatedThreads: [
+      "thread_siege_as_distraction",
+      "thread_draugr_are_unfinished_dead",
+      "thread_runecaller_directs_battle",
+      "thread_uneasy_success"
+    ],
+
+    relatedTrackers: [
+      "tracker_gate_state",
+      "tracker_active_nodes",
+      "tracker_rift_state",
+      "tracker_rift_closure_progress",
+      "tracker_civilian_state"
+    ],
+
+    relatedMoments: [
+      "moment_jarl_line_anchor",
+      "moment_brinhild_lane_hold",
+      "moment_defender_cluster_breaks",
+      "moment_defender_cluster_rallies",
+      "moment_gate_unjammed_after_player_success",
+      "moment_cinematic_defender_death",
+      "moment_wounded_defender_dragged_clear",
+
+      "moment_rune_node_activates",
+      "moment_node_field_expands",
+      "moment_node_destroyed_or_suppressed",
+      "moment_big_node_created",
+
+      "moment_skald_duel_triggers",
+      "moment_skald_counter_chant_success",
+      "moment_bard_wins_resonance_clash",
+      "moment_skald_chant_breaks",
+
+      "moment_runecaller_enters",
+      "moment_runecaller_commands_dead",
+      "moment_runecaller_pulse_corruption",
+      "moment_runecaller_legendary_reaction_drops_objective_runner",
+
+      "moment_rift_core_opens",
+      "moment_rift_spawns_reinforcements",
+      "moment_close_the_wound_attempt",
+      "moment_rift_folds",
+
+      "moment_eirik_takes_the_opening",
+      "moment_eirik_spat_back_from_rift"
+    ],
+
+    clues: [
+      "Brutes prioritize structure and pressure points.",
+      "Skalds make the battlefield move in rhythm.",
+      "Nodes alter movement, cold, and area control.",
+      "The dead become more coordinated when the Runecaller appears.",
+      "The Rift is a pressure wound, not the root cause."
+    ],
+
+    outcomes: [
+      "The party can hold the gate, save civilians, destroy nodes, duel Skalds, expose the Runecaller, and close the Rift.",
+      "Defenders react to player success by opening lanes, unjamming the gate, or rallying.",
+      "The battle ends in real victory, but not clean understanding."
+    ],
+
+    forwardPath: {
+      upNext: [
+        "scene_frostroot_post_siege_state_branch"
+      ],
+      branches: [
+        {
+          condition: "Gate held, civilians protected, Rift folded cleanly",
+          nextScene: "scene_frostroot_post_siege_state_branch",
+          note: "Town state trends Held."
+        },
+        {
+          condition: "Gate damaged, losses taken, Rift folded under strain",
+          nextScene: "scene_frostroot_post_siege_state_branch",
+          note: "Town state trends Strained."
+        },
+        {
+          condition: "Gate breached, heavy civilian loss, Rift aftermath unstable",
+          nextScene: "scene_frostroot_post_siege_state_branch",
+          note: "Town state trends Fractured."
+        }
+      ],
+      scriptedMoments: []
+    },
+
+    pressure: "The party cannot answer every lane at once. Let their choices visibly reshape both enemy and allied behavior.",
+    runNote: "Do not split this into phase scenes. Use fireable moments to escalate: nodes, Skald duel, Runecaller entrance, Rift opening, heroic recovery.",
+
+    tags: [
+      "act-1",
+      "frost-root",
+      "siege",
+      "battlefield",
+      "system-crisis",
+      "runecaller",
+      "rift",
+      "active"
+    ]
   },
+
   {
-    id: "scene_act1_phase_2_runecaller_arrives",
-    title: "Phase 2 — The Runecaller Arrives",
+    id: "scene_frostroot_post_siege_state_branch",
+    title: "Post-Siege State Branch",
     session: "Act 1 — The Frost Root",
     modeId: "valhalla",
     campaignId: "valhalla",
     arcId: "frost-root",
     status: "active",
-    type: "boss-introduction",
+    type: "fallout / consequence",
     priority: "high",
-    trigger: "After three rounds, player stabilization, node destruction, or gate breaking point.",
-    summary: "The encounter becomes directed. The Runecaller enters and the battlefield stops being chaotic.",
-    playerFacing: "The wind dies. Not fades—dies. Something walks through the storm. And it looks at you.",
-    gmTruth: "The Runecaller is not trying to win the fight. It is trying to complete or protect the process.",
-    involvedActors: ["actor_runecaller_the_director", "actor_skald_frozen_tongue", "actor_brinhild_field_captain"],
-    involvedLocations: ["location_skjoldyrs_hollow_crossroads"],
-    clues: ["The dead move corrected.", "Nodes reactivate.", "Battlefield feels like it belongs to something else."],
-    outcomes: ["Corruption Pulse / node pulse pressure spikes.", "Boss-controller phase begins.", "Runecaller eventually triggers Rift state."],
-    forwardPath: { upNext: ["scene_act1_phase_3_rift_opens"], branches: [], scriptedMoments: [
-      { timing: "Entry", speaker: "GM", line: "The dead no longer wander. They move—corrected.", purpose: "Show control replacing chaos." },
-      { timing: "Brinhild sees it", speaker: "actor_brinhild_field_captain", line: "...so. You finally show yourself.", purpose: "Signal this is not random." }
-    ] },
-    pressure: "Players lose control briefly. Do not overwhelm instantly; let them react.",
-    runNote: "Do not place miniature immediately. Describe, pause, then place.",
-    tags: ["act-1", "phase-2", "runecaller", "boss", "active"]
+
+    trigger: "Immediately after the Rift folds, the Runecaller is defeated/disconnected, or the battlefield stabilizes.",
+    summary: "Translate the battlefield result into the town's emotional and physical state: Held, Strained, or Fractured.",
+
+    playerFacing: "The battle is over. The dead no longer move. The fire still burns. The snow finally falls the way it should. For a few breaths, no one knows whether to cheer.",
+    gmTruth: "The party won the visible fight. The deeper wrongness remains and should begin leaking through the aftermath.",
+
+    involvedActors: [
+      "actor_brinhild_field_captain",
+      "actor_jarl_eirik_skjoldrson",
+      "actor_yrsa_root_seer",
+      "actor_torvald_brewmaster",
+      "actor_frostwake_gate_captain"
+    ],
+
+    involvedLocations: [
+      "location_skjoldyrs_hollow_gate_palisade",
+      "location_skjoldyrs_hollow_crossroads",
+      "location_skjoldyrs_hollow"
+    ],
+
+    relatedThreads: [
+      "thread_uneasy_success",
+      "thread_siege_as_distraction",
+      "thread_sap_flow_weakening"
+    ],
+
+    relatedTrackers: [
+      "tracker_gate_state",
+      "tracker_civilian_state",
+      "tracker_rift_state"
+    ],
+
+    relatedMoments: [
+      "moment_town_state_held",
+      "moment_town_state_strained",
+      "moment_town_state_fractured",
+      "moment_yrsa_vague_and_ominous",
+      "moment_wounded_defender_aftermath_testimony"
+    ],
+
+    clues: [
+      "A node flickers once after it should be dead.",
+      "Yrsa reacts to the aftermath before she explains anything.",
+      "Survivors describe attacks that did not behave like raids.",
+      "The town is grateful, but the relief does not fully settle."
+    ],
+
+    outcomes: [
+      "Town state is established.",
+      "The players receive public victory.",
+      "Uneasy clues begin pointing toward the Sap-Hearth and Root Shrine."
+    ],
+
+    forwardPath: {
+      upNext: [
+        "scene_frostroot_sap_hearth_revelry"
+      ],
+      branches: [
+        {
+          condition: "Held",
+          nextScene: "scene_frostroot_sap_hearth_revelry",
+          note: "The town can celebrate loudly, making the later wrongness sharper."
+        },
+        {
+          condition: "Strained",
+          nextScene: "scene_frostroot_sap_hearth_revelry",
+          note: "Revelry is present but wounded; losses remain visible."
+        },
+        {
+          condition: "Fractured",
+          nextScene: "scene_frostroot_sap_hearth_revelry",
+          note: "The hall becomes shelter and triage more than celebration."
+        }
+      ],
+      scriptedMoments: []
+    },
+
+    pressure: "Victory first. Then unease. Do not steal the win too early.",
+    runNote: "Let players enjoy being legends before introducing the next symptom.",
+
+    tags: [
+      "act-1",
+      "frost-root",
+      "post-siege",
+      "aftermath",
+      "town-state",
+      "active"
+    ]
   },
+
   {
-    id: "scene_act1_phase_3_rift_opens",
-    title: "Phase 3 — The Rift Opens",
+    id: "scene_frostroot_sap_hearth_revelry",
+    title: "Sap-Hearth Revelry",
     session: "Act 1 — The Frost Root",
     modeId: "valhalla",
     campaignId: "valhalla",
     arcId: "frost-root",
     status: "active",
-    type: "complication / reality-break",
+    type: "social / decompression",
     priority: "high",
-    trigger: "Runecaller around 50–60% HP or sustained battlefield control.",
-    summary: "The Rift opens as a wound in reality and creates multi-axis pressure.",
-    playerFacing: "The ground fractures—not with force, but with intent. Light leaks upward. Snow lifts, not falls. Something on the other side notices you.",
-    gmTruth: "The Rift is a symptom and pressure release point, not the root cause. It is trying to stay open.",
-    involvedActors: ["actor_runecaller_the_director", "actor_draugr_unfinished_dead"],
-    involvedLocations: ["location_skjoldyrs_hollow_crossroads"],
-    clues: ["Spawned dead simply become present.", "Distance and movement feel unreliable.", "The Rift folds when resolved."],
-    outcomes: ["Players close the wound, kill Runecaller, or survive until collapse."],
-    forwardPath: { upNext: ["scene_act1_phase_4_heroic_recovery"], branches: [], scriptedMoments: [] },
-    pressure: "Overwhelming but survivable; personal, not abstract; cinematic, not random.",
-    runNote: "Close the Wound: 3 successes, DC 15 Arcana/Religion/Performance adjacent to Rift. Bard Performance is a spotlight option.",
-    tags: ["act-1", "phase-3", "rift", "reality-break", "active"]
+
+    trigger: "After the town state is established and the defenders bring the party into the hall.",
+    summary: "The players get the high-victory beat: warmth, drinks, jokes, recognition, saga energy, and mortal gratitude before the next clue surfaces.",
+
+    playerFacing: "Warm light spills across stone, timber, and wounded faces. Someone starts laughing before anyone is sure they are allowed to. Then another voice joins. Then the hall remembers how to breathe.",
+    gmTruth: "The Sap-Hearth is the town's emotional center, but it is also connected to the Root system. The comfort is real; the wrongness beneath it is also real.",
+
+    involvedActors: [
+      "actor_jarl_eirik_skjoldrson",
+      "actor_brinhild_field_captain",
+      "actor_torvald_brewmaster",
+      "actor_yrsa_root_seer"
+    ],
+
+    involvedLocations: [
+      "location_skjoldyrs_hollow_sap_hearth"
+    ],
+
+    relatedThreads: [
+      "thread_uneasy_success",
+      "thread_sap_flow_weakening"
+    ],
+
+    relatedMoments: [
+      "moment_sap_hearth_first_drinks",
+      "moment_eirik_party_mode",
+      "moment_brinhild_restoration_sobers_revelry",
+      "moment_torvald_disappears_for_drinks",
+      "moment_torvald_sap_flow",
+      "moment_yrsa_you_came_down_wrong"
+    ],
+
+    clues: [
+      "Torvald worries about the sap even during celebration.",
+      "Yrsa remains vague, watchful, and unsettled.",
+      "Eirik can revel hard but snaps back to command instantly when needed.",
+      "The hall's warmth depends on a system below it."
+    ],
+
+    outcomes: [
+      "Players receive social victory and recognition.",
+      "Torvald disappears to check the drink lines.",
+      "The first practical sign of post-battle wrongness emerges."
+    ],
+
+    forwardPath: {
+      upNext: [
+        "scene_frostroot_sap_hearth_cellar_blackened_line"
+      ],
+      branches: [
+        {
+          condition: "Players notice Torvald's absence",
+          nextScene: "scene_frostroot_sap_hearth_cellar_blackened_line",
+          note: "They follow him into the cellar."
+        },
+        {
+          condition: "Players stay in revelry",
+          nextScene: "scene_frostroot_sap_hearth_cellar_blackened_line",
+          note: "The taps stop, Torvald shouts below, or someone realizes the drinks have halted."
+        }
+      ],
+      scriptedMoments: []
+    },
+
+    pressure: "Let the win breathe. The dread lands harder after laughter.",
+    runNote: "This scene should feel genuinely warm. Do not make the hall fake-safe; make it real-safe with one wrong system underneath.",
+
+    tags: [
+      "act-1",
+      "frost-root",
+      "sap-hearth",
+      "revelry",
+      "social",
+      "victory",
+      "active"
+    ]
   },
+
   {
-    id: "scene_act1_phase_4_heroic_recovery",
-    title: "Phase 4 — Heroic Recovery",
+    id: "scene_frostroot_sap_hearth_cellar_blackened_line",
+    title: "Sap-Hearth Cellar — The Blackened Line",
     session: "Act 1 — The Frost Root",
     modeId: "valhalla",
     campaignId: "valhalla",
     arcId: "frost-root",
     status: "active",
-    type: "fallout",
+    type: "clue / investigation",
     priority: "high",
-    trigger: "Rift folds or Runecaller is defeated/disconnected.",
-    summary: "Immediate release and consequence. Players feel victory, but not closure.",
-    playerFacing: "The tear doesn't close—it folds. The light collapses inward. The air settles. The snow finally falls the way it should.",
-    gmTruth: "Something got through or changed despite the heroes holding the line.",
-    involvedActors: ["actor_brinhild_field_captain", "actor_jarl_eirik_skjoldrson", "actor_torvald_brewmaster", "actor_yrsa_root_seer"],
-    involvedLocations: ["location_skjoldyrs_hollow_gate_palisade", "location_skjoldyrs_hollow_crossroads"],
-    clues: ["No cheers.", "A node flickers once.", "A corpse or wind behaves wrong after victory."],
-    outcomes: ["Ragnarok Meter set to 2/3/4 depending on outcome.", "Post-siege RP opens."],
-    forwardPath: { upNext: ["scene_act1_post_siege_aftermath"], branches: [], scriptedMoments: [
-      { timing: "After silence", speaker: "actor_brinhild_field_captain", line: "...That should not have been here.", purpose: "Confirm escalation without explaining." },
-      { timing: "Yrsa if present", speaker: "actor_yrsa_root_seer", line: "This is not death as it should be.", purpose: "First truth-adjacent statement." }
-    ] },
-    pressure: "Relief but not comfort. Victory but not safety. Quiet but not peace.",
-    runNote: "Let 5–10 seconds of silence sit before NPC reactions.",
-    tags: ["act-1", "phase-4", "recovery", "uneasy-success", "active"]
+
+    trigger: "Torvald disappears to fetch drinks and does not return, or the hall's taps unexpectedly stop.",
+    summary: "The party follows Torvald below the hall and finds him shutting off the tapworks after blackened sap begins entering one of the drink lines.",
+
+    playerFacing: "The celebration above dulls with each step down, replaced by dripping lines, hissing valves, and Torvald's voice cursing somewhere in the dark.",
+    gmTruth: "The wrongness is not only battlefield residue. It has reached the Sap-Hearth's root-fed system.",
+
+    involvedActors: [
+      "actor_torvald_brewmaster"
+    ],
+
+    involvedLocations: [
+      "location_skjoldyrs_hollow_sap_hearth_cellar"
+    ],
+
+    relatedThreads: [
+      "thread_sap_flow_weakening",
+      "thread_uneasy_success"
+    ],
+
+    relatedMoments: [
+      "moment_torvald_blackened_sap_line",
+      "moment_torvald_shuts_off_tapworks",
+      "moment_trace_black_sap_to_root"
+    ],
+
+    clues: [
+      "Blackened sap appears in one line.",
+      "Torvald catches it before it reaches the hall.",
+      "The issue may be local, line-based, or rooted deeper.",
+      "This is a practical system failure, not a prophecy."
+    ],
+
+    outcomes: [
+      "Torvald shuts off the affected line or the full tapworks.",
+      "The party understands something remains wrong after victory.",
+      "The clue points toward Yrsa and the Root Shrine."
+    ],
+
+    forwardPath: {
+      upNext: [
+        "scene_frostroot_regroup_with_yrsa"
+      ],
+      branches: [],
+      scriptedMoments: [
+        {
+          timing: "Black sap reveal",
+          speaker: "actor_torvald_brewmaster",
+          line: "No. No, no, no—shut the line. Shut the whole damned line.",
+          purpose: "Make the dread practical, immediate, and grounded."
+        }
+      ]
+    },
+
+    pressure: "The celebration does not end because of an omen. It ends because the brewer found poison in the system.",
+    runNote: "Torvald should be concrete and technical here. He is not interpreting the cosmos; he is reading a failed line.",
+
+    tags: [
+      "act-1",
+      "frost-root",
+      "sap-hearth",
+      "cellar",
+      "blackened-sap",
+      "clue",
+      "active"
+    ]
   },
+
   {
-    id: "scene_act1_post_siege_aftermath",
-    title: "Post-Siege — Skjoldyr's Hollow After the Battle",
+    id: "scene_frostroot_regroup_with_yrsa",
+    title: "Regroup With Yrsa — The Wrongness Has a Source",
     session: "Act 1 — The Frost Root",
     modeId: "valhalla",
     campaignId: "valhalla",
     arcId: "frost-root",
     status: "active",
-    type: "social / investigation",
+    type: "realization / transition",
     priority: "high",
-    trigger: "After heroic recovery phase.",
-    summary: "Players move from reaction to curiosity. The town is grateful, shaken, and not at peace.",
-    playerFacing: "The battle is over. The dead no longer move. The fire still burns. And the town does not celebrate.",
-    gmTruth: "This is where Act 1 reveals through distributed clues, not exposition.",
-    involvedActors: ["actor_jarl_eirik_skjoldrson", "actor_yrsa_root_seer", "actor_torvald_brewmaster", "actor_frostwake_gate_captain"],
-    involvedLocations: ["location_skjoldyrs_hollow_gate_palisade", "location_skjoldyrs_hollow_sap_hearth"],
-    clues: ["Guards: this attack was different.", "Torvald: sap flow is weakening.", "Yrsa: something is wrong with death/root behavior.", "Jarl: survival pressure and next attack concerns."],
-    outcomes: ["Players choose main investigation direction.", "Root Shrine hook emerges."],
-    forwardPath: { upNext: ["scene_act1_root_shrine_too_late"], branches: [
-      { condition: "Follow civilians", nextScene: "Sap-Hearth social", note: "Torvald and Yrsa clues likely." },
-      { condition: "Inspect battlefield", nextScene: "Node / Rift aftermath", note: "Wrongness persists." },
-      { condition: "Speak to Jarl/guards", nextScene: "Gate aftermath", note: "Attack intent and structure damage." }
-    ], scriptedMoments: [] },
-    pressure: "Do not guide too hard. Wherever players go becomes the main scene.",
-    runNote: "Use 1–2 foreshadow drops max: body twitch, metallic sap smell, misremembered detail, wind pause.",
-    tags: ["act-1", "post-siege", "social", "investigation", "active"]
+
+    trigger: "After the blackened sap line is discovered or the party asks Yrsa what the sap failure means.",
+    summary: "The party connects Torvald's practical failure with Yrsa's ominous read of the Root, then moves toward the shrine.",
+
+    playerFacing: "Yrsa does not look surprised when she sees the blackened sap. That is worse than surprise.",
+    gmTruth: "Yrsa does not fully understand the mechanism, but she knows the symptom belongs to the Root and not merely the hall's tapworks.",
+
+    involvedActors: [
+      "actor_yrsa_root_seer",
+      "actor_torvald_brewmaster",
+      "actor_jarl_eirik_skjoldrson",
+      "actor_brinhild_field_captain"
+    ],
+
+    involvedLocations: [
+      "location_skjoldyrs_hollow_sap_hearth",
+      "location_skjoldyrs_hollow_sap_hearth_cellar",
+      "location_skjoldyrs_hollow_root_shrine"
+    ],
+
+    relatedThreads: [
+      "thread_sap_flow_weakening",
+      "thread_uneasy_success"
+    ],
+
+    relatedMoments: [
+      "moment_yrsa_reads_blackened_sap",
+      "moment_yrsa_names_wrongness_without_explaining",
+      "moment_path_to_shrine_too_clean"
+    ],
+
+    clues: [
+      "The blackened sap is a symptom, not the whole problem.",
+      "Yrsa suspects the shrine before she has proof.",
+      "Eirik and Brinhild can sober instantly when the town is threatened.",
+      "The path to the shrine is too clean."
+    ],
+
+    outcomes: [
+      "The party leaves the revelry behind.",
+      "Yrsa leads or points them toward the Root Shrine.",
+      "The mood shifts from celebration to investigation."
+    ],
+
+    forwardPath: {
+      upNext: [
+        "scene_frostroot_root_shrine_too_late"
+      ],
+      branches: [],
+      scriptedMoments: [
+        {
+          timing: "Command snap",
+          speaker: "actor_jarl_eirik_skjoldrson",
+          line: "Brinhild. Sober up. We have more work to do.",
+          purpose: "Show the shift from revelry back to responsibility."
+        }
+      ]
+    },
+
+    pressure: "The victory is still real, but it is no longer the whole truth.",
+    runNote: "This is a mode shift. Let the room sober up around the new information.",
+
+    tags: [
+      "act-1",
+      "frost-root",
+      "yrsa",
+      "regroup",
+      "root-shrine",
+      "transition",
+      "active"
+    ]
   },
+
   {
-    id: "scene_act1_root_shrine_too_late",
-    title: "Root Shrine — They Were Too Late",
+    id: "scene_frostroot_root_shrine_too_late",
+    title: "Root Shrine — Too Late",
     session: "Act 1 — The Frost Root",
     modeId: "valhalla",
     campaignId: "valhalla",
@@ -295,21 +710,194 @@ export const scenes = [
     status: "active",
     type: "reveal / investigation",
     priority: "high",
-    trigger: "Players follow clues toward the Root Shrine.",
-    summary: "The shrine is not under attack and the process is not ongoing. It already finished or redirected the Root.",
+
+    trigger: "The party follows the sap clue, Yrsa's concern, or post-siege wrongness to the Root Shrine.",
+    summary: "The shrine is not under attack. The process is already completed or redirected. The party realizes the siege was not the whole operation.",
+
     playerFacing: "The path to the shrine is untouched. No tracks. No struggle. No sign that anything fought its way here. That alone should stop you.",
-    gmTruth: "The siege was containment/distraction/timing. The Root was taught something new.",
-    involvedActors: ["actor_yrsa_root_seer"],
-    involvedLocations: ["location_skjoldyrs_hollow_root_shrine"],
-    clues: ["No battle at shrine.", "New runes are complete, not forming.", "Energy feels residual / cycling / settled.", "Old runes stabilize; new runes redirect."],
-    outcomes: ["Players may cleanse, stabilize, or study, but not fully undo what happened.", "Root Pattern Recognition reward possible.", "Act 2 bridge: system has changed."],
-    forwardPath: { upNext: ["Act 2 / EmberRoot bridge"], branches: [
-      { condition: "Cleanse", nextScene: "Act 2 bridge", note: "Partial success only; instability resists." },
-      { condition: "Stabilize", nextScene: "Act 2 bridge", note: "Suppresses symptoms but does not undo change." },
-      { condition: "Study", nextScene: "Act 2 bridge", note: "Gain future advantage against nodes / root patterns." }
-    ], scriptedMoments: [{ timing: "Investigation payoff", speaker: "GM", line: "This wasn't an attempt to break the root. It was an attempt—to teach it something new.", purpose: "Land the Act 1 inversion." }] },
+    gmTruth: "The siege was containment, distraction, and timing. The Root was not simply damaged; it was taught or redirected.",
+
+    involvedActors: [
+      "actor_yrsa_root_seer"
+    ],
+
+    involvedLocations: [
+      "location_skjoldyrs_hollow_root_shrine"
+    ],
+
+    relatedThreads: [
+      "thread_siege_as_distraction",
+      "thread_sap_flow_weakening",
+      "thread_uneasy_success"
+    ],
+
+    relatedReferences: [
+      "reference_root_shrine_response_options",
+      "reference_frostroot_root_truths_and_language"
+    ],
+
+    relatedMoments: [
+      "moment_root_shrine_already_done",
+      "moment_illusion_drops_bodies_at_root",
+      "moment_root_impact_bodies_revealed",
+      "moment_players_help_yrsa_stabilize_node",
+      "moment_root_pattern_recognition_reward",
+      "moment_root_shifts_beneath_surface"
+    ],
+
+    clues: [
+      "No battle reached the shrine.",
+      "New marks are complete, not forming.",
+      "Old runes stabilize; new marks redirect.",
+      "The illusion of a clean shrine drops to reveal bodies that impacted the Root.",
+      "The Root appears whole, then shifts beneath the surface."
+    ],
+
+    outcomes: [
+      "Players may cleanse, stabilize, study, or contain symptoms.",
+      "They cannot fully undo what already happened.",
+      "Root Pattern Recognition reward is possible.",
+      "The Act 2 bridge becomes visible."
+    ],
+
+    forwardPath: {
+      upNext: [
+        "scene_frostroot_valkyrie_extraction"
+      ],
+      branches: [
+        {
+          condition: "Cleanse",
+          nextScene: "scene_frostroot_valkyrie_extraction",
+          note: "Partial symptom relief; the deeper change resists simple removal."
+        },
+        {
+          condition: "Stabilize",
+          nextScene: "scene_frostroot_valkyrie_extraction",
+          note: "Suppresses immediate aftershocks and protects the town for now."
+        },
+        {
+          condition: "Study",
+          nextScene: "scene_frostroot_valkyrie_extraction",
+          note: "Players gain future advantage reading Root/node patterns."
+        }
+      ],
+      scriptedMoments: [
+        {
+          timing: "Investigation payoff",
+          speaker: "GM",
+          line: "This was not an attempt to break the Root. It was an attempt to teach it something new.",
+          purpose: "Land the Act 1 inversion."
+        }
+      ]
+    },
+
     pressure: "Do not give them something to fight. Give them something to realize.",
-    runNote: "End image: the Root looks whole, then shifts beneath the surface—not breaking, adjusting.",
-    tags: ["act-1", "root-shrine", "reveal", "too-late", "act-2-bridge", "active"]
+    runNote: "Use the body reveal carefully. It should feel like the illusion of safety falling away, not a cheap gore button.",
+
+    tags: [
+      "act-1",
+      "frost-root",
+      "root-shrine",
+      "too-late",
+      "reveal",
+      "act-2-bridge",
+      "active"
+    ]
+  },
+
+  {
+    id: "scene_frostroot_valkyrie_extraction",
+    title: "Valkyrie Extraction — Victory With Unease",
+    session: "Act 1 — The Frost Root",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "frost-root",
+    status: "active",
+    type: "extraction / fallout",
+    priority: "high",
+
+    trigger: "After the Root Shrine reveal and any stabilization attempt resolves.",
+    summary: "The party regroups with the Valkyries, leaves Skjoldyr's Hollow, and carries a real victory back into a larger mystery.",
+
+    playerFacing: "The Bifrost light returns, but it does not feel like arrival this time. It feels like being pulled away before the place has finished speaking.",
+    gmTruth: "Act 1 ends with victory intact, but the players now know the system is larger, stranger, and less stable than the briefing implied.",
+
+    involvedActors: [
+      "actor_brinhild_field_captain",
+      "actor_jarl_eirik_skjoldrson",
+      "actor_yrsa_root_seer"
+    ],
+
+    involvedLocations: [
+      "location_skjoldyrs_hollow",
+      "location_skjoldyrs_hollow_root_shrine"
+    ],
+
+    relatedThreads: [
+      "thread_uneasy_success",
+      "thread_sap_flow_weakening"
+    ],
+
+    relatedReferences: [
+      "reference_frostroot_ragnarok_outcome_rubric",
+      "reference_frostroot_root_truths_and_language"
+    ],
+
+    relatedMoments: [
+      "moment_brinhild_after_action_report",
+      "moment_eirik_meadhall_return_or_farewell",
+      "moment_yrsa_final_warning",
+      "moment_valkyries_arrive_for_extract",
+      "moment_bifrost_extract_with_unease"
+    ],
+
+    clues: [
+      "The town survives, but the Root has changed.",
+      "The Valkyries understand more is wrong than a local undead attack.",
+      "The party's victory matters, but does not close the question.",
+      "The next arc pressure is now seeded."
+    ],
+
+    outcomes: [
+      "Set Frostroot Act 1 outcome using the Ragnarok outcome rubric.",
+      "Carry forward Root Pattern Recognition or equivalent reward if earned.",
+      "Bridge toward Emberroot / Act 2 pressure."
+    ],
+
+    forwardPath: {
+      upNext: [],
+      branches: [
+        {
+          condition: "Held outcome",
+          nextScene: "Act 2 bridge",
+          note: "Ragnarok pressure remains lower; the party has strong credibility."
+        },
+        {
+          condition: "Strained outcome",
+          nextScene: "Act 2 bridge",
+          note: "Ragnarok pressure increases moderately; victory came with visible cost."
+        },
+        {
+          condition: "Fractured outcome",
+          nextScene: "Act 2 bridge",
+          note: "Ragnarok pressure increases sharply; the party leaves with unresolved damage."
+        }
+      ],
+      scriptedMoments: []
+    },
+
+    pressure: "End with the win intact and the mystery larger.",
+    runNote: "Do not undercut the players' success. Let the dread be implication, not punishment.",
+
+    tags: [
+      "act-1",
+      "frost-root",
+      "extraction",
+      "valkyries",
+      "uneasy-success",
+      "act-2-bridge",
+      "active"
+    ]
   }
 ];
+

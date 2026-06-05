@@ -127,5 +127,32 @@ export const aesirActors = [
       "quiet-power"
   ],
       gmNotes: "Use sparingly. Odin should not become the party’s quest dispenser unless intentionally reframing the arc."
-    }
+    },
+
+    {
+    id: "actor_baldur_shepherd_of_the_dead",
+    name: "Baldur",
+    role: "Death shepherd / afterlife guide",
+    group: "Valhalla",
+    modeId: "valhalla",
+    campaignId: "valhalla",
+    arcId: "frost-root",
+    status: "available",
+    currentLocation: "location_astral_stairway",
+    currentState: "Calmly sorting souls in the gray astral staging space.",
+    sticky: false,
+    presentation: {
+      vibe: "Calm, certain, lightly bureaucratic in a divine way.",
+      physicality: "Appears without hurry and does not negotiate with the sorting system.",
+      voice: "Gentle, clear, matter-of-fact.",
+      sceneImpact: "Makes the afterlife feel like a functioning system rather than a mystery fog.",
+      visualAnchor: "Gold/orange ticket callout amid gray nothingness."
+    },
+    motivation: { wants: "Route the party toward Valhalla.", fears: "None shown.", leverage: "Authority within the soul-routing process." },
+    knowledge: { knows: ["Multiple afterlives are active destinations.", "The party is being routed toward a Norse domain."], secrets: ["His apparent role may later tie into Loki/Balder misdirection."] },
+    quickLines: ["Those with gold or orange tickets—come with me.", "This way."],
+    tags: ["scene-0", "afterlife", "guide", "valhalla"]
+  },
 ];
+
+

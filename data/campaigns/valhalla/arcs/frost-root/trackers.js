@@ -1,25 +1,5 @@
 export const trackers = [
   {
-    id: "tracker_frost_root_ragnarok_meter_act1",
-    name: "Ragnarok Meter — Act 1",
-    type: "meter",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "frost-root",
-    status: "active",
-    value: 2,
-    min: 0,
-    max: 10,
-    label: "Act 1 controlled-success range",
-    summary: "Act 1 starts at 2 and moves slowly. Success stays 2, partial success moves 3, failure moves 4.",
-    effects: [
-      { range: "2", label: "Held", note: "Full success: gate stabilized, civilians mostly safe, Rift closed." },
-      { range: "3", label: "Strained", note: "Partial success: damage, losses, or unresolved symptoms remain visible." },
-      { range: "4", label: "Fractured", note: "Failure state: gate collapse, heavy losses, or unstable Rift aftermath." }
-    ],
-    tags: ["act-1", "ragnarok", "pressure", "active"]
-  },
-  {
     id: "tracker_gate_state",
     name: "Gate State",
     type: "state",
@@ -46,6 +26,7 @@ export const trackers = [
     modeId: "valhalla",
     campaignId: "valhalla",
     arcId: "frost-root",
+    summary: "Tracks how many Frostroot Rune Nodes remain active as battlefield hazard / solution targets.",
     status: "active",
     value: 3,
     min: 0,
@@ -53,7 +34,7 @@ export const trackers = [
     label: "Three active at siege start",
     summary: "Tracks how many local rewrite / wrongness nodes remain active on the battlefield.",
     effects: [
-      { range: "3", label: "Full Field Control", note: "Undead buffed and terrain pressure strong." },
+      { range: "3", label: "Full Field Control", note: "All three nodes are active; cold fields, movement lock, and Runecaller pulse options are strongest." },
       { range: "2", label: "Pressure Reduced", note: "Players are taking control but cannot be everywhere." },
       { range: "1", label: "Last Node", note: "Runecaller may use Pulse to force a momentum swing." },
       { range: "0", label: "Unraveled", note: "Snow and movement begin behaving more normally." }
@@ -75,7 +56,7 @@ export const trackers = [
     summary: "Tracks the Phase 3 reality wound.",
     effects: [
       { range: "0", label: "Not Open", note: "Rift has not appeared." },
-      { range: "1", label: "Open", note: "Spawn engine, Reality Tear aura, Void Flare, and closure challenge are live." },
+      { range: "1", label: "Open", note: "Rift Core is active; enemy spawn pressure, reality distortion, and closure challenge are live." },
       { range: "2", label: "Folded", note: "Spawns stop, nodes destabilize, and undead weaken." }
     ],
     tags: ["act-1", "rift", "phase-3", "active"]
@@ -92,12 +73,12 @@ export const trackers = [
     min: 0,
     max: 3,
     label: "Close the Wound",
-    summary: "Adjacent characters can make DC 15 Arcana, Religion, or Performance checks. Three successes fold the Rift.",
+    summary: "Adjacent characters can make DC 20 Arcana, Religion, or Performance checks. Three successes fold the Rift.",
     effects: [
       { range: "0", label: "Open", note: "The Rift is fully resisting closure." },
       { range: "1", label: "Weakening", note: "Spawn pressure or aura can soften narratively." },
       { range: "2", label: "Folding", note: "The wound is visibly remembering it should not be open." },
-      { range: "3", label: "Collapsed", note: "The Rift folds closed." }
+      { range: "3", label: "Folded", note: "The Rift folds closed; spawn pressure stops and the battlefield begins settling." }
     ],
     tags: ["act-1", "rift", "skill-challenge", "active"]
   },
@@ -121,24 +102,5 @@ export const trackers = [
     ],
     tags: ["act-1", "civilians", "stakes", "active"]
   },
-  {
-    id: "tracker_player_outlook_scene0",
-    name: "Player Outlook After Prologue",
-    type: "relationship",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "frost-root",
-    status: "available",
-    value: 1,
-    min: 0,
-    max: 2,
-    label: "Uncertain",
-    summary: "Quietly track whether the party accepts, questions, or resists the Valhalla system after Scene 0.",
-    effects: [
-      { range: "0", label: "Trusting", note: "Smooth mission flow; less friction with Valkyries." },
-      { range: "1", label: "Uncertain", note: "More perception hooks; early Kara/Yrsa connection potential." },
-      { range: "2", label: "Suspicious", note: "Heimdall lines hit harder; Valkyries become more guarded." }
-    ],
-    tags: ["scene-0", "outlook", "valhalla", "roleplay"]
-  }
+  
 ];

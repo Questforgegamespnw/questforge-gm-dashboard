@@ -1,9 +1,15 @@
-// Add actor group imports here when the arc needs split actor files.
-// Example:
-// import { primaryActors } from "./primary.js";
-// import { supportingActors } from "./supporting.js";
+// actors/index.js
+
+import { primaryActors } from "./primary.js";
+import { supportingActors } from "./supporting.js";
+import { encounterActors } from "./encounters.js";
+
+export { primaryActors } from "./primary.js";
+export { supportingActors } from "./supporting.js";
+export { encounterActors } from "./encounters.js";
 
 export const actors = [
-  // ...primaryActors,
-  // ...supportingActors
+  ...primaryActors,
+  ...supportingActors,
+  ...encounterActors
 ];
