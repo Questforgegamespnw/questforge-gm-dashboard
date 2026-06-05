@@ -40,6 +40,46 @@ Avoid mode-specific internal names such as `npcs`, `zones`, `omens`, `ragnarok`,
 
 ---
 
+## Each cluster of scenes should get the following cockpit wiring
+
+Scenes:
+what beat is playable right now?
+
+Locations:
+where does this beat happen, and what is adjacent?
+
+Actors:
+who should appear in the rail?
+
+Ambient Cast:
+whose voices fill the room?
+
+Fireable Moments:
+what can I drop instantly?
+
+Tables:
+what quick result tools matter here?
+
+Trackers:
+what state is changing?
+
+References:
+what GM truth or rule should be one click away?
+
+Which then translate into these: 
+
+scenes.js
+fireable_moments.js
+ambient_cast/*
+locations.js
+actors/*
+threads.js
+tables.js
+references.js
+trackers.js if needed
+
+---
+
 ## 2. Quick Type Map
 
 ### `actors`

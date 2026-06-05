@@ -39,6 +39,7 @@ Use these generic internal names everywhere in app logic:
 
 ```text
 actors
+ambientCast
 locations
 factions
 threads
@@ -420,6 +421,43 @@ reference
 gmNotes
 ```
 
+## Ambient Cast
+
+Required:
+
+```js
+id
+title
+type
+modeId
+campaignId
+status
+locationIds
+tags
+```
+Recommended:
+
+```js
+arcId
+summary
+names
+voices
+hookLines
+interactionSeeds
+relatedActors
+relatedThreads
+relatedLocations
+reference
+gmNotes
+```
+Ambient Cast entries represent location-linked room life: background groups, crowd texture, name banks, voice lines, interaction hooks, and minor social presence.
+
+They are not replacements for named actors.
+
+Use actors for primary NPCs, recurring figures, major threats, contacts, patrons, gods, rivals, and anyone the GM may need to portray directly across scenes.
+
+Use ambientCast for the people who make a location feel inhabited without requiring full actor cards.
+
 ## Locations
 
 Required:
@@ -796,6 +834,7 @@ Use stable lowercase snake-case IDs with type prefixes.
 
 ```text
 actor_
+ambient_
 location_
 faction_
 thread_
@@ -806,6 +845,7 @@ table_
 reference_
 arc_
 session_
+asset_
 ```
 
 ## Examples
@@ -813,6 +853,7 @@ session_
 ```text
 actor_sven
 actor_heimdall
+ambient_valhalla_mead_hall_einherjar
 location_valhalla_mead_hall
 location_valhalla_bifrost_platform
 scene_valhalla_bifrost_return
@@ -1169,6 +1210,7 @@ Before adding or editing code, check:
 - [ ] Is this just a label/display preference? Put it in `js/modes/`.
 - [ ] Is this campaign-wide data? Put it in `global/`.
 - [ ] Is this arc-specific data? Put it in `arcs/<arc>/`.
+- [ ] Is this location-linked room life rather than a named recurring NPC? Use `ambientCast`.
 - [ ] Is this tonight-only prep? Put it in `sessions/<session>/`.
 - [ ] Is this long lore? Put it in `library/`.
 - [ ] Is this active tonight at start? Add the ID to `current_loadout.js`.
