@@ -368,6 +368,10 @@ button:hover,
   min-width: 190px;
 }
 
+.mobile-drawer-toggle {
+  display: none;
+}
+
 /* ============================================================
    Phone Cockpit Mode
    Target: Galaxy S23 Ultra / large phones / narrow table use
@@ -436,32 +440,73 @@ button:hover,
     font-size: 0.9rem;
   }
 
-  .dashboard-shell {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 0.75rem;
-  }
+ .dashboard-shell {
+   display: block;
+   padding: 0.75rem;
+ }
 
-  /*
-    Phone order:
-    1. Main selected detail / cards
-    2. Fireables and pressure
-    3. Actors / nearby / locations
+ .mobile-drawer-toggle {
+   display: block;
+   position: fixed;
+   top: 48%;
+   z-index: 60;
+   min-height: 44px;
+   padding: 0.65rem 0.45rem;
+   border-color: var(--accent);
+   writing-mode: vertical-rl;
+   text-orientation: mixed;
+   opacity: 0.95;
+ }
 
-    This keeps the live table material higher on the phone.
-  */
-  .main-panel {
-    order: 1;
-  }
+ .mobile-left-toggle {
+   left: 0;
+   border-radius: 0 0.5rem 0.5rem 0;
+ }
 
-  .right-panel {
-    order: 2;
-  }
+ .mobile-right-toggle {
+   right: 0;
+   border-radius: 0.5rem 0 0 0.5rem;
+ }
 
-  .left-rail {
-    order: 3;
-  }
+ .left-rail,
+ .right-panel {
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   z-index: 50;
+   width: min(86vw, 340px);
+   max-width: 340px;
+   overflow-y: auto;
+   border-radius: 0;
+   transition: transform 180ms ease;
+ }
+
+ .left-rail {
+   left: 0;
+   transform: translateX(-100%);
+ }
+
+ .right-panel {
+   right: 0;
+   transform: translateX(100%);
+ }
+
+ body.mobile-left-open .left-rail {
+   transform: translateX(0);
+ }
+
+ body.mobile-right-open .right-panel {
+   transform: translateX(0);
+ }
+
+ body.mobile-left-open .mobile-left-toggle,
+ body.mobile-right-open .mobile-right-toggle {
+   opacity: 1;
+ }
+
+ .main-panel {
+   min-height: auto;
+ }
 
   .left-rail,
   .main-panel,

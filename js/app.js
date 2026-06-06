@@ -279,6 +279,8 @@ const elements = {
   arcSelect: document.querySelector("#arc-select"),
   visibilityGateSelect: document.querySelector("#visibility-gate-select"),
   resetButton: document.querySelector("#reset-filters"),
+  mobileLeftToggle: document.querySelector("#mobile-left-toggle"),
+  mobileRightToggle: document.querySelector("#mobile-right-toggle"),
   mainPanelTitle: document.querySelector("#main-panel-title"),
   mainPanelSubtitle: document.querySelector("#main-panel-subtitle")
 };
@@ -454,6 +456,17 @@ function getTabItems(tab) {
 // Selection and action handlers
 // -----------------------------------------------------------------------------
 
+function closeMobileDrawers() {
+  document.body.classList.remove("mobile-left-open", "mobile-right-open");
+}
+
+function scrollDetailIntoView() {
+  elements.centerDetailPanel?.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
 function collapseSelectedDetail() {
   clearSelectedItem();
   renderDetail(elements.centerDetailPanel, null);
@@ -481,6 +494,7 @@ function handleSelect(item) {
     clearSelectedItem();
     renderSelectedDetail(null);
     render();
+    closeMobileDrawers();
     return;
   }
 
@@ -492,6 +506,8 @@ function handleSelect(item) {
 
   render();
   renderSelectedDetail(item);
+  closeMobileDrawers();
+  scrollDetailIntoView();
 }
 
 function handleMomentSelect(moment) {
@@ -500,6 +516,9 @@ function handleMomentSelect(moment) {
   renderMomentSpotlight(elements.centerDetailPanel, moment, {
     onCollapse: collapseSelectedDetail
   });
+
+  closeMobileDrawers();
+  scrollDetailIntoView();
 }
 
 function refreshCampaignContext(arcId) {
@@ -522,7 +541,7 @@ function handleArcChange(arcId) {
   elements.viewFilter.value = "cockpit";
   if (elements.visibilityGateSelect) elements.visibilityGateSelect.value = state.selectedVisibilityGate ?? "";
   if (elements.arcSelect) elements.arcSelect.value = campaignData.activeArc?.id ?? arcId;
-  if (elements.visibilityGateSelect) elements.visibilityGateSelect.value = state.selectedVisibilityGate ?? "";
+  
 
   document.querySelectorAll(".tab-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.tab === "cockpit");
@@ -603,6 +622,20 @@ function render() {
 // Event bindings
 // -----------------------------------------------------------------------------
 
+if (elements.mobileLeftToggle) {
+  elements.mobileLeftToggle.addEventListener("click", () => {
+    document.body.classList.toggle("mobile-left-open");
+    document.body.classList.remove("mobile-right-open");
+  });
+}
+
+if (elements.mobileRightToggle) {
+  elements.mobileRightToggle.addEventListener("click", () => {
+    document.body.classList.toggle("mobile-right-open");
+    document.body.classList.remove("mobile-left-open");
+  });
+}
+
 if (elements.arcSelect) {
   elements.arcSelect.addEventListener("change", (event) => {
     handleArcChange(event.target.value);
@@ -658,10 +691,6 @@ elements.resetButton.addEventListener("click", () => {
   render();
 });
 
-elements.centerDetailPanel.addEventListener("click", () => {
-  if (!state.selectedItem) return;
-  collapseSelectedDetail();
-});
 
 // -----------------------------------------------------------------------------
 // Initial render
