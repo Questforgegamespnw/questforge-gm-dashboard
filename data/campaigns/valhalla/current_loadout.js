@@ -15,7 +15,11 @@ export const currentLoadout = {
     "location_valhalla_bifrost_platform",
     "location_valhalla_heimdalls_threshold",
     "location_valhalla_mead_hall",
-    "location_valhalla_valkyrie_aerie"
+    "location_valhalla_golden_fields",
+    "location_valhalla_forge_lanes",
+    "location_valhalla_quiet_rows",
+    "location_valhalla_valkyrie_aerie",
+    "location_valhalla_training_grounds"
   ],
 
   activeFactions: [
