@@ -356,5 +356,15 @@ export const threads = [
       }
     ],
     visibilityGate: "collapse_escape"
-  }
+  },
+  {
+  id: "thread_emberroot_fire_is_people",
+  title: "Fire Is People",
+  type: "moral-reveal / faction-truth",
+  summary: "The fire giants and bound fire elementals are not mindless forces in Emberfall’s system; they are peoples treated as thermal infrastructure.",
+  currentState: "The party has seen giants avoid civilians and target containment housings, opening the possibility that the giants are dismantling cages rather than merely attacking the city.",
+  pressure: "The city’s survival has depended on refusing personhood to the beings that make it function.",
+  gmNotes: "What does survival mean when the thing keeping everyone alive is also an atrocity?"
+  
+}
 ];

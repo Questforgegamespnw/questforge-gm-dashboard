@@ -79,7 +79,7 @@ export const scenes = [
         {
           "timing": "Bifrost failure",
           "speaker": "GM",
-          "line": "For half a breath, you are still floating. Your eyes lock on each other in the rainbow-white silence, and for one impossible second nothing has realized the Bifrost is gone. Then gravity remembers you all at once.",
+          "line": "For half a breath, you are still floating. Your eyes lock on each other in the rainbow-white silence, and for one impossible second nothing has realized the Bifrost is gone. Then gravity remembers.",
           "purpose": "Show that this is not a normal clean insertion."
         },
         {
@@ -91,15 +91,22 @@ export const scenes = [
         {
           "timing": "Overloaded descent",
           "speaker": "GM",
-          "line": "The horses can carry you, but they cannot climb with this much weight. They are losing altitude fast — not flying now so much as turning a fatal fall into a survivable crash.",
+          "line": "The horses can carry you, but they cannot climb.",
           "purpose": "Explain why the landing choice is urgent and constrained."
         },
         {
           "timing": "Disaster panorama",
           "speaker": "GM",
-          "line": "Below you, there are no clean landing zones: civilians trapped behind white-orange heat, chainways buckling under crowds, constructs striking the wrong targets, and fire giants hammering stabilizer housings on purpose.",
+          "line": "Below you, Emberfall is already dying in pieces. Civilians trapped behind white-orange heat, chainways buckle under fleeing crowds, constructs striking the wrong targets, and fire giants hammering stabilizer housings on purpose.",
           "purpose": "Present the three crisis branches as separated crash sites."
         },
+        {
+          "timing": "engaging the players",
+          "speaker": "GM",
+          "line": "Thora twists in the saddle, teeth clendhed against the wind.",
+          "purpose": "Force the party to choose a landing zone while still falling."
+        },
+
         {
           "timing": "Landing choice",
           "speaker": "Thora",
