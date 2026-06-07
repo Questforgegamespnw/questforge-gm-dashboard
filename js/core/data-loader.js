@@ -64,9 +64,59 @@ function searchableText(item) {
     item.knowledge?.secrets?.join(" "),
     item.clues?.join(" "),
     item.outcomes?.join(" "),
+    flattenAnswerMoments(item.answerMoments),
+    flattenRumorAnswers(item.rumorAnswers),
+    flattenOutcomeShift(item.outcomeShift),
+    flattenSkillGates(item.skillGates),
     item.tags?.join(" ")
   ]
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
+}
+
+function flattenAnswerMoments(answerMoments = []) {
+  return answerMoments.map((moment) => [
+    moment.id,
+    moment.question,
+    moment.answer,
+    moment.tableLine,
+    moment.reveals?.join(" "),
+    moment.gatedBy?.skills?.join(" "),
+    moment.gatedBy?.minTier,
+    moment.relatedThreads?.join(" "),
+    moment.tags?.join(" ")
+  ].filter(Boolean).join(" ")).join(" ");
+}
+
+function flattenRumorAnswers(rumorAnswers = []) {
+  return rumorAnswers.map((rumor) => [
+    rumor.prompt,
+    rumor.response,
+    rumor.reveals?.join(" "),
+    rumor.relatedThreads?.join(" "),
+    rumor.tags?.join(" ")
+  ].filter(Boolean).join(" ")).join(" ");
+}
+
+function flattenOutcomeShift(outcomeShift) {
+  if (!outcomeShift) return "";
+
+  return [
+    outcomeShift.question,
+    outcomeShift.levers?.join(" "),
+    outcomeShift.consequences?.join(" ")
+  ].filter(Boolean).join(" ");
+}
+
+function flattenSkillGates(skillGates = []) {
+  return skillGates.map((gate) => [
+    gate.id,
+    gate.skills?.join(" "),
+    gate.tier,
+    gate.visible,
+    gate.reveal,
+    gate.consequence,
+    gate.tags?.join(" ")
+  ].filter(Boolean).join(" ")).join(" ");
 }

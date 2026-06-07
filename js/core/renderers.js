@@ -45,6 +45,127 @@ function renderSensoryBlock(values) {
   `;
 }
 
+function renderAnswerMoments(answerMoments = []) {
+  if (!answerMoments.length) return "";
+
+  return `
+    <div class="detail-field answer-moments-block">
+      <strong>Answer Moments:</strong>
+      ${answerMoments.map((moment) => `
+        <div class="scripted-moment-card">
+          ${moment.question ? `
+            <div class="scripted-moment-cue">
+              <strong>Question:</strong> ${escapeHtml(moment.question)}
+            </div>
+          ` : ""}
+
+          ${moment.tableLine ? `
+            <p class="read-aloud-line read-aloud-speech">
+              ${escapeHtml(moment.tableLine)}
+            </p>
+          ` : ""}
+
+          ${moment.answer ? `
+            <div class="scripted-moment-purpose">
+              <strong>Answer:</strong> ${escapeHtml(moment.answer)}
+            </div>
+          ` : ""}
+
+          ${renderListField("Reveals", moment.reveals)}
+
+          ${moment.gatedBy?.skills?.length || moment.gatedBy?.minTier ? `
+            <div class="scripted-moment-cue">
+              <strong>Gate:</strong>
+              ${escapeHtml([
+    moment.gatedBy?.skills?.join(", "),
+    moment.gatedBy?.minTier
+  ].filter(Boolean).join(" / "))}
+            </div>
+          ` : ""}
+
+          ${renderListField("Related Threads", moment.relatedThreads)}
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderRumorAnswers(rumorAnswers = []) {
+  if (!rumorAnswers.length) return "";
+
+  return `
+    <div class="detail-field rumor-answers-block">
+      <strong>Rumor Answers:</strong>
+      ${rumorAnswers.map((rumor) => `
+        <div class="scripted-moment-card">
+          ${rumor.prompt ? `
+            <div class="scripted-moment-cue">
+              <strong>Prompt:</strong> ${escapeHtml(rumor.prompt)}
+            </div>
+          ` : ""}
+
+          ${rumor.response ? `
+            <p class="read-aloud-line read-aloud-speech">
+              ${escapeHtml(rumor.response)}
+            </p>
+          ` : ""}
+
+          ${renderListField("Reveals", rumor.reveals)}
+          ${renderListField("Related Threads", rumor.relatedThreads)}
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderOutcomeShift(outcomeShift) {
+  if (!outcomeShift) return "";
+
+  const hasContent = Boolean(
+    outcomeShift.question ||
+    outcomeShift.levers?.length ||
+    outcomeShift.consequences?.length
+  );
+
+  if (!hasContent) return "";
+
+  return `
+    <div class="detail-field outcome-shift-block">
+      <strong>Meaningful Change:</strong>
+      ${outcomeShift.question ? `<p>${escapeHtml(outcomeShift.question)}</p>` : ""}
+      ${renderListField("Player Levers", outcomeShift.levers)}
+      ${renderListField("Consequences", outcomeShift.consequences)}
+    </div>
+  `;
+}
+
+function renderSkillGates(skillGates = []) {
+  if (!skillGates.length) return "";
+
+  return `
+    <div class="detail-field skill-gates-block">
+      <strong>Skill Gates:</strong>
+      ${skillGates.map((gate) => `
+        <div class="scripted-moment-card">
+          ${gate.skills?.length || gate.tier ? `
+            <div class="scripted-moment-cue">
+              <strong>Gate:</strong>
+              ${escapeHtml([
+    gate.skills?.join(", "),
+    gate.tier
+  ].filter(Boolean).join(" / "))}
+            </div>
+          ` : ""}
+
+          ${renderDetailField("Visible", gate.visible)}
+          ${renderDetailField("Reveal", gate.reveal)}
+          ${renderDetailField("Consequence", gate.consequence)}
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
 // -----------------------------------------------------------------------------
 // Main detail panel renderer
 // -----------------------------------------------------------------------------
@@ -66,6 +187,11 @@ export function renderDetail(container, item) {
     })}
     ${item.hookLines?.length ? renderListField("Voices", item.voices) : ""}
     ${item.hookLines?.length ? renderListField("Interaction Seeds", item.interactionSeeds) : ""}
+
+    ${renderAnswerMoments(item.answerMoments)}
+    ${renderRumorAnswers(item.rumorAnswers)}
+    ${renderOutcomeShift(item.outcomeShift)}
+    ${renderSkillGates(item.skillGates)}
 
     ${renderDetailField("Current State", item.currentState)}
     ${renderDetailField("Vibe", item.presentation?.vibe)}

@@ -39,6 +39,21 @@ export const chainwaysAmbientCast = [
       "A Forge Guard tries to hold traffic for command priority.",
       "A Valkyrie needs landing space the crowd cannot give."
     ],
+    rumorAnswers: [
+      {
+        prompt: "Ask which route can carry the most people.",
+        response: "The main chain can carry bodies if no one brings carts, engines, or pride.",
+        reveals: [
+          "Evacuation succeeds only if people are prioritized over cargo and hierarchy.",
+          "The preserved chainways can become mass movement routes."
+        ],
+        relatedThreads: [
+          "thread_emberroot_controlled_withdrawal_paths",
+          "thread_emberroot_control_vs_survival"
+        ],
+        tags: ["rumor-answer", "chainways", "evacuation", "movement"]
+      }
+    ],
     relatedActors: [
       "actor_thora_kara_emberroot",
       "actor_magma_reaver"

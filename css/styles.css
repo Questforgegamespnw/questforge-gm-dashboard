@@ -591,6 +591,16 @@ button:hover,
     border-radius: 0.65rem;
   }
 
+  .answer-moments-block,
+  .rumor-answers-block,
+  .outcome-shift-block,
+  .skill-gates-block {
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
   .scripted-moment-cue,
   .scripted-moment-purpose {
     margin-left: 0.6rem;

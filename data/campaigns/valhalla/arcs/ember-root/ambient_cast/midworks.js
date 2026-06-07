@@ -39,6 +39,34 @@ export const midworksAmbientCast = [
       "An Ironhand begs the party to protect a stabilizer node.",
       "Someone asks whether saving time is worth worsening Stability."
     ],
+    rumorAnswers: [
+      {
+        prompt: "Ask what the Midworks readings show.",
+        response: "Intake is not the problem by itself. The breath is not leaving cleanly. Pressure is stacking where it should be cycling.",
+        reveals: [
+          "The system is breathing wrong.",
+          "The problem is circulation, venting, and pressure displacement rather than a single breach."
+        ],
+        relatedThreads: [
+          "thread_emberroot_city_breathing_wrong",
+          "thread_emberroot_safe_deconstruction"
+        ],
+        tags: ["rumor-answer", "midworks", "ironhand", "city-breath"]
+      },
+      {
+        prompt: "Ask what happens if another shutoff is triggered.",
+        response: "One chamber lives. Another takes the breath. That is not repair. That is choosing where the rupture waits.",
+        reveals: [
+          "Emergency shutoffs are not true solutions.",
+          "Local safety can worsen deeper Lower Works pressure."
+        ],
+        relatedThreads: [
+          "thread_emberroot_control_vs_survival",
+          "thread_emberroot_city_breathing_wrong"
+        ],
+        tags: ["rumor-answer", "shutoffs", "pressure", "lower-works"]
+      }
+    ],
     relatedActors: [
       "actor_kaldra_steelmind",
       "actor_ironhand_engineer"

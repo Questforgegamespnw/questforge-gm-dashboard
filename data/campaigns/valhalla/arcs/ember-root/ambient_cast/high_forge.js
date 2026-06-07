@@ -39,6 +39,34 @@ export const highForgeAmbientCast = [
       "Tries to reclassify casualties as production disruption.",
       "Quietly admits the reports from below are worse than announced."
     ],
+    rumorAnswers: [
+      {
+        prompt: "Ask what command knows about the lower reports.",
+        response: "The lower reports are unverified, emotionally contaminated, and not useful for command sequencing.",
+        reveals: [
+          "Forge Lord staff are dismissing lived lower-tier reports as unreliable.",
+          "The old order filters truth by caste and authority."
+        ],
+        relatedThreads: [
+          "thread_emberroot_forge_lord_legitimacy_collapse",
+          "thread_emberroot_caste_layers_and_survival_authority"
+        ],
+        tags: ["rumor-answer", "forge-lords", "caste", "command"]
+      },
+      {
+        prompt: "Ask who has authority to order evacuation.",
+        response: "Authority remains with the Forge Lords until the city is formally declared unrecoverable. Which it has not been.",
+        reveals: [
+          "Command legitimacy depends on refusing to name collapse.",
+          "Official evacuation may lag behind practical survival needs."
+        ],
+        relatedThreads: [
+          "thread_emberroot_control_vs_survival",
+          "thread_emberroot_forge_lord_legitimacy_collapse"
+        ],
+        tags: ["rumor-answer", "authority", "evacuation", "forge-lords"]
+      }
+    ],
     relatedActors: [
       "actor_durgrim_ashenvein",
       "actor_forge_guard"

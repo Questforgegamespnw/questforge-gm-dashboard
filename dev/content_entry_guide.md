@@ -207,6 +207,44 @@ relatedThreads
 reference
 gmNotes
 ```
+### Answer Moments
+
+`answerMoments` are actor-linked response beats for questions the players are likely to ask directly.
+
+Use them when a named actor can answer, deflect, reveal, mislead, or emotionally reframe an important question.
+
+They are especially useful for:
+- major NPC knowledge
+- faction perspective
+- moral argument
+- technical explanation
+- hidden-truth reveals
+- player-facing doctrine
+- repeated table questions
+
+Recommended shape:
+
+```js
+answerMoments: [
+  {
+    id: "answer_actor_topic",
+    question: "What the players might ask.",
+    answer: "The direct GM-facing answer.",
+    tableLine: "A line the actor can say or the GM can paraphrase.",
+    reveals: [],
+    gatedBy: {
+      skills: [],
+      minTier: "basic / trained / expert / high"
+    },
+    relatedThreads: [],
+    tags: []
+  }
+]
+```
+Answer moments should not become full dialogue trees. Keep them short, searchable, and table-facing.
+
+Actors carry doctrine. Ambient Cast carries lived texture.
+
 
 Use actor entries for people the GM may need to portray directly or track across scenes.
 
@@ -238,6 +276,29 @@ relatedActors
 relatedThreads
 gmNotes
 ```
+
+
+### Rumor Answers
+
+`rumorAnswers` are light answer beats for Ambient Cast.
+
+Use them when background groups, witnesses, workers, refugees, bystanders, or local crowds can provide partial lived truth without becoming full actors.
+
+Recommended shape:
+
+```js
+rumorAnswers: [
+  {
+    prompt: "What the party asks or listens for.",
+    response: "What the ambient cast says.",
+    reveals: [],
+    relatedThreads: [],
+    tags: []
+  }
+]
+```
+
+Rumor answers should feel partial, local, emotional, biased, or overheard. They should not carry the whole exposition burden.
 
 Use ambient cast for crowd texture, passerby voices, tavern chatter, refugees, guards, workers, and minor interaction seeds.
 
@@ -460,6 +521,41 @@ forwardPath: {
   ]
 }
 ```
+#### Outcome Shifts
+
+`outcomeShift` defines what can meaningfully change because of player interaction.
+
+Use this when a scene has real consequences beyond “players learn more.”
+
+Recommended shape:
+
+```js
+outcomeShift: {
+  question: "What can meaningfully change here?",
+  levers: [],
+  consequences: []
+}
+```
+Good levers are things players can actually do:
+
+protect someone
+persuade someone
+preserve evidence
+stabilize a system
+damage a structure
+delay a faction
+earn trust
+spend time
+choose one value over another
+
+Good consequences are later-facing:
+
+a route opens or closes
+a faction changes behavior
+a tracker shifts
+an NPC trusts or resists
+a future scene becomes easier, harder, or morally different
+---
 
 ### Fireable Moments
 
@@ -668,6 +764,37 @@ availability: {
 ```
 
 Omit `availability` if the item should be baseline-visible.
+
+### Skill Gates
+
+`skillGates` are GM-facing reveal banks. They do not roll dice, resolve checks, or automate rules.
+
+Use them to prepare what different forms of expertise can notice, interpret, or unlock.
+
+Recommended shape:
+
+```js
+skillGates: [
+  {
+    id: "gate_unique_id",
+    skills: [],
+    tier: "basic / trained / expert / high",
+    visible: "What the characters can notice.",
+    reveal: "What the check or expertise clarifies.",
+    consequence: "What this lets the players do or understand.",
+    tags: []
+  }
+]
+```
+
+Skill gates may appear on scenes, locations, actors, fireable moments, or references.
+
+They should answer:
+
+What is visible to everyone?
+What does expertise clarify?
+What false conclusion does this prevent?
+What new option does this unlock?
 
 ---
 

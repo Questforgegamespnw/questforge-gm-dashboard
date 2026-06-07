@@ -37,10 +37,61 @@ export const actorTemplate = {
   },
 
   quickLines: [],
-  answerMoments: [],
+
+  answerMoments: [
+    {
+      id: "answer_actor_topic",
+      question: "",
+      answer: "",
+      tableLine: "",
+      reveals: [],
+      gatedBy: {
+        skills: [],
+        minTier: ""
+      },
+      relatedThreads: [],
+      tags: []
+    }
+  ],
+
   relationships: [],
   relatedThreads: [],
   reference: "",
+  tags: [],
+  gmNotes: ""
+};
+
+export const ambientCastTemplate = {
+  id: "ambient_unique_id",
+  title: "Ambient Cast Group",
+  type: "crowd / workers / witnesses / guards / refugees / locals",
+  modeId: "",
+  campaignId: "",
+  arcId: "",
+  status: "available",
+
+  locationIds: [],
+
+  summary: "",
+  names: [],
+  voices: [],
+  hookLines: [],
+  interactionSeeds: [],
+
+  rumorAnswers: [
+    {
+      prompt: "",
+      response: "",
+      reveals: [],
+      relatedThreads: [],
+      tags: []
+    }
+  ],
+
+  relatedActors: [],
+  relatedThreads: [],
+  relatedLocations: [],
+
   tags: [],
   gmNotes: ""
 };
@@ -85,6 +136,18 @@ export const locationTemplate = {
 
   availableScenes: [],
 
+  skillGates: [
+    {
+      id: "gate_location_topic",
+      skills: [],
+      tier: "",
+      visible: "",
+      reveal: "",
+      consequence: "",
+      tags: []
+    }
+  ],
+
   eventTable: "",
   reference: "",
   tags: [],
@@ -120,6 +183,24 @@ export const sceneTemplate = {
 
   clues: [],
   outcomes: [],
+
+  outcomeShift: {
+    question: "",
+    levers: [],
+    consequences: []
+  },
+
+  skillGates: [
+    {
+      id: "gate_scene_topic",
+      skills: [],
+      tier: "",
+      visible: "",
+      reveal: "",
+      consequence: "",
+      tags: []
+    }
+  ],
 
   forwardPath: {
     upNext: [],
@@ -160,7 +241,17 @@ export const fireableMomentTemplate = {
     gmPurpose: "",
     followUp: ""
   },
-
+  skillGates: [
+    {
+      id: "gate_moment_topic",
+      skills: [],
+      tier: "",
+      visible: "",
+      reveal: "",
+      consequence: "",
+      tags: []
+    }
+  ],
   relatedActors: [],
   relatedThreads: [],
   reference: "",
@@ -252,7 +343,17 @@ export const referenceTemplate = {
   category: "gm-reminder / rule / lore / procedure / table-note",
   summary: "",
   details: [],
-
+  skillGates: [
+    {
+      id: "gate_reference_topic",
+      skills: [],
+      tier: "",
+      visible: "",
+      reveal: "",
+      consequence: "",
+      tags: []
+    }
+  ],
   reference: "",
   relatedActors: [],
   relatedLocations: [],

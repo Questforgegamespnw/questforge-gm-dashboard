@@ -39,6 +39,34 @@ export const lowerFurnacesAmbientCast = [
       "Someone knows a maintenance crawlway around a blocked route.",
       "A group refuses evacuation unless trapped elders are moved first."
     ],
+    rumorAnswers: [
+      {
+        prompt: "Ask what they heard in the walls.",
+        response: "Crying, maybe. Breathing, maybe. We were told pipes complain when they work hard.",
+        reveals: [
+          "Ashbound workers knew something in the system sounded alive.",
+          "Official explanations normalized suffering as machinery."
+        ],
+        relatedThreads: [
+          "thread_emberroot_fire_is_people",
+          "thread_emberroot_city_breathing_wrong"
+        ],
+        tags: ["rumor-answer", "ashbound", "living-fire", "lived-truth"]
+      },
+      {
+        prompt: "Ask how to move people out.",
+        response: "Not through the lifts. Through the cuts, crawlways, old ash drains, and the routes they stopped putting on maps.",
+        reveals: [
+          "Ashbound survival routes can bypass official infrastructure.",
+          "The people dismissed by the city hold the practical evacuation map."
+        ],
+        relatedThreads: [
+          "thread_emberroot_controlled_withdrawal_paths",
+          "thread_emberroot_forge_lord_legitimacy_collapse"
+        ],
+        tags: ["rumor-answer", "escape-routes", "ashbound", "evacuation"]
+      }
+    ],
     relatedActors: [
       "actor_bruni_coalhand",
       "actor_ashbound_defender"
