@@ -1,4 +1,3 @@
-```js
 export const supportingActors = [
   /// MARRIS VALE ///
   {
@@ -539,4 +538,4 @@ export const supportingActors = [
     quote: "These waters have forgotten the moon."
   }
 ];
-```
+
