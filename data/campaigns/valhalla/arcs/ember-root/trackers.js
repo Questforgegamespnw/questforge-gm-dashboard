@@ -41,7 +41,7 @@ export const trackers = [
       "time-pressure",
       "act-2"
     ],
-    "gmNotes": "Increase by 1 when a thread is explored, players debate too long, or players rest/delay. If the Root thread is investigated first, reduce Clock by 1 once."
+    "gmNotes": "Increase by 1 when players delay, debate too long, rest, or pursue a thread without acting on its consequences. Reduce pressure only when investigation directly creates usable evacuation, venting, or deconstruction options."
   },
   {
     "id": "tracker_emberroot_insight",
@@ -55,22 +55,22 @@ export const trackers = [
     "min": 0,
     "max": 2,
     "label": "Low",
-    "summary": "Tracks player understanding of the Root/Core/system truth.",
+    "summary": "Tracks player understanding of the city-breath, emberling, caste, giant, and root truths.",
     "effects": [
       {
         "range": "0",
         "label": "Low",
-        "note": "Confusion. Players may misidentify the Core or Root as the enemy."
+        "note": "Confusion. Players may treat the crisis as a simple reactor failure, giant attack, or root corruption."
       },
       {
         "range": "1",
         "label": "Mid",
-        "note": "Tradeoffs visible. Players understand some costs but not the whole shape."
+        "note": "Tradeoffs visible. Players understand the city is breathing wrong and that shutdown is dangerous, but not the whole moral shape."
       },
       {
         "range": "2",
         "label": "High",
-        "note": "Mitigation unlocked. Better Council clarity, extra crisis resolution, safer Exfil, possible Join Skarth option."
+        "note": "Controlled withdrawal unlocked. Better Council clarity, extra crisis resolution, safer Exfil, and possible giant cooperation."
       }
     ],
     "tags": [
@@ -80,11 +80,11 @@ export const trackers = [
       "truth",
       "act-2"
     ],
-    "gmNotes": "High Insight is earned by correct understanding, not by checking boxes."
+    "gmNotes": "High Insight is earned by correct synthesis: city breath, emberling personhood, root burden, caste cost, and the need for controlled withdrawal."
   },
   {
     "id": "tracker_emberroot_core_stability",
-    "name": "Core Stability",
+    "name": "City Breath State",
     "modeId": "valhalla",
     "campaignId": "valhalla",
     "arcId": "arc_ember_root",
@@ -94,36 +94,37 @@ export const trackers = [
     "min": 0,
     "max": 2,
     "label": "Strained",
-    "summary": "Tracks how controlled the Living Core/system is during Forge Below and later consequence scenes.",
+    "summary": "Tracks how well Emberfall's Lower Works can still intake, vent, redirect, and exhale pressure without catastrophic backflow.",
     "effects": [
       {
         "range": "0",
-        "label": "Failing / Unstable",
-        "note": "Multiple hazards, panic, rapid escalation, chaotic exfil."
+        "label": "Failing / Backflow",
+        "note": "The city cannot breathe correctly. Hazards stack, vents reverse, and Exfil becomes chaotic."
       },
       {
         "range": "1",
-        "label": "Strained / Mixed",
-        "note": "Fluctuating hazards, urgent tone, standard outcomes."
+        "label": "Strained / Uneven",
+        "note": "The city breathes unevenly. Some routes hold, some chambers lag, and emergency choices remain possible."
       },
       {
         "range": "2",
-        "label": "Stable / Stabilized",
-        "note": "Fewer hazards, controlled tension, improved outcomes."
+        "label": "Sequenced / Controlled",
+        "note": "Pressure is being vented, redirected, or bought down. Evacuation and controlled withdrawal improve."
       }
     ],
     "tags": [
       "valhalla",
       "ember-root",
-      "core",
+      "city-breath",
+      "lower-works",
       "stability",
       "act-2"
     ],
-    "gmNotes": "Stabilize improves. Giant success or ignored system worsens. This is the bridge between Forge Below and consequence severity."
+    "gmNotes": "Improve when players vent, redirect, cool, sequence evacuation, or earn Ironhand/Giant cooperation. Worsen when housings break wrong, shutoffs overstack, or delay forces pressure deeper."
   },
   {
     "id": "tracker_emberroot_giant_timer",
-    "name": "Giant Interference Timer",
+    "name": "Containment Break Timer",
     "modeId": "valhalla",
     "campaignId": "valhalla",
     "arcId": "arc_ember_root",
@@ -133,32 +134,33 @@ export const trackers = [
     "min": 0,
     "max": 3,
     "label": "Not yet broken",
-    "summary": "Tracks the giant strike team's three-round destabilization cycle in Forge Below.",
+    "summary": "Tracks the giant strike team's progress toward breaking a containment housing, cage-lock, chain anchor, or pressure support.",
     "effects": [
       {
         "range": "1",
-        "label": "Arrive",
-        "note": "Giants enter and target pillars or chains."
+        "label": "Target Marked",
+        "note": "Giants identify a lock, housing, chain anchor, or containment support."
       },
       {
         "range": "2",
-        "label": "Destabilize",
-        "note": "Giants begin breaking containment supports."
+        "label": "Breaking Begins",
+        "note": "Giants begin deliberate demolition. Civilian risk depends on whether evacuation and venting are underway."
       },
       {
         "range": "3",
-        "label": "Break",
-        "note": "Pillar/chain breaks or surge triggers. Core Stability worsens."
+        "label": "Containment Break",
+        "note": "The target breaks. City Breath worsens unless the party redirected pressure or turned the break into controlled deconstruction."
       }
     ],
     "tags": [
       "valhalla",
       "ember-root",
       "giants",
-      "forge-below",
+      "containment",
+      "safe-deconstruction",
       "timer"
     ],
-    "gmNotes": "If players hesitate, advance this timer. Giants ignore players unless stopped."
+    "gmNotes": "Giants are not random attackers. Advance this when they are ignored, delayed with false promises, or actively sabotaging cages. Pause or redirect it if players make evacuation and release credible."
   },
   {
     "id": "tracker_emberroot_unsavable_crises",
@@ -197,7 +199,7 @@ export const trackers = [
       "crisis",
       "act-2"
     ],
-    "gmNotes": "Players resolve 1 crisis, or 2 with High Insight. All others fail."
+    "gmNotes": "Players resolve 1 crisis, or 2 if High Insight and prior choices have created real capacity: routes, venting, faction cooperation, or controlled deconstruction."
   },
   {
     "id": "tracker_emberroot_exfil_state",
@@ -211,22 +213,22 @@ export const trackers = [
     "min": 0,
     "max": 2,
     "label": "Unstable",
-    "summary": "Tracks escape condition after The Unsavable based on resolved/unresolved crises and Core State.",
+    "summary": "Tracks escape condition after The Unsavable based on resolved crises, City Breath State, preserved routes, and faction cooperation.",
     "effects": [
       {
         "range": "0",
         "label": "Catastrophic",
-        "note": "Constant hazards, path collapse, high chance of damage/NPC loss/separation."
+        "note": "Routes fail, pressure reverses, extraction is desperate, and NPC loss/separation risk is high."
       },
       {
         "range": "1",
         "label": "Unstable",
-        "note": "Changing routes and shifting hazards."
+        "note": "Routes shift, hazards move, and prior choices determine who can help."
       },
       {
         "range": "2",
         "label": "Controlled",
-        "note": "Clearer path, fewer hazards, safer Valkyrie extraction."
+        "note": "Clearer escape path, useful faction aid, safer Valkyrie extraction, and visible benefits from resolved crises."
       }
     ],
     "tags": [
@@ -236,6 +238,6 @@ export const trackers = [
       "escape",
       "consequence"
     ],
-    "gmNotes": "Every unresolved crisis adds one hazard. Every resolved crisis adds one benefit."
+    "gmNotes": "Every unresolved crisis adds one hazard. Every resolved crisis adds one benefit. Ashbound routes, Ironhand sequencing, Giant breach roads, preserved Chainways, and Valkyrie capacity should all matter."
   }
 ];

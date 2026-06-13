@@ -57,6 +57,19 @@ export const scenes = [
       "At least one crisis zone receives no direct support and worsens.",
       "The ignored crisis creates later consequences during High Forge, investigation, or Hot Exfil."
     ],
+    "outcomeShift": {
+      "question": "Which crisis receives the party's first real attention?",
+      "levers": [
+        "Land together and fully address one crisis.",
+        "Split with Valkyrie support to partially address two crisis zones.",
+        "Prioritize people, routes, or containment pressure."
+      ],
+      "consequences": [
+        "The supported crisis becomes a later advantage.",
+        "The unsupported crisis worsens into later consequence texture.",
+        "The party immediately learns that Act 2 choices create visible costs."
+      ]
+    },
     "pressure": "Immediate sensory overload and forced prioritization.",
     "runNote": "This is not a clean Bifrost insertion. Thora and Kara ride the failing drop down to prevent a fatal crash, but the horses are overloaded and cannot maintain altitude. Present the three crises as separated bad landing zones. The party may land together and fully address one crisis, or split into two groups with one Valkyrie/horse per group to address two crises. A third crisis is always left unsupported and worsens.",
     "tags": [
@@ -97,7 +110,7 @@ export const scenes = [
         {
           "timing": "Disaster panorama",
           "speaker": "GM",
-          "line": "Below you, Emberfall is already dying in pieces. Civilians trapped behind white-orange heat, chainways buckle under fleeing crowds, constructs striking the wrong targets, and fire giants hammering stabilizer housings on purpose.",
+          "line": "Below you, Emberfall is already dying in pieces. Civilians trapped behind white-orange heat, chainways buckle under fleeing crowds, command lines choke evacuation routes, and fire giants hammer stabilizer housings with terrible purpose.", 
           "purpose": "Present the three crisis branches as separated crash sites."
         },
         {
@@ -122,8 +135,8 @@ export const scenes = [
     ],
     "relatedThreads": [
       "thread_emberroot_no_clean_victories",
-      "thread_emberroot_caste_pressure",
-      "thread_emberroot_giants_want_release",
+      "thread_emberroot_control_vs_survival",
+      "thread_emberroot_safe_deconstruction",
       "thread_emberroot_valkyrie_strain"
     ],
     "relatedTrackers": [
@@ -180,6 +193,20 @@ export const scenes = [
       "If the party clears the route but cannot save everyone caught behind it, the rescue succeeds at a cost.",
       "Whatever is not handled here becomes part of the later consequence report at High Forge Refuge."
     ],
+    "outcomeShift": {
+      "question": "Does the party make Ashbound survival visible before the city can reduce it to loss math?",
+      "levers": [
+        "Pull trapped civilians free.",
+        "Clear a route instead of saving only the nearest visible victims.",
+        "Use Valkyrie support to move the most vulnerable.",
+        "Calm or redirect panic."
+      ],
+      "consequences": [
+        "Ashbound trust improves.",
+        "Later evacuation has more human help and better route testimony.",
+        "If ignored, civilian loss becomes named and visible at High Forge."
+      ]
+    },
     "pressure": "Human cost in immediate view.",
     "runNote": "If chosen first, the party crash-lands directly into a civilian rescue pocket. Present the scene as multiple simultaneous rescue pressures: trapped people, closing fire, sagging platforms, blocked routes, jammed machinery, and panic. Thora and Kara can carry civilians, shield the vulnerable, or pull people from immediate danger, but they defer rescue priority to the players and cannot save everyone. Let the party choose what kind of rescue they are performing, not just who they grab first. Let structure or enemy sabotage worsen elsewhere.",    "tags": [
       "valhalla",
@@ -230,7 +257,8 @@ export const scenes = [
     "relatedThreads": [
       "thread_emberroot_no_clean_victories",
       "thread_emberroot_valkyrie_strain",
-      "thread_emberroot_caste_pressure"
+      "thread_emberroot_control_vs_survival",
+      "thread_emberroot_forge_lord_legitimacy_collapse"
     ],
     "visibilityGates": [
       {
@@ -625,9 +653,9 @@ export const scenes = [
       "scene_emberroot_s02_thread_c_root_resonance"
     ],
     "relatedThreads": [
-      "thread_emberroot_caste_pressure",
-      "thread_emberroot_giants_want_release",
-      "thread_emberroot_core_is_not_enemy"
+      "thread_emberroot_control_vs_survival",
+      "thread_emberroot_fire_is_people",
+      "thread_emberroot_safe_deconstruction"
     ],
     "relatedTrackers": [
       "tracker_emberroot_investigation_clock",
@@ -695,7 +723,7 @@ export const scenes = [
     ],
     "outcomes": [
       "Stabilizing the overflow chamber proves the system is overloaded, not merely broken.",
-      "A clean stabilization reduces immediate Midworks danger and slows Core Stability loss.",
+      "A clean stabilization reduces immediate Midworks danger and slows City Breath State loss.",
       "A partial stabilization prevents catastrophe but leaves the High Forge under power strain.",
       "A failed sequence causes a violent pressure vent and makes the Ironhand engineers look less in control.",
       "Combining this thread with Root Resonance reveals that the pressure is coming from something alive or semi-alive below."
@@ -835,7 +863,7 @@ export const scenes = [
       "Stopping the immediate riot protects guards, workers, and restraint systems from further damage.",
       "Questioning, observing, or sparing a giant can reveal that they see themselves as liberators, not invaders.",
       "Treating this only as a monster fight risks missing the release ideology behind the violence.",
-      "Letting the giants continue worsens Core Stability, structural safety, and later exfil pressure.",
+      "Letting the giants continue worsens City Breath State, structural safety, and later exfil pressure.",
       "This branch gives leverage for later Skarth conversations if the party recognizes the difference between cause and method."
     ],
     "pressure": "The giants are wrong about the cost, not necessarily wrong that something is trapped.",
@@ -1007,14 +1035,14 @@ export const scenes = [
           "label": "Medium Pressure — Overfull Pattern",
           "condition": "Thread C was left unattended for one investigation window.",
           "effect": "The ash patterns are stronger, heat pulses are faster, and workers report the walls answering more often.",
-          "softPoint": "The truth is clearer, but the Root’s distress adds pressure to the clock or Core Stability."
+          "softPoint": "The truth is clearer, but the Root’s distress adds pressure to the clock or City Breath State."
         },
         {
           "id": "thread_c_high_pressure",
           "label": "High Pressure — Resonance Surge",
           "condition": "Thread C was left unattended for two or more investigation windows.",
           "effect": "The Root offshoot is actively surging. The party can still read the truth, but the scene feels like standing beside something overwhelmed and awake.",
-          "softPoint": "The clue becomes unmistakable, but the cost rises: Core Stability worsens, a vision hits hard, or the party must choose whether to soothe, suppress, or endure the resonance."
+          "softPoint": "The clue becomes unmistakable, but the cost rises: City Breath State worsens, a vision hits hard, or the party must choose whether to soothe, suppress, or endure the resonance."
         }
       ],
       "scriptedMoments": [
@@ -1316,7 +1344,7 @@ export const scenes = [
           "label": "High Pressure — Descent Under Surge",
           "condition": "The party reaches the Core route late or after multiple unattended pressures worsen.",
           "effect": "The route downward is already reacting. The party arrives under immediate instability or with the giant timer advanced.",
-          "softPoint": "Start Forge Below with a cost already active: Core Stability loss, separated entry, damaged route, or immediate timer tick."
+          "softPoint": "Start Forge Below with a cost already active: City Breath State loss, separated entry, damaged route, or immediate timer tick."
         }
       ],
       "scriptedMoments": [
@@ -1423,10 +1451,10 @@ export const scenes = [
       "Protecting regulator pillars improves later stability.",
       "Understanding or calming the Core improves Insight and later negotiation/framing.",
       "Stopping the giant strike team slows release pressure.",
-      "Failure or delay makes later scenes harsher: worse Core Stability, more violent exfil, or stronger Skarth leverage."
+      "Failure or delay makes later scenes harsher: worse City Breath State, more violent exfil, or stronger Skarth leverage."
     ],
     "pressure": "Stabilize, stop giants, or engage Core — not all three.",
-    "runNote": "Run this as a system crisis engine, not a boss arena. The Core should feel responsive, ancient, and overwhelmed rather than evil. Give the party three competing lanes: stabilize containment, stop giant interference, or engage/understand the Core. Use Core Stability, Giant Timer, and Insight to track which priority gets protected and which worsens.",
+    "runNote": "Run this as a system crisis engine, not a boss arena. The Core should feel responsive, ancient, and overwhelmed rather than evil. Give the party three competing lanes: stabilize containment, stop giant interference, or engage/understand the Core. Use City Breath State, Giant Timer, and Insight to track which priority gets protected and which worsens.",
     "tags": [
       "valhalla",
       "ember-root",
@@ -1452,7 +1480,7 @@ export const scenes = [
           "label": "Medium Pressure — Agitated Core",
           "condition": "The party reaches Forge Below after one or more pressures worsened.",
           "effect": "The Core reacts faster, regulator pillars are already stressed, and one crisis begins active.",
-          "softPoint": "The party can still achieve a strong result, but must accept a tradeoff between Core stability, giant interference, or personal risk."
+          "softPoint": "The party can still achieve a strong result, but must accept a tradeoff between City Breath State, giant interference, or personal risk."
         },
         {
           "id": "core_high_pressure",
@@ -1565,7 +1593,7 @@ export const scenes = [
       "If the party focuses only on killing giants, the release timer may still advance."
     ],
     "pressure": "Timer-based objective: arrive, destabilize, partial rupture, catastrophic break.",
-    "runNote": "Run this as an objective timer inside the Forge Below scene. Skarth is felt, not necessarily physically present. The giants target pillars, chains, seams, and regulator housings before they target the party. Let the players interrupt channelers, protect pillars, reinforce restraints, question the motive, or trade Core stability for tactical advantage.",
+    "runNote": "Run this as an objective timer inside the Forge Below scene. Skarth is felt, not necessarily physically present. The giants target pillars, chains, seams, and regulator housings before they target the party. Let the players interrupt channelers, protect pillars, reinforce restraints, question the motive, or trade City Breath State for tactical advantage.",
     "tags": [
       "valhalla",
       "ember-root",
@@ -1714,7 +1742,7 @@ export const scenes = [
       "Bruni’s answer prioritizes evacuation and living people over the survival of Emberfall’s old power structure.",
       "Skarth’s answer embraces release and transformation, but worsens immediate city stability.",
       "Insight clarifies costs; low Insight makes each faction sound more certain than they deserve.",
-      "Core Stability and Investigation Clock determine how much time the council has before argument becomes collapse."
+      "City Breath State and Investigation Clock determine how much time the council has before argument becomes collapse."
     ],
     "outcomes": [
       "The final Act 2 choice locks here.",
@@ -1726,7 +1754,7 @@ export const scenes = [
       "Hot Exfil and The Unsavable trigger immediately after the choice."
     ],
     "pressure": "The party is not choosing who is right. They are choosing which truth gets paid for first.",
-    "runNote": "Run this as the apex decision scene. Start with the party returning from the Forge Below, then let each faction make one strong argument. Use the branches as decision paths and pressure variants. If Core Stability is low or the Investigation Clock is high, make the arguments shorter, sharper, and more desperate. If the party accuses or interrogates Skarth, fire moment_emberroot_skarth_council_reframe. If High Insight and player sympathy exist, make Join Skarth possible.",
+    "runNote": "Run this as the apex decision scene. Start with the party returning from the Forge Below, then let each faction make one strong argument. Use the branches as decision paths and pressure variants. If City Breath State is low or the Investigation Clock is high, make the arguments shorter, sharper, and more desperate. If the party accuses or interrogates Skarth, fire moment_emberroot_skarth_council_reframe. If High Insight and player sympathy exist, make Join Skarth possible.",
     "tags": [
       "valhalla",
       "ember-root",
@@ -1766,14 +1794,14 @@ export const scenes = [
           "label": "Forced Collapse / Sacrifice Section",
           "condition": "Party chooses to collapse, sever, or sacrifice a district/system segment to stop cascade spread.",
           "effect": "A contained disaster prevents broader failure, but the sacrificed area becomes an immediate Unsavable cost.",
-          "softPoint": "Best when Core Stability is low and clean stabilization is gone."
+          "softPoint": "Best when City Breath State is low and clean stabilization is gone."
         },
         {
           "id": "council_release_pressure",
           "label": "Release Pressure",
           "condition": "Party accepts that containment must open partially, without fully joining Skarth.",
           "effect": "Pressure vents and transformation begins in controlled or semi-controlled form.",
-          "softPoint": "Best philosophical middle path; dangerous if Insight is low or Core Stability is already poor."
+          "softPoint": "Best philosophical middle path; dangerous if Insight is low or City Breath State is already poor."
         },
         {
           "id": "council_join_skarth",
@@ -1794,7 +1822,7 @@ export const scenes = [
           "timing": "High clock pressure",
           "speaker": "GM",
           "line": "Another tremor climbs through the chamber floor. Dust falls from the old seals overhead, and this time no one pretends not to notice.",
-          "purpose": "Use if the Investigation Clock is high or Core Stability is poor."
+          "purpose": "Use if the Investigation Clock is high or City Breath State is poor."
         },
         {
           "timing": "Durgrim’s case",
@@ -1918,7 +1946,7 @@ export const scenes = [
       "Breaking restraints accelerates release and likely triggers the Runaway Transformation variant.",
       "Trying to shape the release may preserve some mitigation while still worsening the city.",
       "Turning back after accepting Skarth’s offer damages trust and may make the giants hostile again.",
-      "Core Stability drops sharply if the party helps release directly.",
+      "City Breath State drops sharply if the party helps release directly.",
       "Unsavable gains transformation pressure instead of ordinary collapse pressure."
     ],
     "pressure": "This is agency with teeth: the party may choose release, but they must own what release does to everyone still inside the city.",
@@ -1940,7 +1968,7 @@ export const scenes = [
           "id": "help_skarth_break_restraints",
           "label": "Break Restraints",
           "condition": "Party actively helps Skarth accelerate release.",
-          "effect": "Giants assist; Core Stability plummets; Runaway Transformation variant becomes likely.",
+          "effect": "Giants assist; City Breath State plummets; Runaway Transformation variant becomes likely.",
           "softPoint": "Fastest and most catastrophic release path."
         },
         {
@@ -2066,7 +2094,7 @@ export const scenes = [
       "Resolved earlier crises become advantages, routes, allies, or time buffers.",
       "Ignored earlier crises return as named costs, blocked routes, unstable systems, or casualties.",
       "High Insight grants better mitigation, not a clean solution.",
-      "Core Stability changes whether the disaster behaves like collapse, rupture, or transformation.",
+      "City Breath State changes whether the disaster behaves like collapse, rupture, or transformation.",
       "The Valkyries can help preserve lives and extraction windows, but they cannot erase the chosen cost."
     ],
     "outcomes": [
@@ -2109,7 +2137,7 @@ export const scenes = [
         {
           "id": "unsavable_containment_first",
           "label": "Containment First",
-          "condition": "Party prioritizes stabilizers, regulator systems, Core Stability, or technical control.",
+          "condition": "Party prioritizes stabilizers, regulator systems, City Breath State, or technical control.",
           "effect": "The disaster remains more shaped and less explosive, but immediate human costs rise.",
           "softPoint": "Best infrastructure path; morally dangerous if framed as saving the city while people die."
         },
@@ -2242,7 +2270,7 @@ export const scenes = [
       "The Unsavable gains a transformation crisis in addition to ordinary collapse pressure.",
       "Hot Exfil hazards become stranger, less predictable, and more alive.",
       "Skarth’s faction may assist or clear paths, but their help worsens preservation outcomes.",
-      "Core Stability is no longer only about preventing collapse; it is about surviving uncontrolled change.",
+      "City Breath State is no longer only about preventing collapse; it is about surviving uncontrolled change.",
       "Valhalla fallout will focus on whether transformation was liberation, disaster, or both."
     ],
     "pressure": "Escape from uncontrolled transformation, not ordinary collapse.",
@@ -2411,8 +2439,8 @@ export const scenes = [
         },
         {
           "id": "exfil_core_stabilized",
-          "label": "Core Stabilized",
-          "condition": "Forge Below or Council choices preserved Core Stability.",
+          "label": "City Breath State",
+          "condition": "Forge Below or Council choices preserved City Breath State.",
           "effect": "Hazards behave predictably enough to navigate.",
           "softPoint": "Technical/Insight success becomes readable danger."
         },

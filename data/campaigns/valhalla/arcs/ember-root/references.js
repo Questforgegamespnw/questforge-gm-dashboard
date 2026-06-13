@@ -7,12 +7,13 @@ export const references = [
     "arcId": "arc_ember_root",
     "status": "available",
     "category": "arc overview",
-    "summary": "Act 2 shifts from mystery to pressure: players are not here to stop the fire, but to decide what survives it.",
+    "summary": "Act 2 shifts from mystery to pressure: players are not here to stop the fire, but to decide what survives the truth.",
     "details": [
       "Mystery becomes pressure.",
       "Discovery becomes tradeoffs.",
       "Hidden truth becomes visible consequence.",
-      "Final feeling: We did everything we could, and it still was not enough."
+      "The city is alive only because something else was denied life.",
+      "Final feeling: We did everything we could, and it still cost more than we wanted."
     ],
     "reference": "library/overview/act_2_overview.md",
     "tags": [
@@ -21,7 +22,7 @@ export const references = [
       "act-2",
       "overview"
     ],
-    "gmNotes": "Use as the north-star for the whole arc."
+    "gmNotes": "Use as the north-star for the whole arc: not save or destroy, but choose how to withdraw from an unethical survival system."
   },
   {
     "id": "reference_emberroot_truth_dossier",
@@ -31,21 +32,25 @@ export const references = [
     "arcId": "arc_ember_root",
     "status": "available",
     "category": "gm truth",
-    "summary": "The Root amplifies, the Core stabilizes, and the system is not malicious — it is working beyond survivable limits.",
+    "summary": "Emberfall is a breathing life-support city built on bound emberlings, caste denial, and a system that works precisely because it is morally compromised.",
     "details": [
-      "The Root amplifies; it does not corrupt.",
-      "The Core is a stabilizer, not the villain.",
-      "The system is not broken; it is overloaded.",
-      "There is no correct choice, only preferred loss."
+      "The Lower Works are not a single switch or reactor; they are a breathing thermal ecosystem.",
+      "The city is not simply broken. It is breathing wrong.",
+      "The World Tree root is absorbing overflow; it is not the cause of the crisis.",
+      "The bound fire is living fire-born potential, not mindless fuel.",
+      "The emberlings are immature fire-giant lifeforms captured before personhood.",
+      "The ethical path is controlled withdrawal: vent, redirect, cool, evacuate, release, then seal."
     ],
     "reference": "library/overview/act_2_truth_dossier.md",
     "tags": [
       "valhalla",
       "ember-root",
       "truth",
-      "gm-reference"
+      "gm-reference",
+      "city-breath",
+      "emberlings"
     ],
-    "gmNotes": "Keep visible to avoid contradictions under complexity."
+    "gmNotes": "Keep visible to avoid slipping back into old language: Core as enemy, giants as random attackers, or release as simple destruction."
   },
   {
     "id": "reference_emberroot_quick_interpretation",
@@ -55,12 +60,12 @@ export const references = [
     "arcId": "arc_ember_root",
     "status": "available",
     "category": "control dashboard",
-    "summary": "Read the current Clock/Core combination quickly so the GM knows what kind of pressure the arc is under.",
+    "summary": "Read the current Clock / City Breath combination quickly so the GM knows what kind of pressure the arc is under.",
     "details": [
-      "High Clock + Failing Core: Catastrophic spiral.",
-      "High Clock + Stabilized Core: Controlled but failing.",
-      "Low Clock + Failing Core: Player-caused escalation.",
-      "Low Clock + Stabilized Core: Best possible state."
+      "High Clock + Failing Breath: catastrophic backflow and collapsing routes.",
+      "High Clock + Sequenced Breath: controlled but costly withdrawal pressure.",
+      "Low Clock + Failing Breath: early choices worsened the city-body faster than expected.",
+      "Low Clock + Sequenced Breath: best possible state; the party has time to make hard choices count."
     ],
     "reference": "library/run_sheets/act_2_control_dashboard.md",
     "tags": [
@@ -69,9 +74,9 @@ export const references = [
       "control-dashboard",
       "quick-reference",
       "clock",
-      "core-stability"
+      "city-breath"
     ],
-    "gmNotes": "This is the former OneNote panel behavior converted into a dashboard reference card."
+    "gmNotes": "This replaces old Core Stability language. Think breath, pressure, venting, route integrity, and evacuation capacity."
   },
   {
     "id": "reference_emberroot_difficulty_controls",
@@ -84,9 +89,9 @@ export const references = [
     "summary": "Small live adjustments for tuning pressure without rewriting the scene.",
     "details": [
       "Need more pressure: increase Clock by 1.",
-      "Need more chaos: worsen Core State.",
-      "Need player relief: allow full success on one objective.",
-      "Need narrative push: trigger an escalation event."
+      "Need more danger: worsen City Breath State.",
+      "Need player relief: allow one success to create a real route, vent, ally, or saved group.",
+      "Need narrative push: trigger an escalation event tied to breath, evacuation, containment, or authority."
     ],
     "reference": "library/run_sheets/act_2_control_dashboard.md",
     "tags": [
@@ -94,7 +99,8 @@ export const references = [
       "ember-root",
       "difficulty-control",
       "gm-tool",
-      "pressure"
+      "pressure",
+      "city-breath"
     ],
     "gmNotes": "Use this to keep the scene moving instead of pausing to rebalance."
   },
@@ -108,10 +114,10 @@ export const references = [
     "category": "gm control",
     "summary": "Fast fallback rules for keeping Act 2 moving when the table stalls, crushes a challenge, or gets overwhelmed.",
     "details": [
-      "If things slow down: add a new crisis.",
-      "If players are overwhelmed: let one success fully land.",
-      "If players are crushing it: advance Clock or escalate failure.",
-      "If unsure, ask: What would make this worse right now?"
+      "If things slow down: add a crisis that forces movement.",
+      "If players are overwhelmed: let one success fully land and visibly help someone.",
+      "If players are crushing it: advance Clock, break a route, or force a faction tradeoff.",
+      "If unsure, ask: what makes evacuation, venting, release, or command harder right now?"
     ],
     "reference": "library/run_sheets/act_2_control_dashboard.md",
     "tags": [
@@ -131,11 +137,12 @@ export const references = [
     "arcId": "arc_ember_root",
     "status": "available",
     "category": "dialogue injection",
-    "summary": "Use rapid caste pressure bursts instead of speeches: Forge Lords control, Engineers fix, Workers survive.",
+    "summary": "Use rapid caste pressure bursts instead of speeches: Forge Lords command, Ironhands diagnose, Ashbound move people.",
     "details": [
-      "Forge Lord: Hold it!",
-      "Engineer: That’s wrong!",
-      "Worker: We’re leaving!",
+      "Forge Lord: Hold authority. Preserve continuity. Define personhood narrowly.",
+      "Ironhand: Diagnose breath, pressure, and sequence. Refuse easy answers.",
+      "Ashbound: Move people first. Trust routes over titles.",
+      "Fire Giant: Break cages. Release must remain real.",
       "Hub equals quiet reflection. Field equals loud pressure."
     ],
     "reference": "library/factions/caste_pressure_dialogue_system.md",
@@ -144,9 +151,10 @@ export const references = [
       "ember-root",
       "caste-pressure",
       "tri-voice",
-      "dialogue"
+      "dialogue",
+      "faction-pressure"
     ],
-    "gmNotes": "Players remember the moment three voices shouted different truths and they had to choose."
+    "gmNotes": "Players should remember the moment three or four voices shouted different truths and they had to choose which truth moved first."
   },
   {
     "id": "reference_emberroot_consequence_system",
@@ -156,12 +164,13 @@ export const references = [
     "arcId": "arc_ember_root",
     "status": "available",
     "category": "post-choice consequence",
-    "summary": "Every major Act 2 choice solves one problem, creates another, and advances the Ragnarok Meter.",
+    "summary": "Every major Act 2 choice solves one problem, creates another, and advances the cost of Ragnarok.",
     "details": [
-      "Reinforce: +2 Ragnarok.",
-      "Controlled Shutdown: +1 Ragnarok.",
-      "Collapse: +2 Ragnarok.",
-      "Release: +3 Ragnarok.",
+      "Reinforce: preserves the old system longer and deepens moral debt.",
+      "Controlled Withdrawal: saves more people while forcing the city to admit the truth.",
+      "Evacuation First: protects lives but may lose infrastructure, records, authority, or time.",
+      "Reckless Release: frees what was bound but risks catastrophic civilian loss.",
+      "Consent Transition: best moral direction, still costly and politically explosive.",
       "Roll or pick consequence tables after the choice."
     ],
     "reference": "library/consequences/emberroot_consequence_system.md",
@@ -170,9 +179,10 @@ export const references = [
       "ember-root",
       "consequence",
       "ragnarok",
-      "choice"
+      "choice",
+      "controlled-withdrawal"
     ],
-    "gmNotes": "Use after The Choice, before or during the Valhalla fallout."
+    "gmNotes": "Use after The Choice, before or during Valhalla fallout. Keep the shared postChoiceEvolution keys aligned with actors."
   },
   {
     "id": "reference_emberroot_encounter_design",
@@ -185,9 +195,10 @@ export const references = [
     "summary": "Act 2 fights should be short, crisis-tied, and avoid full-clear grind.",
     "details": [
       "Run most fights as one to three rounds.",
-      "Attach every fight to a hazard, location state, crisis, evacuation route, system failure, or timer.",
-      "No full clears: enemies can retreat, reposition, escalate, or break something.",
-      "A fight should usually disrupt, protect, delay, escape, or force a choice."
+      "Attach every fight to a hazard, location state, crisis, evacuation route, breath failure, containment break, or timer.",
+      "No full clears: enemies can retreat, reposition, escalate, break something, or create a route.",
+      "A fight should usually disrupt, protect, delay, escape, reveal, or force a choice.",
+      "Giants should target cages, housings, locks, supports, and containment hardware more than random civilians."
     ],
     "reference": "library/encounters/act_2_encounter_design.md",
     "tags": [
@@ -195,7 +206,8 @@ export const references = [
       "ember-root",
       "encounters",
       "combat",
-      "crisis"
+      "crisis",
+      "safe-deconstruction"
     ],
     "gmNotes": "Combat is pressure delivery, not attrition."
   },
@@ -207,12 +219,13 @@ export const references = [
     "arcId": "arc_ember_root",
     "status": "available",
     "category": "faction truth",
-    "summary": "Fire giants do not want to destroy the system. They want to free it.",
+    "summary": "Fire giants are not random destroyers. They are a dangerous liberation force trying to free emberlings from a system that turns fire-born life into infrastructure.",
     "details": [
-      "Containment is weakness.",
-      "Pressure is purpose.",
-      "Power must be allowed to become what it is.",
-      "The giants are not wrong, but they are willing to pay a cost others are not."
+      "They strike cages, housings, locks, chain anchors, and containment supports.",
+      "Their grievance is justified.",
+      "Their methods can still kill thousands if uncontrolled.",
+      "They may cooperate if evacuation and release are both real.",
+      "They will not accept re-binding under softer language."
     ],
     "reference": "library/factions/fire_giant_motivation.md",
     "tags": [
@@ -220,9 +233,11 @@ export const references = [
       "ember-root",
       "fire-giants",
       "motivation",
-      "release"
+      "release",
+      "emberlings",
+      "safe-deconstruction"
     ],
-    "gmNotes": "Never play them as random attackers."
+    "gmNotes": "Never play them as random attackers. Their violence is targeted, morally grounded, and still terrifying."
   },
   {
     "id": "reference_emberroot_skarth_escalation",
@@ -232,12 +247,12 @@ export const references = [
     "arcId": "arc_ember_root",
     "status": "available",
     "category": "npc escalation",
-    "summary": "Skarth escalates from observer to influencer to agent of release, with optional boss escalation.",
+    "summary": "Skarth escalates from witness to accuser to conditional ally or catastrophic breaker depending on whether release and evacuation become real.",
     "details": [
-      "Stage 1: Observer.",
-      "Stage 2: Influencer.",
-      "Stage 3: Agent of Release.",
-      "Stage 4: Boss escalation if the story demands it."
+      "Stage 1: Witness — watches whether the party understands what is bound.",
+      "Stage 2: Accuser — names the emberlings and exposes the city’s language as violence.",
+      "Stage 3: Conditional Ally — redirects giant force into controlled deconstruction if trust is earned.",
+      "Stage 4: Breaker — escalates if delay, denial, or re-binding becomes the plan."
     ],
     "reference": "library/actors/skarth_firebrand.md",
     "tags": [
@@ -245,9 +260,10 @@ export const references = [
       "ember-root",
       "skarth",
       "escalation",
-      "fire-giants"
+      "fire-giants",
+      "controlled-withdrawal"
     ],
-    "gmNotes": "He is not trying to kill the party; he is trying to force release."
+    "gmNotes": "He is not trying to kill the party. He is trying to make denial impossible."
   },
   {
     "id": "reference_emberroot_caste_system",
@@ -257,12 +273,12 @@ export const references = [
     "arcId": "arc_ember_root",
     "status": "available",
     "category": "faction system",
-    "summary": "Forge Lords control, Ironhand Guilds fix, Ashbound survive, Fire Giants become the system.",
+    "summary": "Forge Lords define, Ironhands diagnose, Ashbound survive, Fire Giants accuse and break cages.",
     "details": [
-      "Forge Lords: stability over people.",
-      "Ironhand Guilds: problems are solvable.",
-      "Ashbound: survival over structure.",
-      "Fire Giants: containment is weakness."
+      "Forge Lords: preserve continuity by controlling authority and personhood language.",
+      "Ironhand Guilds: explain how the city breathes and must confront what that breathing costs.",
+      "Ashbound: hold hidden routes and survival knowledge because they lived beneath official concern.",
+      "Fire Giants: expose the atrocity and can become controlled deconstruction force if release remains real."
     ],
     "reference": "library/factions/emberfall_caste_system.md",
     "tags": [
@@ -270,9 +286,10 @@ export const references = [
       "ember-root",
       "caste",
       "factions",
-      "systemic-failure"
+      "systemic-failure",
+      "personhood"
     ],
-    "gmNotes": "This problem existed before the party arrived."
+    "gmNotes": "This problem existed before the party arrived. The party’s arrival determines what becomes visible and what can still be saved."
   },
   {
     "id": "reference_emberroot_visual_design_language",
@@ -282,11 +299,13 @@ export const references = [
     "arcId": "arc_ember_root",
     "status": "available",
     "category": "asset direction",
-    "summary": "Fire Giants are brutal, rough, consuming chaos; Dwarves are crafted, geometric, controlled heat.",
+    "summary": "Fire Giants should read as volcanic, grief-forged liberation pressure; Emberfall dwarven systems should read as crafted, geometric, civic containment.",
     "details": [
-      "Giants: thick, brutal, hazardous, rough, volcanic.",
-      "Dwarves: clean, crafted, geometric, stable, metallic.",
-      "Players should instantly read fire-aligned, dangerous, Act 2."
+      "Giants: thick, brutal, hazardous, volcanic, scarred, heat-bearing, liberation-coded.",
+      "Dwarven systems: clean, crafted, geometric, metallic, stable-looking, morally cold.",
+      "Ashbound spaces: soot, crawlways, heat scars, improvised routes, human wear.",
+      "Ironhand spaces: panels, gauges, rune logic, contradiction, diagnostic glow.",
+      "Forge Lord spaces: elevation, symmetry, gates, authority lines, controlled light."
     ],
     "reference": "library/design/visual_design_language.md",
     "tags": [
@@ -294,8 +313,9 @@ export const references = [
       "ember-root",
       "visual-design",
       "tokens",
-      "assets"
+      "assets",
+      "factions"
     ],
-    "gmNotes": "Use when generating tokens, borders, or mood assets."
+    "gmNotes": "Use when generating tokens, borders, faction cards, or location mood assets."
   }
 ];
