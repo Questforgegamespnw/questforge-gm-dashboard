@@ -1,5 +1,5 @@
 import { campaignConfig } from "./campaign_config.js";
-import { currentLoadout } from "./current_loadout.js";
+import { currentLoadout } from "../current_loadout.js";
 
 import { actors as globalActors } from "./global/actors/index.js";
 import { locations as globalLocations } from "./global/locations.js";

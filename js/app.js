@@ -4,9 +4,8 @@
 
 import {
   campaignData as initialCampaignData,
-  availableArcs,
   getCampaignDataForArc
-} from "../data/campaigns/valhalla/index.js";
+} from "../data/campaigns/index.js";
 import { getModeById } from "./modes/mode-registry.js";
 import { getActiveData, searchData } from "./core/data-loader.js";
 import {
@@ -37,6 +36,7 @@ import {
 // -----------------------------------------------------------------------------
 
 let campaignData = initialCampaignData;
+let availableArcs = campaignData.availableArcs ?? [];
 let mode = getModeById(campaignData.config.modeId);
 let activeData = getActiveData(campaignData);
 
@@ -523,6 +523,7 @@ function handleMomentSelect(moment) {
 
 function refreshCampaignContext(arcId) {
   campaignData = getCampaignDataForArc(arcId);
+  availableArcs = campaignData.availableArcs ?? [];
   mode = getModeById(campaignData.config.modeId);
   activeData = getActiveData(campaignData);
   applyStaticLabels();
