@@ -1,5 +1,6 @@
 export const campaignPlaceholder = {
     id: "campaign_placeholder",
+    modeId: "campaign_placeholder",
     title: "Campaign Placeholder",
     label: "Campaign Placeholder",
     status: "active",
