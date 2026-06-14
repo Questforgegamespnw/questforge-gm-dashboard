@@ -1,4 +1,4 @@
-import { arcConfig } from "./_config.js";
+import { arcConfig } from "./arc_config.js";
 import { actors } from "./actors/index.js";
 import { ambientCast } from "./ambient_cast/index.js";
 import { factions } from "./factions.js";
