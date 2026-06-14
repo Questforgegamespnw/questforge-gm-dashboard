@@ -90,11 +90,53 @@
       return { response: null, path: null, errors };
     }
 
-    const [{ campaignData }, stateModule, rendererModule] = await Promise.all([
-      importFirst(importBases.map((base) => `${base}/data/campaigns/valhalla/index.js`)),
-      importFirst(importBases.map((base) => `${base}/js/core/state.js`)).catch((error) => ({ __importError: error })),
-      importFirst(importBases.map((base) => `${base}/js/core/renderers.js`)).catch((error) => ({ __importError: error }))
-    ]);
+
+  const [
+    campaignModule,
+    stateModule,
+    rendererModule,
+    schemaModule,
+    vocabularyModule
+  ] = await Promise.all([
+    importFirst(
+      importBases.map((base) => `${base}/data/campaigns/index.js`)
+    ),
+
+    importFirst(
+      importBases.map((base) => `${base}/js/core/state.js`)
+    ).catch((error) => ({ __importError: error })),
+
+    importFirst(
+      importBases.map((base) => `${base}/js/core/renderers.js`)
+    ).catch((error) => ({ __importError: error })),
+
+    importFirst(
+      importBases.map((base) => `${base}/data/shared/schemas.js`)
+    ).catch((error) => ({ __importError: error })),
+
+    importFirst(
+      importBases.map((base) => `${base}/data/shared/vocabularies.js`)
+    ).catch((error) => ({ __importError: error }))
+  ]);
+
+const {
+  campaignData,
+  getCampaignDataForArc
+} = campaignModule;
+
+const requiredFields = schemaModule.requiredFields ?? {};
+
+const validStatuses = new Set(
+  vocabularyModule.validStatuses ?? []
+);
+
+const readAloudTypes = new Set(
+  vocabularyModule.validReadAloudTypes ?? []
+);
+
+const validLocationRoles = new Set(
+  vocabularyModule.validLocationRoles ?? []
+);
 
 
     // ============================================================
@@ -126,21 +168,6 @@
         references: "activeReferences"
       };
 
-    const requiredFields = {
-      actors: ["id", "name", "role", "modeId", "campaignId", "status", "tags"],
-      locations: ["id", "name", "type", "modeId", "campaignId", "status", "tags"],
-      factions: ["id", "name", "type", "modeId", "campaignId", "status", "tags"],
-      threads: ["id", "title", "type", "modeId", "campaignId", "status", "tags"],
-      trackers: ["id", "name", "type", "modeId", "campaignId", "status", "value", "min", "max", "tags"],
-      scenes: ["id", "title", "type", "modeId", "campaignId", "status", "priority", "tags"],
-      fireableMoments: ["id", "title", "type", "modeId", "campaignId", "status", "locationIds", "trigger", "compact", "spotlight", "tags"],
-      tables: ["id", "name", "modeId", "campaignId", "status", "die", "category", "entries", "tags"],
-      references: ["id", "label", "modeId", "campaignId", "status", "category", "summary", "tags"],
-      ambientCast: ["id", "title", "type", "modeId", "campaignId", "status", "locationIds", "tags"],
-    };
-
-    const validStatuses = new Set(["active", "available", "inactive", "draft", "archived", "hidden"]);
-    const readAloudTypes = new Set(["narration", "speech", "gm", "aside"]);
 
 
     // ============================================================
