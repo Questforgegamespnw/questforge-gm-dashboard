@@ -451,5 +451,142 @@ export const fireableMoments = [
     "skill-gate"
   ],
   "gmNotes": "Use this to bridge Root/Lower Works inspection into the Midworks control-room correction scene. The key table takeaway is: the city is losing buoyancy because the shutoff sequence is wrong."
-}  
+},
+
+{
+  "id": "moment_emberroot_realization_same_pressure",
+  "title": "Realization Shift — The Same Pressure",
+  "type": "hairpin realization / synthesis trigger",
+  "modeId": "valhalla",
+  "campaignId": "valhalla",
+  "arcId": "arc_ember_root",
+  "status": "available",
+  "locationIds": [
+    "location_emberfall_high_forge",
+    "location_emberfall_midworks",
+    "location_emberfall_lower_furnaces",
+    "location_emberfall_core_furnace",
+    "location_emberfall_chainways"
+  ],
+  "trigger": "Fire when the party connects Root burden, city breath failure, Forge Lord control, giant targeting, and Ashbound survival routes into one shared pattern.",
+  "compact": "The city saves the upper layers by forcing pressure downward.",
+  "spotlight": {
+    "title": "The Same Pressure",
+    "readAloud": [
+      {
+        "type": "narration",
+        "text": "It is not three problems."
+      },
+      {
+        "type": "narration",
+        "text": "The Root is not corrupted. It is burdened."
+      },
+      {
+        "type": "narration",
+        "text": "The Lower Works are not simply breaking. They are being forced to breathe for decisions made above them."
+      },
+      {
+        "type": "narration",
+        "text": "The giants are not attacking randomly. They know where the cages are."
+      },
+      {
+        "type": "narration",
+        "text": "And the Forge Lords are not merely failing to respond. They are trying to keep command of a system whose survival depends on everyone else carrying the cost."
+      },
+      {
+        "type": "speech",
+        "speaker": "Kaldra",
+        "text": "The city is doing politically what it is doing mechanically."
+      },
+      {
+        "type": "speech",
+        "speaker": "Kaldra",
+        "text": "It saves the upper layers by forcing pressure downward."
+      }
+    ],
+    "gmPurpose": "Convert scattered investigation into the core Act 2 realization: Emberfall's machinery and politics are both built to preserve the top by sacrificing the bottom.",
+    "followUp": "Route immediately toward The Confrontation — Crown Preservation Revealed, or let the party carry this realization into whichever scene is already in motion."
+  },
+  "triggerSignals": [
+    "The players say or imply that the city is pushing all the cost downward.",
+    "The players connect Root burden to lower pressure/backflow.",
+    "The players realize Forge Lord evacuation/control orders are not neutral safety measures.",
+    "The players recognize that giant strikes target cages, housings, pipeways, or restraints rather than civilians.",
+    "Kaldra learns that upper shutoffs or Crown Preservation logic are killing the lower city.",
+    "The upper and lower split-party groups reunite and compare findings."
+  ],
+  "outcomeShift": {
+    "question": "Do the players understand the crisis as one moral/mechanical pressure system?",
+    "levers": [
+      "Name the Root as burdened, not corrupted.",
+      "Identify backflow as caused by upper shutoff decisions.",
+      "Recognize giant targeting as intentional deconstruction pressure.",
+      "Recognize Ashbound routes as survival infrastructure, not unauthorized movement.",
+      "Challenge Forge Lord command as preservation of the head at the body's expense."
+    ],
+    "consequences": [
+      "The party can confront the Forge Lords with a coherent accusation.",
+      "Kaldra has enough synthesis to break with command.",
+      "Skarbrand / Skarth can become a conditional coalition partner instead of only a threat.",
+      "Bruni and the Ashbound become necessary to survival rather than secondary victims.",
+      "Emergency Coalition logic becomes available once Crown Preservation is revealed."
+    ]
+  },
+  "relatedActors": [
+    "actor_kaldra_steelmind",
+    "actor_bruni_coalhand",
+    "actor_skarth_firebrand",
+    "actor_durgrim_ashenvein"
+  ],
+  "relatedFactions": [
+    "faction_emberroot_forge_lords",
+    "faction_emberroot_ironhand_guilds",
+    "faction_emberroot_ashbound",
+    "faction_emberroot_fire_giants"
+  ],
+  "relatedThreads": [
+    "thread_emberroot_city_breathing_wrong",
+    "thread_emberroot_root_heat_siphon",
+    "thread_emberroot_control_vs_survival",
+    "thread_emberroot_forge_lord_legitimacy_collapse",
+    "thread_emberroot_safe_deconstruction",
+    "thread_emberroot_crown_preservation_protocol"
+  ],
+  "relatedTrackers": [
+    "tracker_emberroot_insight",
+    "tracker_emberroot_core_stability",
+    "tracker_emberroot_crown_preservation_protocol"
+  ],
+  "relatedScenes": [
+    "scene_emberroot_split_politics_and_lungs",
+    "scene_emberroot_upper_political_pressure",
+    "scene_emberroot_city_breath_control_room_correction",
+    "scene_emberroot_confrontation_crown_preservation",
+    "scene_emberroot_emergency_coalition_cut_crownlines"
+  ],
+  "visibilityGates": [
+    {
+      "id": "calm_center_investigation",
+      "label": "Calm Center / Investigation"
+    },
+    {
+      "id": "forge_below_choice",
+      "label": "Forge Below / Choice"
+    }
+  ],
+  "visibilityGate": "calm_center_investigation",
+  "tags": [
+    "valhalla",
+    "ember-root",
+    "realization",
+    "same-pressure",
+    "city-breath",
+    "root-burden",
+    "forge-lords",
+    "ashbound",
+    "fire-giants",
+    "hairpin-trigger"
+  ],
+  "gmNotes": "Do not fire this because the scene order says so. Fire it when the table actually puts the pieces together. This replaces the old fixed Realization Shift scene."
+}
 ]
