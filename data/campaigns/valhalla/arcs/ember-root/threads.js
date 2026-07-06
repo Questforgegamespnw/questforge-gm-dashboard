@@ -1,213 +1,296 @@
 export const threads = [
   {
-    id: "thread_emberroot_no_clean_victories",
-    title: "No Clean Victories",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "arc pressure / moral consequence",
-    summary: "Every Act 2 outcome saves something, abandons something, and reveals what the party believes survival is allowed to cost.",
-    currentState: "The arc is built around triage, tradeoff, and choosing which truth gets paid for first.",
-    nextPressure: "When the party looks for a perfect answer, make the competing losses visible without punishing them for trying.",
-    relatedActors: [
+    "id": "thread_emberroot_no_clean_victories",
+    "title": "No Clean Victories",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "arc pressure / moral consequence",
+    "summary": "Every Act 2 outcome saves something, abandons something, and reveals what the party believes survival is allowed to cost.",
+    "currentState": "The live arc now runs triage → interpretation → coalition → cost of withdrawal. The party is no longer choosing a painless answer; they are building a counter-system under Crown Preservation pressure.",
+    "nextPressure": "When the party looks for a perfect rescue, show the competing losses: people, routes, breath, emberlings, legacy, and time.",
+    "relatedActors": [
       "actor_durgrim_ashenvein",
       "actor_kaldra_steelmind",
       "actor_bruni_coalhand",
       "actor_skarth_firebrand",
       "actor_thora_kara_emberroot"
     ],
-    relatedLocations: [
+    "relatedLocations": [
       "location_emberfall_forge_city",
-      "location_emberfall_chainways",
-      "location_emberfall_lower_furnaces",
       "location_emberfall_high_forge",
-      "location_emberfall_core_furnace",
-      "location_valhalla_quiet_rows",
-      "location_valhalla_bifrost_platform"
+      "location_emberfall_midworks",
+      "location_emberfall_lower_furnaces",
+      "location_emberfall_chainways",
+      "location_emberfall_core_furnace"
     ],
-    relatedFactions: [
+    "relatedFactions": [
       "faction_emberroot_forge_lords",
       "faction_emberroot_ironhand_guilds",
       "faction_emberroot_ashbound",
       "faction_emberroot_fire_giants"
     ],
-    relatedScenes: [
+    "relatedScenes": [
       "scene_emberroot_phase_zero_hot_landing",
-      "scene_emberroot_s04_molten_council",
+      "scene_emberroot_arrival_evacuate_civilians",
+      "scene_emberroot_arrival_stabilize_structure",
+      "scene_emberroot_arrival_stop_forge_overlord",
+      "scene_emberroot_high_forge_refuge",
+      "scene_emberroot_confrontation_crown_preservation_revealed",
+      "scene_emberroot_breakout_command_seals_lock",
+      "scene_emberroot_emergency_coalition_cut_crownlines",
+      "scene_emberroot_giant_coordination_break_right_lines",
+      "scene_emberroot_ashbound_evacuation_hidden_routes",
+      "scene_emberroot_core_furnace_descent",
+      "scene_emberroot_lower_works_controlled_decommission",
       "scene_emberroot_s05_unsavable",
-      "scene_emberroot_hot_exfil",
-      "scene_valhalla_post_act2_reflection"
+      "scene_emberroot_runaway_transformation_variant",
+      "scene_emberroot_hot_exfil"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
       "tradeoff",
       "no-clean-victories",
-      "arc-pressure"
+      "arc-pressure",
+      "cost-of-withdrawal"
     ],
-    gmNotes: "Act 2 is not about finding the painless answer. It is about making sure the party’s choices matter while refusing to pretend every cost can be avoided.",
-    visibilityGates: [
+    "gmNotes": "The old city cannot survive unchanged. That is not failure; it is the cost of refusing to keep prisoners functioning as medicine.",
+    "visibilityGates": [
       {
-        id: "arrival_hot_zone",
-        label: "Arrival / Hot Zone"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
       },
       {
-        id: "calm_center_investigation",
-        label: "Calm Center / Investigation"
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
       },
       {
-        id: "forge_below_choice",
-        label: "Forge Below / Choice"
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
       },
       {
-        id: "collapse_escape",
-        label: "Collapse / Escape"
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "arrival_hot_zone"
+    "visibilityGate": "arrival_hot_zone"
   },
-
   {
-    id: "thread_emberroot_city_breathing_wrong",
-    title: "The City Is Breathing Wrong",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "system truth / investigation spine",
-    summary: "Emberfall is not failing from one clean breach. Its thermal life-support system has lost breath coordination: intake, venting, pressure, ballast, and emergency shutoffs are forcing harm into each other.",
-    currentState: "The party may first see collapse, heat, and giant attacks as separate problems. Investigation should reveal they are all stressing the same city-body.",
-    nextPressure: "Show breath language everywhere: chambers inhale late, vents exhale wrong, shutoffs act like tourniquets, and one saved district pushes pressure elsewhere.",
-    relatedActors: [
+    "id": "thread_emberroot_city_breathing_wrong",
+    "title": "The City Is Breathing Wrong",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "system truth / investigation spine",
+    "summary": "Emberfall is a breathing life-support city losing coordination across intake, venting, pressure, ballast, crownlines, and emergency shutoffs.",
+    "currentState": "The party’s Root-first investigation reveals burden rather than corruption; the backflow surge proves command shutoffs are forcing harm downward.",
+    "nextPressure": "Use breath language everywhere: chambers inhale late, vents exhale wrong, gauges drop and do not recover, and upper safety comes from lower drowning.",
+    "relatedActors": [
       "actor_kaldra_steelmind",
       "actor_bruni_coalhand",
       "actor_skarth_firebrand"
     ],
-    relatedLocations: [
+    "relatedLocations": [
       "location_emberfall_midworks",
       "location_emberfall_lower_furnaces",
       "location_emberfall_core_furnace",
       "location_emberfall_chainways"
     ],
-    relatedFactions: [
+    "relatedFactions": [
       "faction_emberroot_ironhand_guilds",
-      "faction_emberroot_ashbound"
+      "faction_emberroot_ashbound",
+      "faction_emberroot_fire_giants"
     ],
-    relatedScenes: [
-      "scene_emberroot_s02_thread_a_system_failure",
+    "relatedScenes": [
       "scene_emberroot_s02_thread_c_root_resonance",
-      "scene_emberroot_realization_shift",
-      "scene_emberroot_core_furnace_descent",
-      "scene_emberroot_s03_forge_below_living_core"
+      "scene_emberroot_split_politics_and_lungs",
+      "scene_emberroot_s02_thread_a_system_failure",
+      "scene_emberroot_emergency_coalition_cut_crownlines",
+      "scene_emberroot_lower_works_controlled_decommission"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
       "city-breath",
       "lower-works",
       "system-truth",
-      "investigation"
+      "backflow",
+      "crownlines"
     ],
-    gmNotes: "This replaces the old 'Core is not the enemy' framing. The point is not innocence. The point is that the system works, is overloaded, and is morally compromised.",
-    visibilityGates: [
+    "gmNotes": "This replaces any old core-as-villain framing. The problem is a working system becoming morally and physically impossible to keep alive.",
+    "visibilityGates": [
       {
-        id: "calm_center_investigation",
-        label: "Calm Center / Investigation"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
       },
       {
-        id: "forge_below_choice",
-        label: "Forge Below / Choice"
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "calm_center_investigation"
+    "visibilityGate": "calm_center_investigation"
   },
-
   {
-    id: "thread_emberroot_fire_is_people",
-    title: "Fire Is People",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "moral reveal / faction truth",
-    summary: "The bound fire in Emberfall’s system is not mindless fuel. It is living fire-born potential treated as thermal infrastructure.",
-    currentState: "The party may see signs before the full truth: fire recoils, responds, resists commands, and reacts to giant speech.",
-    nextPressure: "Let the truth arrive through stacked evidence before anyone says it plainly: this is not fuel, not only energy, and not only a hazard.",
-    relatedActors: [
+    "id": "thread_emberroot_root_heat_siphon",
+    "title": "Root Burden, Not Corruption",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "mythic system truth / root pressure",
+    "summary": "The World Tree root is not corrupting Emberfall and is not being corrupted like Frostroot; it is absorbing overflow the city can no longer carry.",
+    "currentState": "The party went to the Root first because Act 1 trained them to fear root corruption. Reward that continuity, then subvert it: this is burden, not infection.",
+    "nextPressure": "When the table invokes Frostroot, clearly distinguish sick corruption from forced breath, overflow, and sacred strain.",
+    "relatedActors": [
+      "actor_kaldra_steelmind",
+      "actor_bruni_coalhand"
+    ],
+    "relatedLocations": [
+      "location_emberfall_lower_furnaces",
+      "location_emberfall_core_furnace"
+    ],
+    "relatedFactions": [
+      "faction_emberroot_ironhand_guilds",
+      "faction_emberroot_ashbound"
+    ],
+    "relatedScenes": [
+      "scene_emberroot_s02_thread_c_root_resonance",
+      "scene_emberroot_split_politics_and_lungs",
+      "scene_emberroot_s02_thread_a_system_failure"
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "world-tree",
+      "root",
+      "frostroot-echo",
+      "burden-not-corruption",
+      "mythic-cost"
+    ],
+    "gmNotes": "Key wording: not spreading, not hungry, not corrupting. Burdened. Overfull. Made to breathe what the city cannot carry.",
+    "visibilityGates": [
+      {
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
+      },
+      {
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
+      }
+    ],
+    "visibilityGate": "calm_center_investigation"
+  },
+  {
+    "id": "thread_emberroot_fire_is_people",
+    "title": "Fire Is People",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "moral reveal / faction truth",
+    "summary": "The bound fire in Emberfall’s system is not mindless fuel. It is living fire-born potential treated as thermal infrastructure.",
+    "currentState": "The party may see signs before the full emberling truth: fire recoils, responds, resists commands, and reacts to giant speech.",
+    "nextPressure": "Let the truth arrive through stacked evidence before anyone says it plainly: this is not fuel, not only energy, and not only a hazard.",
+    "relatedActors": [
       "actor_kaldra_steelmind",
       "actor_bruni_coalhand",
       "actor_skarth_firebrand"
     ],
-    relatedLocations: [
+    "relatedLocations": [
       "location_emberfall_lower_furnaces",
       "location_emberfall_core_furnace",
       "location_emberfall_midworks"
     ],
-    relatedFactions: [
+    "relatedFactions": [
       "faction_emberroot_fire_giants",
       "faction_emberroot_ironhand_guilds",
       "faction_emberroot_ashbound",
       "faction_emberroot_forge_lords"
     ],
-    relatedScenes: [
-      "scene_emberroot_s02_thread_a_system_failure",
-      "scene_emberroot_s02_thread_b_giant_interference",
-      "scene_emberroot_s03_forge_below_living_core",
-      "scene_emberroot_s04_molten_council"
+    "relatedScenes": [
+      "scene_emberroot_giant_coordination_break_right_lines",
+      "scene_emberroot_core_furnace_descent",
+      "scene_emberroot_lower_works_controlled_decommission"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
       "personhood",
       "living-fire",
-      "moral-reveal"
+      "moral-reveal",
+      "emberlings"
     ],
-    gmNotes: "This should not feel like a trivia reveal. It should feel like the language of the city becoming morally unusable.",
-    visibilityGates: [
+    "gmNotes": "This should feel like the language of the city becoming morally unusable.",
+    "visibilityGates": [
       {
-        id: "calm_center_investigation",
-        label: "Calm Center / Investigation"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
       },
       {
-        id: "forge_below_choice",
-        label: "Forge Below / Choice"
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "calm_center_investigation"
+    "visibilityGate": "calm_center_investigation"
   },
-
   {
-    id: "thread_emberroot_stolen_emberlings",
-    title: "Stolen Emberlings",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "hidden atrocity / major reveal",
-    summary: "The bound fire elementals are emberlings: immature fire-giant lifeforms captured before they could form identity, language, and personhood.",
-    currentState: "The party may know the fire is alive before they understand what kind of life has been stolen.",
-    nextPressure: "Escalate from reactive fire, to living fire, to immature fire-born life, to fire-giant children-before-shape.",
-    relatedActors: [
+    "id": "thread_emberroot_stolen_emberlings",
+    "title": "Stolen Emberlings",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "hidden atrocity / major reveal",
+    "summary": "The bound fire elementals are emberlings: immature fire-giant lifeforms captured before they could form identity, language, and personhood.",
+    "currentState": "The party may know the fire is alive before they understand what kind of life has been stolen.",
+    "nextPressure": "Escalate from reactive fire, to living fire, to immature fire-born life, to fire-giant children-before-shape.",
+    "relatedActors": [
       "actor_skarth_firebrand",
       "actor_kaldra_steelmind",
       "actor_durgrim_ashenvein"
     ],
-    relatedLocations: [
+    "relatedLocations": [
       "location_emberfall_core_furnace",
       "location_emberfall_lower_furnaces"
     ],
-    relatedFactions: [
+    "relatedFactions": [
       "faction_emberroot_fire_giants",
       "faction_emberroot_forge_lords",
       "faction_emberroot_ironhand_guilds"
     ],
-    relatedScenes: [
-      "scene_emberroot_s03_forge_below_living_core",
-      "scene_emberroot_s03_break_the_chains",
-      "scene_emberroot_s04_molten_council"
+    "relatedScenes": [
+      "scene_emberroot_giant_coordination_break_right_lines",
+      "scene_emberroot_core_furnace_descent",
+      "scene_emberroot_lower_works_controlled_decommission"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
       "emberlings",
@@ -215,391 +298,644 @@ export const threads = [
       "fire-giants",
       "atrocity"
     ],
-    gmNotes: "This is the knife. The city does not merely exploit a people; it prevents a people from being born.",
-    visibilityGates: [
+    "gmNotes": "This is the knife: the city does not merely exploit a people; it prevents a people from being born.",
+    "visibilityGates": [
       {
-        id: "forge_below_choice",
-        label: "Forge Below / Choice"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
+      },
+      {
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "forge_below_choice"
+    "visibilityGate": "forge_below_choice"
   },
-
   {
-    id: "thread_emberroot_control_vs_survival",
-    title: "Control Versus Survival",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "faction pressure / political crisis",
-    summary: "Forge Lords argue that control keeps people alive; Ashbound and Giants reveal that control has always decided whose lives counted.",
-    currentState: "Every emergency order should ask whether it protects people, protects authority, or protects the appearance of authority.",
-    nextPressure: "When the party stabilizes something, ask who benefits. When they evacuate someone, ask what authority they bypassed.",
-    relatedActors: [
+    "id": "thread_emberroot_control_vs_survival",
+    "title": "Control Versus Survival",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "faction pressure / political crisis",
+    "summary": "Forge Lords argue that control keeps people alive; the live arc reveals control has already chosen who gets drowned to preserve the crown.",
+    "currentState": "Every emergency order should ask whether it protects people, protects authority, or protects the appearance of authority.",
+    "nextPressure": "When the party stabilizes something, ask who benefits. When they evacuate someone, ask which command line they bypassed.",
+    "relatedActors": [
       "actor_durgrim_ashenvein",
       "actor_bruni_coalhand",
       "actor_skarth_firebrand",
       "actor_kaldra_steelmind"
     ],
-    relatedLocations: [
+    "relatedLocations": [
       "location_emberfall_high_forge",
       "location_emberfall_lower_furnaces",
       "location_emberfall_chainways",
       "location_emberfall_forge_city"
     ],
-    relatedFactions: [
+    "relatedFactions": [
       "faction_emberroot_forge_lords",
       "faction_emberroot_ashbound",
       "faction_emberroot_fire_giants",
       "faction_emberroot_ironhand_guilds"
     ],
-    relatedScenes: [
-      "scene_emberroot_phase_zero_hot_landing",
-      "scene_emberroot_high_forge_refuge",
-      "scene_emberroot_s04_molten_council",
-      "scene_emberroot_s05_unsavable"
+    "relatedScenes": [
+      "scene_emberroot_upper_political_pressure",
+      "scene_emberroot_confrontation_crown_preservation_revealed",
+      "scene_emberroot_breakout_command_seals_lock",
+      "scene_emberroot_emergency_coalition_cut_crownlines"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
       "control",
       "survival",
       "factions",
-      "political-pressure"
+      "political-pressure",
+      "authority"
     ],
-    gmNotes: "This absorbs most of the old caste pressure thread but gives it a stronger question: is order saving people, or preserving the system that chose who mattered?",
-    visibilityGates: [
+    "gmNotes": "This absorbs old caste pressure but makes the question harsher: is order saving people, or preserving a head willing to drown the body?",
+    "visibilityGates": [
       {
-        id: "arrival_hot_zone",
-        label: "Arrival / Hot Zone"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
       },
       {
-        id: "calm_center_investigation",
-        label: "Calm Center / Investigation"
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
       },
       {
-        id: "forge_below_choice",
-        label: "Forge Below / Choice"
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "arrival_hot_zone"
+    "visibilityGate": "calm_center_investigation"
   },
-
   {
-    id: "thread_emberroot_forge_lord_legitimacy_collapse",
-    title: "Forge Lord Legitimacy Collapse",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "authority pressure / consequence",
-    summary: "Forge Lord authority weakens as survival depends on Ashbound routes, Ironhand truth, giant deconstruction, and Valkyrie extraction rather than command hierarchy.",
-    currentState: "Durgrim can still command, but the practical basis of command is cracking.",
-    nextPressure: "Show people obeying whoever can move them, open routes, explain the system, or protect the next breath.",
-    relatedActors: [
+    "id": "thread_emberroot_crown_preservation_protocol",
+    "title": "Crown Preservation Protocol",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "villain doctrine / emergency betrayal",
+    "summary": "The Forge Lords’ contingency forcibly preserves the upper city by rerouting breath, lift, and pressure upward while drowning the lower city.",
+    "currentState": "The CPP has already begun by the time the party breaks out. The Forge Lords have stopped trying to save Emberfall whole and are preserving the crown.",
+    "nextPressure": "Use gold crownline pulses, locked terminals, sealed doors, and lower-route collapse to show that the protocol is active and intentional.",
+    "relatedActors": [
+      "actor_durgrim_ashenvein",
+      "actor_kaldra_steelmind",
+      "actor_bruni_coalhand"
+    ],
+    "relatedLocations": [
+      "location_emberfall_high_forge",
+      "location_emberfall_midworks",
+      "location_emberfall_lower_furnaces",
+      "location_emberfall_core_furnace"
+    ],
+    "relatedFactions": [
+      "faction_emberroot_forge_lords",
+      "faction_emberroot_ironhand_guilds",
+      "faction_emberroot_ashbound"
+    ],
+    "relatedScenes": [
+      "scene_emberroot_confrontation_crown_preservation_revealed",
+      "scene_emberroot_breakout_command_seals_lock",
+      "scene_emberroot_emergency_coalition_cut_crownlines",
+      "scene_emberroot_lower_works_controlled_decommission",
+      "scene_emberroot_s05_unsavable"
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "cpp",
+      "crown-preservation",
+      "forge-lords",
+      "betrayal",
+      "crownlines"
+    ],
+    "gmNotes": "The CPP is the proof that the Forge Lords have already chosen: preserve the head, drown the body, call it legacy.",
+    "visibilityGates": [
+      {
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
+      },
+      {
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
+      }
+    ],
+    "visibilityGate": "forge_below_choice"
+  },
+  {
+    "id": "thread_emberroot_forge_lord_legitimacy_collapse",
+    "title": "Forge Lord Legitimacy Collapse",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "authority pressure / consequence",
+    "summary": "Forge Lord authority collapses when survival depends on the people and factions they dismissed: Ashbound routes, Ironhand truth, giant deconstruction, and Valkyrie extraction.",
+    "currentState": "Durgrim can still command, but practical legitimacy breaks when the CPP is revealed and Kaldra realizes her work was used to drown the lower city.",
+    "nextPressure": "Show people obeying whoever can move them, open routes, explain the system, or protect the next breath.",
+    "relatedActors": [
       "actor_durgrim_ashenvein",
       "actor_bruni_coalhand",
-      "actor_kaldra_steelmind"
+      "actor_kaldra_steelmind",
+      "actor_skarth_firebrand"
     ],
-    relatedLocations: [
+    "relatedLocations": [
       "location_emberfall_high_forge",
       "location_emberfall_chainways",
       "location_emberfall_lower_furnaces"
     ],
-    relatedFactions: [
+    "relatedFactions": [
       "faction_emberroot_forge_lords",
       "faction_emberroot_ashbound",
-      "faction_emberroot_ironhand_guilds"
+      "faction_emberroot_ironhand_guilds",
+      "faction_emberroot_fire_giants"
     ],
-    relatedScenes: [
-      "scene_emberroot_high_forge_refuge",
-      "scene_emberroot_s04_molten_council",
-      "scene_emberroot_s05_unsavable",
-      "scene_emberroot_hot_exfil"
+    "relatedScenes": [
+      "scene_emberroot_upper_political_pressure",
+      "scene_emberroot_confrontation_crown_preservation_revealed",
+      "scene_emberroot_breakout_command_seals_lock",
+      "scene_emberroot_emergency_coalition_cut_crownlines"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
       "forge-lords",
       "legitimacy",
-      "authority-collapse"
+      "authority-collapse",
+      "kaldra-breaks"
     ],
-    gmNotes: "Do not make Durgrim powerless too early. Make him powerful but increasingly dependent on people his order dismissed.",
-    visibilityGates: [
+    "gmNotes": "Kaldra’s break is the hinge: “I am done preserving your truth. We do this our way now.”",
+    "visibilityGates": [
       {
-        id: "calm_center_investigation",
-        label: "Calm Center / Investigation"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
       },
       {
-        id: "forge_below_choice",
-        label: "Forge Below / Choice"
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
       },
       {
-        id: "collapse_escape",
-        label: "Collapse / Escape"
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "calm_center_investigation"
+    "visibilityGate": "calm_center_investigation"
   },
-
   {
-    id: "thread_emberroot_safe_deconstruction",
-    title: "Safe Deconstruction",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "solution path / conditional alliance",
-    summary: "The party can turn destruction into controlled deconstruction if they align Ironhand sequencing, Ashbound evacuation, giant force, and Valkyrie extraction.",
-    currentState: "The giants are already breaking things. The question is whether the party can make that breaking survivable.",
-    nextPressure: "Let Skarth’s people open terrifying routes, but only if release remains real and no one asks them to re-chain the emberlings.",
-    relatedActors: [
+    "id": "thread_emberroot_emergency_coalition",
+    "title": "Emergency Coalition",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "solution path / faction convergence",
+    "summary": "The counter-system forms after the CPP reveal: Kaldra sequences, Bruni evacuates, Skarbrand breaks crownlines, Valkyries extract, and the players perform the Lower Works override.",
+    "currentState": "This is not a formal council. It is a coalition born while the lower city is already being sacrificed.",
+    "nextPressure": "Keep the coalition moving. Every discussion should become an assignment, route, target, or override decision.",
+    "relatedActors": [
+      "actor_kaldra_steelmind",
+      "actor_bruni_coalhand",
+      "actor_skarth_firebrand",
+      "actor_thora_kara_emberroot"
+    ],
+    "relatedLocations": [
+      "location_emberfall_high_forge",
+      "location_emberfall_chainways",
+      "location_emberfall_lower_furnaces",
+      "location_emberfall_core_furnace"
+    ],
+    "relatedFactions": [
+      "faction_emberroot_ironhand_guilds",
+      "faction_emberroot_ashbound",
+      "faction_emberroot_fire_giants",
+      "faction_valkyries"
+    ],
+    "relatedScenes": [
+      "scene_emberroot_emergency_coalition_cut_crownlines",
+      "scene_emberroot_giant_coordination_break_right_lines",
+      "scene_emberroot_ashbound_evacuation_hidden_routes",
+      "scene_emberroot_lower_works_controlled_decommission",
+      "scene_emberroot_hot_exfil"
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "coalition",
+      "cut-crownlines",
+      "survival-plan",
+      "evacuation",
+      "decommission"
+    ],
+    "gmNotes": "The party does not win by persuading the old command. They win by building a replacement command fast enough to matter.",
+    "visibilityGates": [
+      {
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
+      },
+      {
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
+      }
+    ],
+    "visibilityGate": "forge_below_choice"
+  },
+  {
+    "id": "thread_emberroot_safe_deconstruction",
+    "title": "Safe Deconstruction",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "solution path / conditional alliance",
+    "summary": "Destruction becomes controlled deconstruction when giant force is guided by Ironhand sequencing, Ashbound evacuation, and a real promise of no re-binding.",
+    "currentState": "The giants are already capable of breaking the system. The question is whether the party can make that breaking save people instead of drown them.",
+    "nextPressure": "Let Skarbrand’s people open terrifying routes and sever crownlines, but only if release remains real and no one asks them to re-chain the emberlings.",
+    "relatedActors": [
       "actor_skarth_firebrand",
       "actor_kaldra_steelmind",
       "actor_bruni_coalhand",
       "actor_thora_kara_emberroot"
     ],
-    relatedLocations: [
+    "relatedLocations": [
       "location_emberfall_core_furnace",
       "location_emberfall_chainways",
       "location_emberfall_lower_furnaces"
     ],
-    relatedFactions: [
+    "relatedFactions": [
       "faction_emberroot_fire_giants",
       "faction_emberroot_ironhand_guilds",
       "faction_emberroot_ashbound"
     ],
-    relatedScenes: [
-      "scene_emberroot_s03_break_the_chains",
-      "scene_emberroot_s03_forge_below_living_core",
-      "scene_emberroot_s04_molten_council",
-      "scene_emberroot_s05_unsavable",
+    "relatedScenes": [
+      "scene_emberroot_arrival_stop_forge_overlord",
+      "scene_emberroot_giant_coordination_break_right_lines",
+      "scene_emberroot_lower_works_controlled_decommission",
       "scene_emberroot_hot_exfil"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
       "safe-deconstruction",
       "controlled-withdrawal",
       "giants",
-      "solution-path"
+      "solution-path",
+      "crownlines"
     ],
-    gmNotes: "This replaces the old 'join Skarth' simplicity. The real branch is not joining destruction; it is proving that release and evacuation can happen together.",
-    visibilityGates: [
+    "gmNotes": "This replaces the old join-Skarth simplicity. The real branch is proving release and evacuation can happen together.",
+    "visibilityGates": [
       {
-        id: "forge_below_choice",
-        label: "Forge Below / Choice"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
       },
       {
-        id: "collapse_escape",
-        label: "Collapse / Escape"
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "forge_below_choice"
+    "visibilityGate": "calm_center_investigation"
   },
-
   {
-    id: "thread_emberroot_consent_transition",
-    title: "Consent Transition",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "end-state doctrine / moral solution",
-    summary: "The ethical future is not preserving the system unchanged or smashing it blindly. It is withdrawing from coerced life support through evacuation, redesign, release, and new consent.",
-    currentState: "This is not a clean mechanical solution yet. It is a moral direction that must become practical under pressure.",
-    nextPressure: "When a faction demands a simple answer, force the table back to the hard sequence: vent, redirect, cool, evacuate, release, then seal.",
-    relatedActors: [
+    "id": "thread_emberroot_ashbound_hidden_routes",
+    "title": "Ashbound Hidden Routes",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "evacuation doctrine / survival authority",
+    "summary": "The Ashbound hold the routes the official city refused to map: ash drains, old cuts, crawlways, root hollows, and service burns.",
+    "currentState": "Once CPP is active, official exits are compromised. Bruni and the Ashbound become the evacuation spine.",
+    "nextPressure": "Use route-clearing, no-cargo rules, collapsing tunnels, and lower-city guides to make Ashbound knowledge practical power.",
+    "relatedActors": [
+      "actor_bruni_coalhand",
+      "actor_thora_kara_emberroot",
+      "actor_kaldra_steelmind"
+    ],
+    "relatedLocations": [
+      "location_emberfall_lower_furnaces",
+      "location_emberfall_chainways",
+      "location_emberfall_forge_city"
+    ],
+    "relatedFactions": [
+      "faction_emberroot_ashbound",
+      "faction_valkyries",
+      "faction_emberroot_ironhand_guilds"
+    ],
+    "relatedScenes": [
+      "scene_emberroot_ashbound_evacuation_hidden_routes",
+      "scene_emberroot_s05_unsavable",
+      "scene_emberroot_hot_exfil"
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "ashbound",
+      "hidden-routes",
+      "evacuation",
+      "people-first",
+      "outer-shell-breach"
+    ],
+    "gmNotes": "The official city cannot save itself. The people buried under it can move the living through the routes the city ignored.",
+    "visibilityGates": [
+      {
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
+      },
+      {
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
+      }
+    ],
+    "visibilityGate": "collapse_escape"
+  },
+  {
+    "id": "thread_emberroot_consent_transition",
+    "title": "Consent Transition",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "end-state doctrine / moral solution",
+    "summary": "The ethical future is withdrawing from coerced life support through evacuation, controlled decommission, release without re-binding, and new consent.",
+    "currentState": "This is no longer a calm branch choice. It becomes practical under pressure when the emergency coalition acts against CPP.",
+    "nextPressure": "Force the table back to the hard sequence: vent, redirect, cool, evacuate, release, then seal what remains.",
+    "relatedActors": [
       "actor_kaldra_steelmind",
       "actor_bruni_coalhand",
       "actor_skarth_firebrand",
       "actor_durgrim_ashenvein"
     ],
-    relatedLocations: [
+    "relatedLocations": [
       "location_emberfall_core_furnace",
       "location_emberfall_lower_furnaces",
       "location_emberfall_chainways",
       "location_emberfall_high_forge"
     ],
-    relatedFactions: [
+    "relatedFactions": [
       "faction_emberroot_ironhand_guilds",
       "faction_emberroot_ashbound",
       "faction_emberroot_fire_giants",
       "faction_emberroot_forge_lords"
     ],
-    relatedScenes: [
-      "scene_emberroot_realization_shift",
-      "scene_emberroot_s04_molten_council",
+    "relatedScenes": [
+      "scene_emberroot_emergency_coalition_cut_crownlines",
+      "scene_emberroot_lower_works_controlled_decommission",
       "scene_emberroot_s05_unsavable",
-      "scene_valhalla_post_act2_reflection"
+      "scene_emberroot_hot_exfil"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
       "consent-transition",
-      "controlled-withdrawal",
-      "moral-solution"
+      "controlled-decommission",
+      "moral-solution",
+      "release-without-rebinding"
     ],
-    gmNotes: "This is the closest thing Act 2 has to a best answer, but it still costs time, authority, safety, and old certainty.",
-    visibilityGates: [
+    "gmNotes": "Closest thing to a best answer, but it still costs time, authority, safety, old certainty, and parts of Emberfall.",
+    "visibilityGates": [
       {
-        id: "forge_below_choice",
-        label: "Forge Below / Choice"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
       },
       {
-        id: "collapse_escape",
-        label: "Collapse / Escape"
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "forge_below_choice"
+    "visibilityGate": "forge_below_choice"
   },
-
   {
-    id: "thread_emberroot_root_heat_siphon",
-    title: "Root Heat Siphon",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "mythic system truth / root pressure",
-    summary: "The World Tree root is not causing the crisis. It is absorbing overflow the city can no longer process.",
-    currentState: "The party may initially mistake root resonance for corruption or cause. Investigation should show it is burden, not origin.",
-    nextPressure: "Use pulsing root heat, memory distortion, and divine discomfort to show the larger mythic cost of Emberfall forcing pressure into the root.",
-    relatedActors: [
-      "actor_kaldra_steelmind",
-      "actor_heimdall",
-      "actor_svinhild"
+    "id": "thread_emberroot_crown_anvil_intervention",
+    "title": "The Crown Anvil Intervenes",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "scene pressure / forge lord machine",
+    "summary": "A Forge Lord lava-submersible arrives during controlled decommission to enforce Crown Preservation from below.",
+    "currentState": "The Crown Anvil is not the boss to defeat; it is backdrop pressure that cuts vents, fires crownline anchors, deploys automata, and threatens the override window.",
+    "nextPressure": "Use it when decommission progress needs teeth. Let Skarbrand and his lieutenants hold it back so the party can complete the override.",
+    "relatedActors": [
+      "actor_skarth_firebrand",
+      "actor_kaldra_steelmind"
     ],
-    relatedLocations: [
+    "relatedLocations": [
       "location_emberfall_core_furnace",
-      "location_emberfall_lower_furnaces",
-      "location_valhalla_quiet_rows",
-      "location_valhalla_bifrost_platform"
+      "location_emberfall_lower_furnaces"
     ],
-    relatedFactions: [
+    "relatedFactions": [
+      "faction_emberroot_forge_lords",
+      "faction_emberroot_fire_giants",
       "faction_emberroot_ironhand_guilds"
     ],
-    relatedScenes: [
-      "scene_emberroot_s02_thread_c_root_resonance",
-      "scene_emberroot_realization_shift",
-      "scene_valhalla_post_act2_reflection"
+    "relatedScenes": [
+      "scene_emberroot_lower_works_controlled_decommission",
+      "scene_emberroot_runaway_transformation_variant",
+      "scene_emberroot_hot_exfil"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
-      "world-tree",
-      "root",
-      "heat-siphon",
-      "mythic-cost"
+      "crown-anvil",
+      "lava-submarine",
+      "scene-pressure",
+      "controlled-decommission"
     ],
-    gmNotes: "This keeps the Root from becoming the villain. The city has been making the root take breaths it was never meant to take.",
-    visibilityGates: [
+    "gmNotes": "The emotional payoff: when the Crown Anvil threatens the override platform, Skarbrand rises from the lava with lieutenants and says, “No more crowns below.”",
+    "visibilityGates": [
       {
-        id: "calm_center_investigation",
-        label: "Calm Center / Investigation"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
       },
       {
-        id: "forge_below_choice",
-        label: "Forge Below / Choice"
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "calm_center_investigation"
+    "visibilityGate": "forge_below_choice"
   },
-
   {
-    id: "thread_emberroot_valkyrie_strain",
-    title: "We Cannot Catch Them All",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "valhalla foreshadowing / rescue limit",
-    summary: "Thora and Kara show that even divine rescue systems cannot erase the cost of a civic body failing at scale.",
-    currentState: "The Valkyries can retrieve, carry, witness, and prioritize. They cannot make every branch of the disaster survivable.",
-    nextPressure: "Use empty hands, late arrivals, failed catches, and exhausted mounts to show rescue capacity being exceeded.",
-    relatedActors: [
+    "id": "thread_emberroot_valkyrie_strain",
+    "title": "We Cannot Catch Them All",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "valhalla foreshadowing / rescue limit",
+    "summary": "Thora and Kara show that even divine rescue systems cannot erase the cost of a civic body failing at scale.",
+    "currentState": "The Valkyries can retrieve, carry, witness, and prioritize. They cannot make every branch of the disaster survivable.",
+    "nextPressure": "Use empty hands, late arrivals, failed catches, and exhausted mounts to show rescue capacity being exceeded.",
+    "relatedActors": [
       "actor_thora_kara_emberroot"
     ],
-    relatedLocations: [
+    "relatedLocations": [
       "location_emberfall_chainways",
-      "location_emberfall_forge_city",
-      "location_valhalla_quiet_rows",
-      "location_valhalla_valkyrie_aerie"
+      "location_emberfall_forge_city"
     ],
-    relatedFactions: [
+    "relatedFactions": [
       "faction_valkyries"
     ],
-    relatedScenes: [
+    "relatedScenes": [
       "scene_emberroot_phase_zero_hot_landing",
       "scene_emberroot_arrival_evacuate_civilians",
-      "scene_emberroot_s05_unsavable",
-      "scene_emberroot_hot_exfil",
-      "scene_valhalla_post_act2_reflection"
+      "scene_emberroot_ashbound_evacuation_hidden_routes",
+      "scene_emberroot_hot_exfil"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
       "valkyries",
       "rescue-limit",
-      "system-failure"
+      "system-failure",
+      "extraction"
     ],
-    gmNotes: "This thread bridges Emberfall pressure into Valhalla fallout. Let strain show through action before explanation.",
-    visibilityGates: [
+    "gmNotes": "This bridges Emberfall pressure into Valhalla fallout. Let strain show through action before explanation.",
+    "visibilityGates": [
       {
-        id: "arrival_hot_zone",
-        label: "Arrival / Hot Zone"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
       },
       {
-        id: "collapse_escape",
-        label: "Collapse / Escape"
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "arrival_hot_zone"
+    "visibilityGate": "arrival_hot_zone"
   },
-
   {
-    id: "thread_emberroot_hot_exfil_consequence_chain",
-    title: "Hot Exfil Consequence Chain",
-    modeId: "valhalla",
-    campaignId: "valhalla",
-    arcId: "arc_ember_root",
-    status: "available",
-    type: "consequence / escape",
-    summary: "Hot Exfil turns unresolved crises, damaged breath systems, preserved routes, and faction trust into physical escape texture.",
-    currentState: "The Unsavable defines what was resolved and what was abandoned. Hot Exfil makes those choices visible under collapse pressure.",
-    nextPressure: "Run as chase, skill challenge, or collapsing route sequence once one or two crisis fronts resolve and the city’s breathing worsens.",
-    relatedLocations: [
+    "id": "thread_emberroot_hot_exfil_consequence_chain",
+    "title": "Hot Exfil Consequence Chain",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "type": "consequence / escape",
+    "summary": "Hot Exfil turns CPP damage, controlled decommission results, Ashbound tunnel capacity, giant breaches, and Valkyrie extraction windows into physical escape texture.",
+    "currentState": "The Unsavable defines what CPP already cost. Hot Exfil makes those costs visible while the survivors move through tunnels and outer-shell breaches.",
+    "nextPressure": "Run as 2–4 hard escape beats where every unresolved crisis becomes a hazard and every earned ally becomes a benefit.",
+    "relatedActors": [],
+    "relatedLocations": [
       "location_emberfall_chainways",
       "location_emberfall_forge_city",
       "location_emberfall_core_furnace",
       "location_emberfall_lower_furnaces"
     ],
-    relatedFactions: [
+    "relatedFactions": [
       "faction_emberroot_ashbound",
       "faction_emberroot_ironhand_guilds",
-      "faction_emberroot_fire_giants"
+      "faction_emberroot_fire_giants",
+      "faction_valkyries"
     ],
-    relatedScenes: [
-      "scene_emberroot_arrival_stabilize_structure",
+    "relatedScenes": [
       "scene_emberroot_s05_unsavable",
       "scene_emberroot_runaway_transformation_variant",
       "scene_emberroot_hot_exfil"
     ],
-    tags: [
+    "tags": [
       "valhalla",
       "ember-root",
       "hot-exfil",
       "consequence",
-      "escape"
+      "escape",
+      "ashbound-tunnels",
+      "outer-shell-breach"
     ],
-    gmNotes: "Every unresolved crisis becomes one persistent hazard. Every resolved crisis becomes one visible benefit, cleaner route, trusted helper, or saved capacity.",
-    visibilityGates: [
+    "gmNotes": "The escape is not generic collapse. It is the visible result of what the coalition saved, what CPP already killed, and what the old city forced everyone to abandon.",
+    "visibilityGates": [
       {
-        id: "collapse_escape",
-        label: "Collapse / Escape"
+        "id": "arrival_hot_zone",
+        "label": "Arrival / Hot Zone"
+      },
+      {
+        "id": "calm_center_investigation",
+        "label": "Calm Center / Investigation"
+      },
+      {
+        "id": "forge_below_choice",
+        "label": "Forge Below / Choice"
+      },
+      {
+        "id": "collapse_escape",
+        "label": "Collapse / Escape"
       }
     ],
-    visibilityGate: "collapse_escape"
+    "visibilityGate": "collapse_escape"
   }
 ];

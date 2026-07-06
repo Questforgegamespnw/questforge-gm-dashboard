@@ -352,6 +352,104 @@ export const fireableMoments = [
       "ideology"
     ],
     "visibilityGate": "forge_below_choice"
-  }
+  },
 
+{
+  "id": "moment_emberroot_lower_works_backflow_surge",
+  "title": "Lower Works Backflow Surge",
+  "type": "system crisis / technical reveal",
+  "modeId": "valhalla",
+  "campaignId": "valhalla",
+  "arcId": "arc_ember_root",
+  "status": "available",
+  "locationIds": [
+    "location_emberfall_core_furnace",
+    "location_emberfall_lower_furnaces",
+    "location_emberfall_midworks"
+  ],
+  "trigger": "Fire when the party inspects the Ember Root / Lower Works connection and needs to understand that upper shutoffs are forcing pressure back down into the city's breath system.",
+  "compact": "Backflow surge proves upper shutoffs are choking the Lower Works and lowering city buoyancy.",
+  "spotlight": {
+    "title": "The City Inhales Wrong",
+    "readAloud": [
+      {
+        "type": "narration",
+        "text": "The chamber inhales wrong."
+      },
+      {
+        "type": "narration",
+        "text": "Every vent that should open stays tight for half a breath too long. The pressure has nowhere to go, so it comes backward through the lower lungs. Chains draw taut. Root-light flashes hard enough to throw shadows upward."
+      },
+      {
+        "type": "narration",
+        "text": "A brass-ringed buoyancy gauge on the Ironhand console trembles, drops by five marked points, and waits there."
+      },
+      {
+        "type": "speech",
+        "speaker": "Ironhand Engineer",
+        "text": "Her breathing's getting more labored. We're down five more points now — and not returning."
+      },
+      {
+        "type": "speech",
+        "speaker": "Ironhand Engineer",
+        "text": "That is not coming from below. That is being forced back down."
+      },
+      {
+        "type": "speech",
+        "speaker": "Ironhand Engineer",
+        "text": "Someone upstairs is closing safeties faster than we can vent. They're saving districts by drowning the lungs."
+      }
+    ],
+    "gmPurpose": "Show that upper-level emergency shutoffs are creating backflow, worsening the Lower Works, and causing Emberfall to lose buoyancy.",
+    "followUp": "Point the party toward Kaldra / the Ironhand control room with urgent lower-level proof: the shutoff order must change now."
+  },
+  "skillGates": [
+    {
+      "id": "gate_backflow_buoyancy_loss",
+      "skills": ["engineering", "arcana", "investigation", "tools"],
+      "tier": "basic",
+      "visible": "The buoyancy gauge drops and does not rebound after the surge.",
+      "reveal": "The city is losing lift because pressure is being forced back into the Lower Works faster than it can vent.",
+      "consequence": "The party knows this is not a local heat surge; it is an active citywide sinking risk.",
+      "tags": ["city-breath", "buoyancy", "backflow"]
+    },
+    {
+      "id": "gate_backflow_shutoff_sequence",
+      "skills": ["engineering", "insight", "systems"],
+      "tier": "trained",
+      "visible": "The surge follows an upper-line safety closure by less than a breath.",
+      "reveal": "Command-level shutoffs are being triggered in the wrong order, saving upper districts by overloading the pressure lungs below.",
+      "consequence": "The party can bring critical information to Kaldra: prioritize venting and diversion before further shutoffs.",
+      "tags": ["ironhands", "shutoffs", "controlled-withdrawal"]
+    }
+  ],
+  "relatedActors": [
+    "actor_kaldra_steelmind",
+    "actor_ironhand_engineer"
+  ],
+  "relatedThreads": [
+    "thread_emberroot_city_breathing_wrong",
+    "thread_emberroot_root_heat_siphon",
+    "thread_emberroot_safe_deconstruction"
+  ],
+  "relatedLocations": [
+    "location_emberfall_core_furnace",
+    "location_emberfall_midworks"
+  ],
+  "relatedScenes": [
+    "scene_emberroot_s02_thread_a_system_failure",
+    "scene_emberroot_core_furnace_descent",
+    "scene_emberroot_s03_forge_below_living_core"
+  ],
+  "tags": [
+    "valhalla",
+    "ember-root",
+    "city-breath",
+    "backflow",
+    "buoyancy",
+    "ironhand",
+    "skill-gate"
+  ],
+  "gmNotes": "Use this to bridge Root/Lower Works inspection into the Midworks control-room correction scene. The key table takeaway is: the city is losing buoyancy because the shutoff sequence is wrong."
+}  
 ]
