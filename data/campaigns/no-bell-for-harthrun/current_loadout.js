@@ -12,5 +12,5 @@ export const currentLoadout = {
   activeThreads: ["thread_harthrun_request_for_aid", "thread_missing_villagers", "thread_ledger_command_network", "thread_ichor_conversion", "thread_subsumed_captain", "thread_ichor_legion_expansion"],
   activeTrackers: ["tracker_conversion_progress", "tracker_mine_alert", "tracker_ledger_influence"],
   activeTables: [],
-  activeReferences: ["reference_adventure_spine", "reference_harthrun_investigation", "reference_clue_convergence", "reference_request_reply_chronology", "reference_ledger_command_geas", "reference_ichor_spike_conversion", "reference_silent_thralls", "reference_subsumed_captain", "reference_mine_rescue_pressure", "reference_ichor_demon_doctrine", "reference_aftermath"]
+  activeReferences: ["reference_adventure_spine", "reference_harthrun_investigation", "reference_clue_convergence", "reference_request_reply_chronology", "reference_ledger_command_geas", "reference_ichor_spike_conversion", "reference_silent_thralls", "reference_subsumed_captain", "reference_mine_rescue_pressure", "reference_ichor_demon_doctrine", "reference_ichor_demon_combat_block", "reference_ichor_demon_round_engine", "reference_ichor_pools_counterplay", "reference_ichor_impalement_figures", "reference_aftermath"]
 };

@@ -232,7 +232,8 @@ export function renderDetail(container, item) {
     ${renderDetailField("Die", item.die)}
     ${renderTableEntries(item.entries)}
     ${renderEscalation(item.escalation)}
-
+    
+    ${renderListField("Key Rules", item.details)}
     ${renderDetailField("Reference", item.reference)}
     ${renderDetailField("GM Notes", item.gmNotes)}
     ${renderTags(item.tags)}
