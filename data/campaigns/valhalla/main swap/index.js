@@ -8,10 +8,6 @@ import {
     getCampaignDataForArc as getPlaceholderDataForArc
 } from "./campaign_placeholder/index.js";
 
-import {
-    getCampaignDataForArc as getHarthrunDataForArc
-} from "./no-bell-for-harthrun/index.js";
-
 const campaignRegistry = {
     valhalla: {
         id: "valhalla",
@@ -23,12 +19,6 @@ const campaignRegistry = {
         id: "campaign_placeholder",
         label: "Campaign Placeholder",
         getCampaignDataForArc: getPlaceholderDataForArc
-    },
-
-    no_bell_for_harthrun: {
-        id: "no_bell_for_harthrun",
-        label: "No Bell for Harthrun",
-        getCampaignDataForArc: getHarthrunDataForArc
     }
 };
 
