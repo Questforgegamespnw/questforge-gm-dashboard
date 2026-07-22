@@ -2,7 +2,7 @@
 
 ## Why the Mine
 
-The mine is not a converted factory. It is an occupied, defensible holding and processing site. Its depth conceals the spikes, its narrow approaches control captives and attackers, and its old galleries provide multiple layers of security.
+Harthrun is a working iron mine abandoned during the attack, not a converted factory. Its depth conceals the spikes, its narrow approaches control captives and attackers, and its galleries provide multiple layers of security. Ordinary rust-red ore provides an early visual echo of the demon's ichor before the differences become unmistakable.
 
 ## Practical Layout
 
@@ -14,22 +14,29 @@ The mine is not a converted factory. It is an occupied, defensible holding and p
 - a ventilation cut or service gallery offers a dangerous covert route;
 - a receiving tally records captives brought in and transferred below;
 - copied military orders reveal allied terminology.
+- recent occupation remains visible in cold lanterns, dropped tools, wet coats, unfinished meals, and half-filled carts.
 
 ### Lower Galleries
 
 - restrained villagers wait in counted groups;
-- black-red runoff replaces ordinary mine seepage;
+- rust-red seams gradually give way to glossy black-red runoff that is warm against the mineral cold;
 - side passages allow evacuation, sabotage, or separation;
 - newly converted thralls can be deployed upward;
 - the first spike victims reveal the process.
+- captives suppress crying, prayer, and even breathing because loud resistance draws the thralls;
+- active conversion is heard as struggling boots, a wet impalement, one brief cry, and the silence afterward.
 
 ### Conversion Chambers
 
-- rows of rooted ichor spikes create lanes and dangerous terrain;
+- the worked mine opens into a natural cavern expanded with picks and wedges;
+- rails end at the threshold, where timber and tool marks give way to irregular raw stone;
+- rows of ichor spikes create lanes and dangerous terrain along the cavern's fissures;
 - unprocessed captives remain close enough to threaten during combat;
 - the subsumed captain directs the room;
 - the active ledger serves as a command relay;
-- the demon initially uses darkness, stone, thralls, and the captain as buffers before committing directly.
+- the demon remains entirely unseen until it chooses to strike, its ichor dispersed through fissures, runoff, and shadow;
+- when manifest, it is solid-looking liquid held in a deliberate humanoid shape, continually rippling and reforming around the indentations of an eyeless, faceless head;
+- it never speaks aloud; psychic commands become fully formed words inside the target's mind.
 
 ## Alert Effects
 

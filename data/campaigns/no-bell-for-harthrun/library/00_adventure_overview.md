@@ -9,7 +9,7 @@ The party is sent to determine what happened, recover survivors, and identify wh
 ## Run Target
 
 - System: Dungeons & Dragons 5e
-- Level: 8–10
+- Level: 10
 - Runtime: about 3 hours
 - Shape: investigation → infiltration → rescue crisis → multi-objective boss encounter
 

@@ -4,7 +4,7 @@
 
 Conversion begins when a black-red demonic spike is driven through a victim's back and holds the body upright. Cursed ichor enters the wound and branches through blood, nerve, and muscle. Over approximately one hour, the victim's living responses are replaced by the Legion's command structure.
 
-The spikes are not laboratory apparatus. They are demonic growths, weapons, and anchors. A mine is useful because it conceals the process, controls access, holds prisoners, and provides deep stone in which the spikes can root.
+The spikes are not laboratory apparatus. Thralls hold a victim in place while the demon's ichor gathers beneath them, rises into a black-red point, and drives through the back. Dormant spikes appear matte and almost mineral; active ones become glassy, wetly reflective, and warm as living flesh. Fine branching veins move beneath the dark surface. A mine is useful because it conceals the process, controls access, and holds prisoners—not because any mining machinery powers the conversion.
 
 ## Victim States
 

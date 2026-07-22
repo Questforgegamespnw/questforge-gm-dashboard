@@ -17,7 +17,7 @@ export const actors = [
   },
   {
     ...base, id: "actor_ichor_demon", name: "Ichor Demon", role: "Legion commander and conversion architect", currentLocation: "location_conversion_chambers", currentState: "Directing conversion while testing the captured communication network.", sticky: true,
-    presentation: { physicality: "A war-form lacquered in black-red blood, shaped around a brutal spike-grown weapon.", voice: "Rarely speaks aloud; authority appears as fresh commands and compelled action.", sceneImpact: "Turns occupation, conversion, and written command into one battlefield system." },
+    presentation: { physicality: "A towering humanoid form of solid-looking black-red liquid, continually rippling and reforming around the indentations of an eyeless, faceless head.", voice: "Never speaks aloud; commands become fully formed words inside a target's mind.", sceneImpact: "Turns occupation, conversion, and written command into one battlefield system." },
     motivation: { wants: "Control of the Darksen and access to allied communication channels.", fears: "Loss of the ledger network before the operation can propagate." },
     knowledge: { knows: ["How the ichor spikes convert bodies.", "How to propagate commands through linked ledgers.", "Where the Legion intends to expand next."], secrets: ["Harthrun is a field operation, not the final objective."] },
     quickLines: ["Obedience travels farther than armies.", "You carried the road into your own walls."], relatedThreads: ["thread_ichor_conversion", "thread_ledger_command_network", "thread_ichor_legion_expansion"], reference: "library/05_ichor_demon_encounter.md", tags: ["demon", "commander", "boss", "ichor-legion"]
