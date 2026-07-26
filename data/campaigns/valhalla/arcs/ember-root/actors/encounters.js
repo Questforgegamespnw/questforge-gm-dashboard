@@ -38,7 +38,7 @@ export const encounterActors = [
     "answerMoments": [],
     "relationships": [],
     "relatedThreads": [
-      "thread_emberroot_giants_want_release",
+      "thread_emberroot_safe_deconstruction",
       "thread_emberroot_hot_exfil_consequence_chain"
     ],
     "reference": "library/encounters/magma_reaver.md",
@@ -123,8 +123,8 @@ export const encounterActors = [
     "answerMoments": [],
     "relationships": [],
     "relatedThreads": [
-      "thread_emberroot_giants_want_release",
-      "thread_emberroot_core_furnace_truth"
+      "thread_emberroot_safe_deconstruction",
+      "thread_emberroot_fire_is_people"
     ],
     "reference": "library/encounters/cinder_channeler.md",
     "tags": [
@@ -202,7 +202,7 @@ export const encounterActors = [
     "answerMoments": [],
     "relationships": [],
     "relatedThreads": [
-      "thread_emberroot_giants_want_release",
+      "thread_emberroot_safe_deconstruction",
       "thread_emberroot_hot_exfil_consequence_chain"
     ],
     "reference": "library/encounters/ember_guard.md",
@@ -280,7 +280,7 @@ export const encounterActors = [
     "answerMoments": [],
     "relationships": [],
     "relatedThreads": [
-      "thread_emberroot_caste_pressure",
+      "thread_emberroot_control_vs_survival",
       "thread_emberroot_no_clean_victories"
     ],
     "reference": "library/encounters/forge_guard.md",
@@ -361,8 +361,8 @@ export const encounterActors = [
     "answerMoments": [],
     "relationships": [],
     "relatedThreads": [
-      "thread_emberroot_correct_interpretation_under_pressure",
-      "thread_emberroot_caste_pressure"
+      "thread_emberroot_city_breathing_wrong",
+      "thread_emberroot_control_vs_survival"
     ],
     "reference": "library/encounters/ironhand_engineer.md",
     "tags": [
@@ -441,7 +441,7 @@ export const encounterActors = [
     "relationships": [],
     "relatedThreads": [
       "thread_emberroot_no_clean_victories",
-      "thread_emberroot_caste_pressure"
+      "thread_emberroot_control_vs_survival"
     ],
     "reference": "library/encounters/ashbound_defender.md",
     "tags": [

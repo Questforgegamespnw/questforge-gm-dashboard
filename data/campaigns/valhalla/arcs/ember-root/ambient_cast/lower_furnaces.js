@@ -75,7 +75,7 @@ export const lowerFurnacesAmbientCast = [
       "faction_emberroot_ashbound"
     ],
     relatedThreads: [
-      "thread_emberroot_caste_existed_before_arrival",
+      "thread_emberroot_control_vs_survival",
       "thread_emberroot_no_clean_victories"
     ],
     tags: [

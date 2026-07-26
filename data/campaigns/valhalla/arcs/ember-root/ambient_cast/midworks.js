@@ -75,8 +75,8 @@ export const midworksAmbientCast = [
       "faction_emberroot_ironhand_guilds"
     ],
     relatedThreads: [
-      "thread_emberroot_core_is_not_enemy",
-      "thread_emberroot_caste_pressure"
+      "thread_emberroot_city_breathing_wrong",
+      "thread_emberroot_control_vs_survival"
     ],
     tags: [
       "valhalla",

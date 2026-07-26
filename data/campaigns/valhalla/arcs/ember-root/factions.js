@@ -250,5 +250,62 @@ export const factions = [
     ],
     "summary": "A dangerous liberation force whose grievance is justified: they are trying to free their young and end the system that turns fire-born life into infrastructure.",
     "currentState": "Targeting containment systems and testing whether the party will make evacuation and release real, or merely ask them to wait."
+  },
+  {
+    "id": "faction_valkyries",
+    "name": "Valkyries",
+    "type": "Valhalla rescue / extraction support",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "motto": "We can carry people out. We cannot carry the city.",
+    "role": [
+      "Extraction support",
+      "Rescue triage",
+      "Aerial evacuation",
+      "Valhalla consequence witness"
+    ],
+    "belief": [
+      "Rescue has limits.",
+      "Extraction requires routes, space, and timing.",
+      "The living matter before legacy.",
+      "Not every collapse can be caught from the sky."
+    ],
+    "truth": [
+      "Thora and Kara can save people and create openings, but they cannot erase the cost of Emberfall's collapse.",
+      "Their strained capacity foreshadows Valhalla's broader system pressure.",
+      "They are most useful when the party creates clear priorities instead of asking them to catch everyone."
+    ],
+    "crowdBehavior": [
+      "Fast-moving",
+      "Protective",
+      "Direct",
+      "Exhausted under scale",
+      "Focused on people rather than institutions"
+    ],
+    "genericLines": [
+      "Point me. I can keep people alive, not make this fair.",
+      "We can carry you out. We cannot carry the city.",
+      "I need space to land.",
+      "Choose who moves first."
+    ],
+    "inPlayUse": [
+      "Extract trapped or immobile civilians.",
+      "Keep player choices focused on priority instead of perfect rescue.",
+      "Provide visible rescue capacity that still has limits.",
+      "Bridge Emberfall consequences back into Valhalla fallout."
+    ],
+    "reference": "library/factions/valkyries.md",
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "valkyries",
+      "extraction",
+      "rescue",
+      "capacity"
+    ],
+    "summary": "Valhalla rescue force present in Emberfall as limited extraction support, able to save people but unable to erase the cost of the city-scale crisis.",
+    "currentState": "Active but strained; their usefulness depends on routes, timing, and clear party priorities."
   }
 ];

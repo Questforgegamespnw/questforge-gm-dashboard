@@ -75,7 +75,7 @@ export const highForgeAmbientCast = [
       "faction_emberroot_forge_lords"
     ],
     relatedThreads: [
-      "thread_emberroot_caste_pressure"
+      "thread_emberroot_control_vs_survival"
     ],
     tags: [
       "valhalla",

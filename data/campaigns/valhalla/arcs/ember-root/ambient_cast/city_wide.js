@@ -75,7 +75,7 @@ export const cityWideAmbientCast = [
     ],
     relatedThreads: [
       "thread_emberroot_no_clean_victories",
-      "thread_emberroot_caste_pressure"
+      "thread_emberroot_control_vs_survival"
     ],
     tags: [
       "valhalla",
@@ -275,8 +275,8 @@ export const cityWideAmbientCast = [
       "faction_emberroot_ironhand_guilds"
     ],
     relatedThreads: [
-      "thread_emberroot_core_is_not_enemy",
-      "thread_emberroot_correct_interpretation_under_pressure"
+      "thread_emberroot_city_breathing_wrong",
+      "thread_emberroot_city_breathing_wrong"
     ],
     tags: [
       "valhalla",
@@ -373,8 +373,8 @@ export const cityWideAmbientCast = [
       "faction_emberroot_forge_lords"
     ],
     relatedThreads: [
-      "thread_emberroot_caste_pressure",
-      "thread_emberroot_caste_existed_before_arrival"
+      "thread_emberroot_control_vs_survival",
+      "thread_emberroot_control_vs_survival"
     ],
     tags: [
       "valhalla",
@@ -472,8 +472,8 @@ export const cityWideAmbientCast = [
       "faction_emberroot_fire_giants"
     ],
     relatedThreads: [
-      "thread_emberroot_giants_want_release",
-      "thread_emberroot_skarth_mirror"
+      "thread_emberroot_safe_deconstruction",
+      "thread_emberroot_safe_deconstruction"
     ],
     tags: [
       "valhalla",

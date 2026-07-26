@@ -38,7 +38,7 @@ export const fireableMoments = [
       "followUp": "Return control to the players immediately and ask whose pressure they answer."
     },
     "relatedThreads": [
-      "thread_emberroot_caste_pressure"
+      "thread_emberroot_control_vs_survival"
     ],
     "visibilityGates": [
       {
@@ -99,7 +99,7 @@ export const fireableMoments = [
     ],
     "relatedThreads": [
       "thread_emberroot_no_clean_victories",
-      "thread_emberroot_caste_pressure"
+      "thread_emberroot_control_vs_survival"
     ],
     "visibilityGates": [
       {
@@ -160,7 +160,7 @@ export const fireableMoments = [
       "actor_kaldra_steelmind"
     ],
     "relatedThreads": [
-      "thread_emberroot_core_is_not_enemy"
+      "thread_emberroot_city_breathing_wrong"
     ],
     "visibilityGates": [
       {
@@ -267,14 +267,14 @@ export const fireableMoments = [
           "text": "Stop pretending control is working."
         }
       ],
-      "gmPurpose": "Let Skarth pressure the philosophy without duplicating the Council Reframe or Join Skarth scenes.",
-      "followUp": "If High Insight plus real sympathy exists, keep the Join Skarth branch available."
+      "gmPurpose": "Let Skarth pressure the philosophy without duplicating the Confrontation Reframe or Giant Coordination scenes.",
+      "followUp": "If High Insight plus real sympathy exists, keep the Giant Coordination branch available."
     },
     "relatedActors": [
       "actor_skarth_firebrand"
     ],
     "relatedThreads": [
-      "thread_emberroot_skarth_philosophical_alignment_path",
+      "thread_emberroot_safe_deconstruction",
     ],
     "visibilityGates": [
       {
@@ -294,8 +294,8 @@ export const fireableMoments = [
 
   {
     "id": "moment_emberroot_skarth_council_reframe",
-    "title": "Skarth Council Reframe — Yes. And?",
-    "type": "ideological pressure / council interrupt",
+    "title": "Skarth Confrontation Reframe — Yes. And?",
+    "type": "ideological pressure / confrontation interrupt",
     "modeId": "valhalla",
     "campaignId": "valhalla",
     "arcId": "arc_ember_root",
@@ -304,7 +304,7 @@ export const fireableMoments = [
       "location_emberfall_high_forge",
       "location_emberfall_core_furnace"
     ],
-    "trigger": "Fire during the Molten Council if the party accuses, interrogates, challenges, or directly questions Skarth about causing the disaster.",
+    "trigger": "Fire during the Confrontation if the party accuses, interrogates, challenges, or directly questions Skarth about causing the disaster.",
     "compact": "Accusation becomes temptation.",
     "spotlight": {
       "title": "Skarth: Yes. And?",
@@ -331,7 +331,7 @@ export const fireableMoments = [
         }
       ],
       "gmPurpose": "Turn blame into philosophical pressure without forcing the players to side with Skarth.",
-      "followUp": "If the party keeps engaging and has High Insight or real sympathy, make the Join Skarth branch available."
+      "followUp": "If the party keeps engaging and has High Insight or real sympathy, make the Giant Coordination branch available."
     },
     "relatedActors": [
       "actor_skarth_firebrand",
@@ -340,7 +340,7 @@ export const fireableMoments = [
       "actor_bruni_coalhand"
     ],
     "relatedThreads": [
-      "thread_emberroot_skarth_philosophical_alignment_path",
+      "thread_emberroot_safe_deconstruction",
     ],
     "tags": [
       "valhalla",
@@ -439,7 +439,7 @@ export const fireableMoments = [
   "relatedScenes": [
     "scene_emberroot_s02_thread_a_system_failure",
     "scene_emberroot_core_furnace_descent",
-    "scene_emberroot_s03_forge_below_living_core"
+    "scene_emberroot_lower_works_controlled_decommission"
   ],
   "tags": [
     "valhalla",
@@ -560,8 +560,8 @@ export const fireableMoments = [
   "relatedScenes": [
     "scene_emberroot_split_politics_and_lungs",
     "scene_emberroot_upper_political_pressure",
-    "scene_emberroot_city_breath_control_room_correction",
-    "scene_emberroot_confrontation_crown_preservation",
+    "scene_emberroot_s02_thread_a_system_failure",
+    "scene_emberroot_confrontation_crown_preservation_revealed",
     "scene_emberroot_emergency_coalition_cut_crownlines"
   ],
   "visibilityGates": [

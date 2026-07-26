@@ -135,9 +135,9 @@ export const locations = [
     ],
     availableScenes: [
       "scene_emberroot_high_forge_refuge",
-      "scene_emberroot_s04_molten_council",
-      "scene_emberroot_skarth_council_reframe",
-      "scene_emberroot_join_skarth_branch"
+      "scene_emberroot_confrontation_crown_preservation_revealed",
+      "scene_emberroot_giant_coordination_break_right_lines",
+      "scene_emberroot_giant_coordination_break_right_lines"
     ],
     relatedThreads: [
       "thread_emberroot_no_clean_victories",
@@ -250,7 +250,7 @@ export const locations = [
     ],
     availableScenes: [
       "scene_emberroot_s02_thread_a_system_failure",
-      "scene_emberroot_realization_shift",
+      "scene_emberroot_split_politics_and_lungs",
       "scene_emberroot_core_furnace_descent"
     ],
     relatedThreads: [
@@ -365,7 +365,7 @@ export const locations = [
     availableScenes: [
       "scene_emberroot_arrival_evacuate_civilians",
       "scene_emberroot_s02_thread_c_root_resonance",
-      "scene_emberroot_realization_shift",
+      "scene_emberroot_split_politics_and_lungs",
       "scene_emberroot_s05_unsavable"
     ],
     relatedThreads: [
@@ -486,7 +486,7 @@ export const locations = [
       "scene_emberroot_arrival_evacuate_civilians",
       "scene_emberroot_arrival_stabilize_structure",
       "scene_emberroot_arrival_stop_forge_overlord",
-      "scene_emberroot_s02_thread_b_giant_interference",
+      "scene_emberroot_giant_coordination_break_right_lines",
       "scene_emberroot_s05_unsavable",
       "scene_emberroot_hot_exfil"
     ],
@@ -599,11 +599,11 @@ export const locations = [
       "location_emberfall_chainways"
     ],
     availableScenes: [
-      "scene_emberroot_s03_forge_below_living_core",
-      "scene_emberroot_s03_break_the_chains",
-      "scene_emberroot_s04_molten_council",
-      "scene_emberroot_skarth_council_reframe",
-      "scene_emberroot_join_skarth_branch",
+      "scene_emberroot_lower_works_controlled_decommission",
+      "scene_emberroot_giant_coordination_break_right_lines",
+      "scene_emberroot_confrontation_crown_preservation_revealed",
+      "scene_emberroot_giant_coordination_break_right_lines",
+      "scene_emberroot_giant_coordination_break_right_lines",
       "scene_emberroot_runaway_transformation_variant",
       "scene_emberroot_s05_unsavable",
       "scene_emberroot_hot_exfil"

@@ -123,8 +123,8 @@ export const primaryActors = [
       }
     ],
     "relatedThreads": [
-      "thread_emberroot_caste_pressure",
-      "thread_emberroot_caste_existed_before_arrival",
+      "thread_emberroot_control_vs_survival",
+      "thread_emberroot_control_vs_survival",
       "thread_emberroot_no_clean_victories"
     ],
     "reference": "library/actors/durgrim_ashenvein.md",
@@ -332,15 +332,15 @@ export const primaryActors = [
         "note": "Both saw the danger, but Kaldra thinks in systems while Bruni thinks in people."
       },
       {
-        "target": "thread_emberroot_correct_interpretation_under_pressure",
+        "target": "thread_emberroot_city_breathing_wrong",
         "label": "truth bearer",
         "note": "Kaldra is the cleanest way to nudge correct interpretation."
       }
     ],
     "relatedThreads": [
-      "thread_emberroot_core_is_not_enemy",
-      "thread_emberroot_correct_interpretation_under_pressure",
-      "thread_emberroot_core_furnace_truth"
+      "thread_emberroot_city_breathing_wrong",
+      "thread_emberroot_city_breathing_wrong",
+      "thread_emberroot_fire_is_people"
     ],
     "reference": "library/actors/kaldra_steelmind.md",
     "tags": [
@@ -550,8 +550,8 @@ export const primaryActors = [
     ],
     "relatedThreads": [
       "thread_emberroot_no_clean_victories",
-      "thread_emberroot_caste_pressure",
-      "thread_emberroot_caste_existed_before_arrival"
+      "thread_emberroot_control_vs_survival",
+      "thread_emberroot_control_vs_survival"
     ],
     "reference": "library/actors/bruni_coalhand.md",
     "tags": [

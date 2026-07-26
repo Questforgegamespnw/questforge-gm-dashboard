@@ -93,9 +93,9 @@ export const coreFurnaceAmbientCast = [
       "faction_emberroot_fire_giants"
     ],
     relatedThreads: [
-      "thread_emberroot_core_is_not_enemy",
-      "thread_emberroot_giants_want_release",
-      "thread_emberroot_core_furnace_truth"
+      "thread_emberroot_city_breathing_wrong",
+      "thread_emberroot_safe_deconstruction",
+      "thread_emberroot_fire_is_people"
     ],
     tags: [
       "valhalla",
