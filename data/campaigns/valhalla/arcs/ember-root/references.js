@@ -445,5 +445,38 @@ export const references = [
       "crown-anvil"
     ],
     "gmNotes": "Use when generating tokens, borders, faction cards, or location mood assets."
+  },
+
+  {
+    "id": "reference_emberroot_finale_game_day_sheet",
+    "label": "Finale Game-Day Sheet — Controlled Release",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "category": "run sheet",
+    "summary": "Saturday finale state: total CPP lockout was stopped, but the city must now survive what CPP already broke.",
+    "details": [
+      "Session start: Kaldra stopped full command severance with the party's help, then was downed and stabilized.",
+      "CPP ran for three rounds and cut three of five main arteries as damage control.",
+      "Midworks and Lower Core still have partial direction; a full manual destruction of every pipeline is not required.",
+      "Most safeties, shutoffs, and overflow meters are blown and unrecoverable.",
+      "Core engine: three synchronized lanes — Kaldra/party decommission, Skarth/giants line-breaking, Bruni/Ashbound evacuation.",
+      "Timing rhythm: hold pressure, cut the named line, move civilians through the safe window.",
+      "Tunnel risk: Stable → Sagging → Below / lava-filled. Interference or bad timing can drop a route below the lava line.",
+      "Durgrim returns in the Crown Anvil / gilded submarine throne as a backdrop threat that attacks timing, routes, and the override window.",
+      "End-state target: controlled release, lessened EmberRoot absorption, civic refounding without the rigid caste geometry."
+    ],
+    "reference": "library/run_sheets/finale_game_day_sheet.md",
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "finale",
+      "game-day",
+      "controlled-release",
+      "run-sheet"
+    ],
+    "gmNotes": "GM anchor: They stopped tyranny from completing its command. Now they have to save people from the machinery tyranny already broke."
   }
+
 ];

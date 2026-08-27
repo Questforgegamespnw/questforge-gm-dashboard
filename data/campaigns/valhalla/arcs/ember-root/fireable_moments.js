@@ -588,5 +588,250 @@ export const fireableMoments = [
     "hairpin-trigger"
   ],
   "gmNotes": "Do not fire this because the scene order says so. Fire it when the table actually puts the pieces together. This replaces the old fixed Realization Shift scene."
-}
+},
+
+  {
+    "id": "moment_emberroot_kaldra_damage_control_report",
+    "title": "Kaldra — Damage Control Report",
+    "type": "session opener / damaged victory report",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "locationIds": [
+      "location_emberfall_high_forge",
+      "location_emberfall_midworks"
+    ],
+    "trigger": "Fire at the start of the next session after Kaldra is stabilized and the party needs the exact CPP damage state.",
+    "compact": "They stopped total lockout. They now have to save people from the machinery CPP already broke.",
+    "spotlight": {
+      "title": "I Stopped the Lockout. Not the Damage Control.",
+      "readAloud": [
+        { "type": "narration", "text": "Kaldra wakes to the sound of the city breathing wrong." },
+        { "type": "narration", "text": "Her first word is not pain." },
+        { "type": "speech", "speaker": "Kaldra", "text": "Map." },
+        { "type": "narration", "text": "The inlaid city-floor answers in broken light: the center dais dim gold, the inner rings bright with crownlines, the outer rings slashed by dark arteries and white-hot safety scars." },
+        { "type": "speech", "speaker": "Kaldra", "text": "I stopped the lockout." },
+        { "type": "speech", "speaker": "Kaldra", "text": "Not the damage control." },
+        { "type": "speech", "speaker": "Kaldra", "text": "Three of the five main arteries are dead. Most of the safeties burned themselves obeying a lie." },
+        { "type": "speech", "speaker": "Kaldra", "text": "We still have direction from Midworks and the Lower Core. Barely. So we do it by timing. Not command. Timing." }
+      ],
+      "gmPurpose": "Convert the throne-room victory into the finale state: partial control remains, but the safe version of the system is gone.",
+      "followUp": "Move into Emergency Coalition — Cut the Crownlines. Let Bruni and Skarth each name their lane."
+    },
+    "relatedActors": [
+      "actor_kaldra_steelmind",
+      "actor_bruni_coalhand",
+      "actor_skarth_firebrand"
+    ],
+    "relatedThreads": [
+      "thread_emberroot_crown_preservation_protocol",
+      "thread_emberroot_emergency_coalition",
+      "thread_emberroot_safe_deconstruction"
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "cpp",
+      "session-opener",
+      "damage-control"
+    ],
+    "gmNotes": "Use this to remind the table that Kaldra's DC 31 hack mattered: full severing was stopped, but CPP already damaged the city."
+  },
+
+  {
+    "id": "moment_emberroot_hold_cut_move_sequence",
+    "title": "Hold / Cut / Move",
+    "type": "operation rhythm / timing prompt",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "locationIds": [
+      "location_emberfall_midworks",
+      "location_emberfall_lower_furnaces",
+      "location_emberfall_core_furnace",
+      "location_emberfall_chainways"
+    ],
+    "trigger": "Fire when the party begins coordinating Kaldra's controls, Skarth's line-breaking, and Bruni's evacuation routes.",
+    "compact": "Hold pressure. Cut the named line. Move civilians through the safe window.",
+    "spotlight": {
+      "title": "Hold. Cut. Move.",
+      "readAloud": [
+        { "type": "speech", "speaker": "Kaldra", "text": "Hold the west vent. Do not cut yet." },
+        { "type": "speech", "speaker": "Bruni", "text": "I have families in the lower ash drain. They need thirty breaths." },
+        { "type": "speech", "speaker": "Skarth", "text": "The line is screaming." },
+        { "type": "speech", "speaker": "Kaldra", "text": "Let it scream." },
+        { "type": "narration", "text": "The floor-carved city pulses: gold inward, red outward, amber flickering between them." }
+      ],
+      "gmPurpose": "Teach the finale's repeating mechanic: hold / cut / move. Early cuts endanger refugees; late cuts rupture systems; correct timing advances both decommission and evacuation.",
+      "followUp": "Ask which lane the party directly supports this beat: Core timing, giant cut order, evacuation route, or interference counter."
+    },
+    "relatedActors": [
+      "actor_kaldra_steelmind",
+      "actor_bruni_coalhand",
+      "actor_skarth_firebrand"
+    ],
+    "relatedThreads": [
+      "thread_emberroot_emergency_coalition",
+      "thread_emberroot_safe_deconstruction",
+      "thread_emberroot_ashbound_hidden_routes"
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "timing",
+      "skill-challenge",
+      "coalition"
+    ],
+    "gmNotes": "Use as the live rhythm for the three-way skill/action sequence."
+  },
+
+  {
+    "id": "moment_emberroot_tunnel_drops_below",
+    "title": "Ashbound Route Drops Below",
+    "type": "evacuation hazard / tunnel timer",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "locationIds": [
+      "location_emberfall_chainways",
+      "location_emberfall_lower_furnaces",
+      "location_emberfall_core_furnace"
+    ],
+    "trigger": "Fire after a failed timing check, Crown Anvil interference, delayed cut, or when Ashbound Evacuation needs pressure.",
+    "compact": "One hidden route begins dropping below the lava line.",
+    "spotlight": {
+      "title": "The Tunnel Drops",
+      "readAloud": [
+        { "type": "narration", "text": "One of the Ashbound route-lines on the outer ring lowers into the stone." },
+        { "type": "narration", "text": "Not across the carved floor." },
+        { "type": "narration", "text": "Down." },
+        { "type": "speech", "speaker": "Bruni", "text": "West ash drain just dropped." },
+        { "type": "narration", "text": "A pause. Heat blooms beneath the outer ring." },
+        { "type": "speech", "speaker": "Bruni", "text": "There are people in it." }
+      ],
+      "gmPurpose": "Make evacuation timing immediate and physical. A route moves Stable → Sagging → Below / lava-filled unless the party buys time, redirects pressure, or orders a cut correctly.",
+      "followUp": "Ask who acts: warn Bruni, delay the cut, stabilize the vent, call Valkyries, or accept the loss to save the Core interface."
+    },
+    "relatedActors": [
+      "actor_bruni_coalhand",
+      "actor_thora_kara_emberroot",
+      "actor_kaldra_steelmind"
+    ],
+    "relatedThreads": [
+      "thread_emberroot_ashbound_hidden_routes",
+      "thread_emberroot_hot_exfil_consequence_chain"
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "ashbound",
+      "evacuation",
+      "hazard",
+      "lava"
+    ],
+    "gmNotes": "Track named routes simply: Stable, Sagging, Below. Do not over-map it. Use it to force timing choices."
+  },
+
+  {
+    "id": "moment_emberroot_durgrim_crown_anvil_return",
+    "title": "Durgrim Returns — The Crown Anvil",
+    "type": "boss-scale entrance / backdrop threat",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "locationIds": [
+      "location_emberfall_core_furnace",
+      "location_emberfall_lower_furnaces"
+    ],
+    "trigger": "Fire when controlled decommission is underway and the Crown Anvil should enter as Durgrim's final argument.",
+    "compact": "Durgrim returns installed in the gilded submarine throne to complete the Crown's command.",
+    "spotlight": {
+      "title": "The Crown Comes From Below",
+      "readAloud": [
+        { "type": "narration", "text": "The outermost ring cracks first." },
+        { "type": "narration", "text": "Not the High City. Not the crown." },
+        { "type": "narration", "text": "The Low Forge." },
+        { "type": "narration", "text": "A gilded iron prow rises through the molten basin, etched with the same command seals that burned beneath the throne-room dais." },
+        { "type": "narration", "text": "At its heart, behind glass and brass, Durgrim Ashenvein sits wired into a command throne: half-burned, half-broken, still crowned." },
+        { "type": "speech", "speaker": "Durgrim", "text": "You stopped the lockout." },
+        { "type": "speech", "speaker": "Durgrim", "text": "You did not inherit command." }
+      ],
+      "gmPurpose": "Pay off Durgrim escaping at 3 HP. The Crown Anvil is his final attempt to make command survive after the room, guards, and dais failed him.",
+      "followUp": "Advance Crown Anvil Pressure and introduce interference: false timing pulse, tunnel drop command, crownline refeed, anchor harpoon, or prow strike."
+    },
+    "relatedActors": [
+      "actor_durgrim_ashenvein",
+      "actor_skarth_firebrand",
+      "actor_kaldra_steelmind"
+    ],
+    "relatedThreads": [
+      "thread_emberroot_crown_anvil_intervention",
+      "thread_emberroot_crown_preservation_protocol"
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "durgrim",
+      "crown-anvil",
+      "submarine",
+      "finale"
+    ],
+    "gmNotes": "Do not run the Crown Anvil as a simple HP boss. It attacks timing, routes, and the override window. Skarth and giants contest the vessel while the party performs the sequence."
+  },
+
+  {
+    "id": "moment_emberroot_no_assigned_places_catharsis",
+    "title": "No Assigned Places",
+    "type": "catharsis / civic refounding",
+    "modeId": "valhalla",
+    "campaignId": "valhalla",
+    "arcId": "arc_ember_root",
+    "status": "available",
+    "locationIds": [
+      "location_emberfall_core_furnace",
+      "location_emberfall_forge_city",
+      "location_emberfall_chainways"
+    ],
+    "trigger": "Fire after controlled release succeeds and evacuees gather along chamber walls or breach routes to decide what comes next.",
+    "compact": "No dais, no lower gallery, no assigned places. Only survivors.",
+    "spotlight": {
+      "title": "Only Survivors",
+      "readAloud": [
+        { "type": "narration", "text": "No one knows where to stand." },
+        { "type": "narration", "text": "That is the first honest thing Emberfall has done all day." },
+        { "type": "narration", "text": "Forge Lords stand without a dais. Ashbound stand where everyone can see them. Ironhands stand with blood on their sleeves and truth in their hands. Giants stand in the fire and do not strike." },
+        { "type": "narration", "text": "For the first time, the city has no assigned places." },
+        { "type": "narration", "text": "Only survivors." },
+        { "type": "speech", "speaker": "Bruni", "text": "Names first." },
+        { "type": "speech", "speaker": "Kaldra", "text": "Routes next." },
+        { "type": "speech", "speaker": "Skarth", "text": "Consent before fire." }
+      ],
+      "gmPurpose": "End the arc on civic transformation rather than just mechanical shutdown. The caste geometry breaks visibly.",
+      "followUp": "Let players add one principle, saved group, or future demand before Valkyries extract them."
+    },
+    "relatedActors": [
+      "actor_bruni_coalhand",
+      "actor_kaldra_steelmind",
+      "actor_skarth_firebrand",
+      "actor_thora_kara_emberroot"
+    ],
+    "relatedThreads": [
+      "thread_emberroot_consent_transition",
+      "thread_emberroot_no_clean_victories",
+      "thread_emberroot_hot_exfil_consequence_chain"
+    ],
+    "tags": [
+      "valhalla",
+      "ember-root",
+      "catharsis",
+      "civic-refounding",
+      "controlled-release"
+    ],
+    "gmNotes": "Use after success/partial success. This is the emotional answer to the throne-room floor geometry: the old city had rings; the survivors choose names first."
+  }
+
 ]

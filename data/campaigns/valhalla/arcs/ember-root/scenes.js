@@ -1389,9 +1389,9 @@ export const scenes = [
     "type": "coalition planning / crisis assignment",
     "priority": "high",
     "trigger": "",
-    "summary": "After the breakout, the coalition discovers Crown Preservation Protocol is already underway and must rapidly assign roles: Ashbound evacuate, giants break crownlines, Ironhands guide sequence, and players reach the Lower Works override.",
+    "summary": "After the throne-room fight, Kaldra has stopped total command lockout but CPP has already cut three of five main arteries and burned most safety systems. The coalition must rapidly assign roles: Bruni moves civilians, Skarth breaks named dead lines, Kaldra/Ironhands guide sequence, and players take Emberfall off life support slowly.",
     "playerFacing": "The council doors burst open behind you into smoke and shouting. The city sounds different now. Not louder. Narrower. Every alarm is being pulled into one rhythm, one command, one priority. Above, the High Forge seals burn bright gold. Below, whole districts answer in red.",
-    "gmTruth": "CPP is already feeding. The coalition does not have time to debate permission; it must build a counter-system fast enough to keep everyone below the crown from dying.",
+    "gmTruth": "CPP did not complete, but its damage-control cascade already fired. The coalition has partial direction from Midworks and Lower Core, not full safety. This is now a timing operation, not a command operation.",
     "involvedActors": [
       "actor_kaldra_steelmind",
       "actor_bruni_coalhand",
@@ -1411,16 +1411,16 @@ export const scenes = [
       "faction_valkyries"
     ],
     "clues": [
-      "CPP is already feeding crownlines and lowering survival odds for everyone below the High Forge.",
-      "Ironhands are locked out of most terminals and need physical cuts and manual override.",
+      "CPP ran for three rounds, cut three of five main arteries, and damaged lower-city survival systems before Kaldra stopped total lockout.",
+      "Ironhands retain partial direction from Midworks and Lower Core, but most safeties, shutoffs, and overflow meters are blown and not recoverable.",
       "Ashbound hidden routes are the only evacuation network not controlled by Forge Lord maps.",
       "Skarbrand and the giants can break high-heat crownline infrastructure that no one else can survive approaching.",
       "The players must reach the Lower Works because the final override cannot be completed from above."
     ],
     "outcomes": [
-      "Bruni and Ashbound begin opening hidden tunnel exits for mass evacuation.",
+      "Bruni and Ashbound begin opening hidden tunnel exits for mass evacuation before any route drops below the lava line.",
       "Skarbrand and his giants agree to break crownline-feeding pipelines and later breach the outer shell.",
-      "Kaldra marks which lines must break and which must not break yet.",
+      "Kaldra marks which lines must break, which must hold, and which must wait until Bruni clears civilians.",
       "The party commits to the Lower Works override and controlled decommission.",
       "CPP timer becomes active pressure for the finale."
     ],
@@ -1915,9 +1915,9 @@ export const scenes = [
     "type": "final operation / skill progress / backdrop threat",
     "priority": "high",
     "trigger": "",
-    "summary": "With Crown Preservation already underway, the party enters the Lower Works to manually override the final locks and decommission the coerced life-support system while a Forge Lord lava submersible, the Crown Anvil, arrives to enforce upper-city survival.",
+    "summary": "With total lockout stopped but three of five arteries already sacrificed, the party enters the Lower Works to coordinate a controlled release while Bruni evacuates civilians and Skarth breaks the damaged lines Kaldra names. Durgrim returns in the Crown Anvil / gilded submarine throne to attack the timing window.",
     "playerFacing": "The Lower Works no longer feel like a chamber. They feel like a body being murdered by its own head. Gold crownlines pulse through the walls, dragging pressure upward. Red warning runes bloom across the lower housings one after another. Every breath the upper city takes now comes from somewhere below losing air. Kaldra points to the manual override dais. “There. That is the last place they cannot fully lock from above.” Then the lava moves.",
-    "gmTruth": "Controlled decommission is the decisive intervention: vent, redirect, cool, evacuate, release, then seal what remains. The Crown Anvil is not the boss; it is scene pressure trying to complete CPP while the party works.",
+    "gmTruth": "Controlled decommission is a three-lane timing operation: Kaldra/party operate partial controls, Bruni moves civilians through Ashbound routes, and Skarth's giants break unsafe dead lines in sequence. The Crown Anvil is not the boss; it is Durgrim's final command machine attacking timing, routes, and the override window.",
     "involvedActors": [
       "actor_kaldra_steelmind",
       "actor_skarth_firebrand",
@@ -1938,8 +1938,8 @@ export const scenes = [
     "clues": [
       "The Lower Works are a life-support lung built from captivity, not a single switch.",
       "The Crown Anvil is a Forge Lord contingency vessel designed to enforce Crown Preservation from below.",
-      "The party cannot fight the entire vessel directly; they must complete the decommission while allies hold it back.",
-      "Skarbrand and his lieutenants can oppose the vessel, break anchors, and shield the override platform, but they cannot perform the sequence.",
+      "The party cannot fight the entire vessel directly; they must complete the decommission while allies hold it back and prevent tunnel routes from dropping below the lava line.",
+      "Skarth and his lieutenants can oppose the vessel, break anchors, and shield the override platform, but they cannot perform the sequence or know when Bruni's tunnels are clear unless the party coordinates timing.",
       "The sequence must release without re-binding and seal only what protects evacuees from death-throes."
     ],
     "outcomes": [
@@ -1992,13 +1992,13 @@ export const scenes = [
         {
           "timing": "The Crown Anvil appears",
           "speaker": "GM",
-          "line": "The lava below the Lower Works bulges upward. Not a wave. A hull. A black-iron prow rises through molten light, runes burning gold along its seams. It shoulders through lava like a command seal given a body.",
+          "line": "The outermost ring cracks first. Not the High City. The Low Forge. A gilded iron prow rises through molten light, etched with the same command seals that burned beneath the dais. At its heart, Durgrim Ashenvein sits wired into a command throne: half-burned, half-broken, still crowned.",
           "purpose": "Introduce the Forge Lord lava submersible as backdrop pressure."
         },
         {
           "timing": "Kaldra identifies it",
           "speaker": "Kaldra",
-          "line": "No. Proof they planned this.",
+          "line": "No. Proof they planned this. And proof Durgrim was never going to let the city choose without him.",
           "purpose": "Make the vessel a contingency, not a random enemy."
         },
         {
@@ -2362,7 +2362,7 @@ export const scenes = [
     "type": "escape / consequence",
     "priority": "high",
     "trigger": "",
-    "summary": "The party escapes through the live consequences of controlled decommission and CPP, using Ashbound tunnels while giants breach the outer shell and Valkyries extract those who cannot move.",
+    "summary": "The party escapes through the live consequences of controlled decommission and CPP, using Ashbound tunnels while giants breach the outer shell, Valkyries extract those who cannot move, and the survivors begin deciding what Emberfall becomes without assigned caste-rings.",
     "playerFacing": "The city does not collapse behind you. It collapses with you inside it. Every route remembers what you saved. Every blocked path remembers what the Crown Protocol stole. The air is full of heat, ash, shouted names, ringing chains, and Valkyrie wings fighting for space in a sky that no longer feels reachable.",
     "gmTruth": "Hot Exfil is the final expression of Act 2 consequences: every unresolved crisis becomes a hazard, every resolved crisis becomes a benefit, and the people survive through routes the old city refused to honor.",
     "involvedActors": [
@@ -2391,7 +2391,7 @@ export const scenes = [
       "Exfil is about surviving consequences, not outrunning a generic explosion."
     ],
     "outcomes": [
-      "The party escapes Emberfall, but the visible cost follows them.",
+      "The party escapes Emberfall, but the visible cost and civic refounding follow them.",
       "Resolved crises reduce exfil difficulty or create one-use advantages.",
       "Unresolved crises create hazards, blocked paths, casualties, or delayed extraction windows.",
       "Valkyrie strain is seeded for Valhalla fallout.",

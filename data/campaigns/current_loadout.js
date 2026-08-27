@@ -2,7 +2,7 @@ export const currentLoadout = {
   modeId: "valhalla",
   campaignId: "valhalla",
   arcId: "arc_ember_root",
-  sessionId: "session_ember_root_act_2_cpp",
+  sessionId: "session_ember_root_act_2_finale",
 
   activeActors: [
     "actor_durgrim_ashenvein",
@@ -28,12 +28,12 @@ export const currentLoadout = {
   ],
 
   activeLocations: [
-    "location_emberfall_forge_city",
     "location_emberfall_high_forge",
     "location_emberfall_midworks",
     "location_emberfall_lower_furnaces",
     "location_emberfall_chainways",
-    "location_emberfall_core_furnace"
+    "location_emberfall_core_furnace",
+    "location_emberfall_forge_city"
   ],
 
   activeFactions: [
@@ -63,70 +63,53 @@ export const currentLoadout = {
   ],
 
   activeTrackers: [
-    "tracker_emberroot_investigation_clock",
-    "tracker_emberroot_insight",
-    "tracker_emberroot_core_stability",
     "tracker_emberroot_crown_preservation_protocol",
-    "tracker_emberroot_giant_timer",
+    "tracker_emberroot_core_stability",
     "tracker_emberroot_ashbound_evacuation",
     "tracker_emberroot_controlled_decommission",
+    "tracker_emberroot_giant_timer",
     "tracker_emberroot_crown_anvil_pressure",
+    "tracker_emberroot_exfil_state",
     "tracker_emberroot_unsavable_crises",
-    "tracker_emberroot_exfil_state"
+    "tracker_emberroot_insight"
   ],
 
   activeScenes: [
-    "scene_emberroot_phase_zero_hot_landing",
-    "scene_emberroot_arrival_evacuate_civilians",
-    "scene_emberroot_arrival_stabilize_structure",
-    "scene_emberroot_arrival_stop_forge_overlord",
-    "scene_emberroot_high_forge_refuge",
-
-    "scene_emberroot_s02_thread_c_root_resonance",
-    "scene_emberroot_split_politics_and_lungs",
-    "scene_emberroot_upper_political_pressure",
-    "scene_emberroot_s02_thread_a_system_failure",
-
-    "scene_emberroot_confrontation_crown_preservation_revealed",
     "scene_emberroot_breakout_command_seals_lock",
     "scene_emberroot_emergency_coalition_cut_crownlines",
     "scene_emberroot_giant_coordination_break_right_lines",
     "scene_emberroot_ashbound_evacuation_hidden_routes",
     "scene_emberroot_core_furnace_descent",
     "scene_emberroot_lower_works_controlled_decommission",
-
     "scene_emberroot_s05_unsavable",
     "scene_emberroot_runaway_transformation_variant",
     "scene_emberroot_hot_exfil"
   ],
 
   activeFireableMoments: [
+    "moment_emberroot_kaldra_damage_control_report",
+    "moment_emberroot_hold_cut_move_sequence",
+    "moment_emberroot_tunnel_drops_below",
+    "moment_emberroot_durgrim_crown_anvil_return",
+    "moment_emberroot_no_assigned_places_catharsis",
     "moment_emberroot_tri_voice_collision",
-    "moment_emberroot_bruni_people_over_systems",
-    "moment_emberroot_kaldra_bad_assumption",
     "moment_emberroot_valkyrie_capacity_warning",
-    "moment_emberroot_skarth_control_is_the_problem",
-    "moment_emberroot_skarth_council_reframe",
-    "moment_emberroot_lower_works_backflow_surge",
-    "moment_emberroot_realization_same_pressure"
+    "moment_emberroot_skarth_control_is_the_problem"
   ],
 
   activeTables: [],
 
   activeReferences: [
+    "reference_emberroot_finale_game_day_sheet",
     "reference_emberroot_act_overview",
     "reference_emberroot_truth_dossier",
     "reference_emberroot_scene_spine",
-    "reference_emberroot_quick_interpretation",
-    "reference_emberroot_difficulty_controls",
-    "reference_emberroot_oh_shit_rules",
     "reference_emberroot_crown_preservation_protocol",
-    "reference_emberroot_confrontation_guide",
     "reference_emberroot_emergency_coalition_roles",
     "reference_emberroot_controlled_decommission",
     "reference_emberroot_crown_anvil",
-    "reference_emberroot_fire_giant_motivation",
     "reference_emberroot_ashbound_routes",
+    "reference_emberroot_fire_giant_motivation",
     "reference_emberroot_encounter_design",
     "reference_emberroot_consequence_system",
     "reference_emberroot_visual_design_language"

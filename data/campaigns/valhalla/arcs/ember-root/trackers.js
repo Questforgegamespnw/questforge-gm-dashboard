@@ -52,10 +52,10 @@ export const trackers = [
     "arcId": "arc_ember_root",
     "status": "available",
     "type": "understanding",
-    "value": 0,
+    "value": 2,
     "min": 0,
     "max": 3,
-    "label": "Low",
+    "label": "High",
     "summary": "Tracks player understanding of Root burden, city breath, Forge Lord sacrifice logic, giant targeting, Ashbound routes, and the need for sequenced withdrawal.",
     "effects": [
       {
@@ -87,7 +87,7 @@ export const trackers = [
       "act-2",
       "coalition"
     ],
-    "gmNotes": "Raise Insight when players correctly identify that the city is doing politically what it is doing mechanically: saving upper layers by forcing pressure downward. High Insight should improve coalition coordination, decommission options, and Exfil state."
+    "gmNotes": "Raise Insight when players correctly identify that the city is doing politically what it is doing mechanically: saving upper layers by forcing pressure downward. High Insight should improve coalition coordination, decommission options, and Exfil state. Game-day start: the party has synthesized the core truth and can operate from controlled-withdrawal logic."
   },
   {
     "id": "tracker_emberroot_core_stability",
@@ -100,7 +100,7 @@ export const trackers = [
     "value": 1,
     "min": 0,
     "max": 3,
-    "label": "Strained",
+    "label": "Damaged / Directional",
     "summary": "Tracks how well Emberfall's Lower Works can still intake, vent, redirect, and exhale pressure while the Forge Lords try to feed the crownlines.",
     "effects": [
       {
@@ -132,7 +132,7 @@ export const trackers = [
       "stability",
       "act-2"
     ],
-    "gmNotes": "Improve when players vent, redirect, cool, sequence evacuation, or earn Ironhand/Giant/Ashbound cooperation. Worsen when CPP advances, crownlines feed, housings break wrong, or the Crown Anvil severs required vent paths."
+    "gmNotes": "Improve when players vent, redirect, cool, sequence evacuation, or earn Ironhand/Giant/Ashbound cooperation. Worsen when CPP advances, crownlines feed, housings break wrong, or the Crown Anvil severs required vent paths. Game-day start: Midworks and Lower Core retain partial direction, but most safeties are blown and unrecoverable."
   },
   {
     "id": "tracker_emberroot_crown_preservation_protocol",
@@ -142,10 +142,10 @@ export const trackers = [
     "arcId": "arc_ember_root",
     "status": "available",
     "type": "countdown",
-    "value": 0,
+    "value": 3,
     "min": 0,
     "max": 5,
-    "label": "Protocol feeding",
+    "label": "Lockout stopped / damage done",
     "summary": "Tracks the Forge Lords' contingency that forcibly preserves the High Forge and upper city by sealing, starving, and drowning the lower body of Emberfall.",
     "effects": [
       {
@@ -188,7 +188,7 @@ export const trackers = [
       "countdown",
       "act-2"
     ],
-    "gmNotes": "This becomes the primary pressure tracker after The Confrontation. Advance when Forge Lord command seals hold, players delay after breakout, the Crown Anvil lands a major action, or the party fails decommission checks. Reduce or pause only through crownline cuts, successful override progress, or major coalition action."
+    "gmNotes": "This becomes the primary pressure tracker after The Confrontation. Advance when Forge Lord command seals hold, players delay after breakout, the Crown Anvil lands a major action, or the party fails decommission checks. Reduce or pause only through crownline cuts, successful override progress, or major coalition action. Game-day start: party stopped total lockout at round 3, but CPP already cut three of five main arteries and burned many safeties/overflow meters."
   },
   {
     "id": "tracker_emberroot_giant_timer",
@@ -201,7 +201,7 @@ export const trackers = [
     "value": 1,
     "min": 0,
     "max": 3,
-    "label": "Waiting on promises",
+    "label": "Awaiting Sequence",
     "summary": "Tracks whether Skarbrand and the giants are acting as rupture pressure, restrained witnesses, or coordinated deconstruction allies.",
     "effects": [
       {
@@ -233,7 +233,7 @@ export const trackers = [
       "safe-deconstruction",
       "coalition"
     ],
-    "gmNotes": "This replaces the old containment-break framing. Lower it if the party lies, delays, or re-binding becomes likely. Raise it when evacuation and release are credible, when Kaldra names true targets, or when the party honors Skarbrand's terms."
+    "gmNotes": "This replaces the old containment-break framing. Lower it if the party lies, delays, or re-binding becomes likely. Raise it when evacuation and release are credible, when Kaldra names true targets, or when the party honors Skarbrand's terms. Game-day start: Skarth is ready to act if release remains real and Kaldra names what not to break."
   },
   {
     "id": "tracker_emberroot_ashbound_evacuation",
